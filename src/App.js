@@ -1,7 +1,25 @@
 import React from 'react';
+import axios from 'axios';
 import { Grid } from '@material-ui/core';
+import API_KEY from './config';
 
 class App extends React.Component {
+  // eslint-disable-next-line no-useless-constructor
+  constructor(props) {
+    super(props)
+  }
+  
+  componentDidMount() {
+    axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hratx/products', {
+      headers: {
+        Authorization: API_KEY
+      }
+    })
+      .then((results) => {
+        console.log(results);
+      })
+  }
+
   render() {
     return (
       <Grid container direction="column">
@@ -10,8 +28,8 @@ class App extends React.Component {
           <h1>This will be the header</h1>
         </Grid>
         <Grid item container>
-          <Grid xs={false} sm={2} />
-          <Grid xs={12} sm={8}>
+          <Grid item xs={false} sm={2} />
+          <Grid item xs={12} sm={8}>
             {/* Product Overview */}
             <h1>This will be for the Product Overview</h1>
             {/* Related Items */}
@@ -21,7 +39,7 @@ class App extends React.Component {
             {/* Reviews/Ratings */}
             <h1>This will be for the Reviews/Ratings</h1>
           </Grid>
-          <Grid xs={false} sm={2} />
+          <Grid item xs={false} sm={2} />
         </Grid>
       </Grid>
     )
