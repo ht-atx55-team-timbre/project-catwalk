@@ -14,8 +14,8 @@ const QAComponent = () => {
     <Grid item>
       <Grid container item direction="row" justify="space-between">
         <Grid item direction="column">
-          <p>QUESTION</p>
-          <p>ANSWER</p>
+          <p>Q:</p>
+          <p>A:</p>
         </Grid>
         <Grid>
           <p>HELPFUL | ADD ANSWER</p>
@@ -23,8 +23,8 @@ const QAComponent = () => {
       </Grid>
       <Grid container item direction="row" justify="space-between">
         <Grid item direction="column">
-          <p>QUESTION</p>
-          <p>ANSWER</p>
+            <p>Q:</p>
+            <p>A:</p>
         </Grid>
         <Grid>
           <p>HELPFUL | ADD ANSWER</p>
