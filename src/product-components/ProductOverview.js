@@ -37,7 +37,7 @@ export default class ProductOverview extends React.Component {
           <Grid item xs={12} md={8}>
             <h5>This is where the main product image goes.</h5>
           </Grid>
-          <Grid container direction="column" xs={12} md={4}>
+          <Grid container item direction="column" xs={12} md={4}>
             <Grid item xs={12}>
               <h5>This is where the product info will go (category/title/price, rating). </h5>
               <ProductInfo product={this.state.currentProduct}/>
@@ -50,7 +50,7 @@ export default class ProductOverview extends React.Component {
             </Grid>
           </Grid>
         </Grid>
-        <Grid container direction="row">
+        <Grid container item direction="row">
           <Grid item xs={12} md={8}>
             <h5>This is where the product description will go.</h5>
           </Grid>
