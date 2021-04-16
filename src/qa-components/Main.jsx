@@ -7,6 +7,13 @@ import LoadMoreButton from './LoadMoreQs.jsx';
 import AddQuestion from './AddQuestion.jsx';
 
 class QA extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      questions: []
+    };
+  }
+
   render() {
     return (
       <Grid container direction="column">
