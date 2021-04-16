@@ -70,11 +70,10 @@ const Ratings = (props) => {
         <Slider
           defaultValue={30}
           aria-labelledby="discrete-slider"
-          valueLabelDisplay="auto"
-          step={10}
+          step={25}
           marks
-          min={10}
-          max={110}
+          min={0}
+          max={100}
           disabled
         />
         <Typography id="discrete-slider" gutterBottom>
@@ -83,11 +82,10 @@ const Ratings = (props) => {
         <Slider
           defaultValue={30}
           aria-labelledby="discrete-slider"
-          valueLabelDisplay="auto"
-          step={10}
+          step={25}
           marks
-          min={10}
-          max={110}
+          min={0}
+          max={100}
           disabled
         />
       </Grid>
@@ -95,4 +93,5 @@ const Ratings = (props) => {
     </Grid>
   )
 }
+
 export default Ratings;
