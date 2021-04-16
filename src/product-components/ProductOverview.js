@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Grid } from '@material-ui/core';
-import sunilAPI from '../sunilConfig';
+// import sunilAPI from '../sunilConfig';
 import ProductInfo from './ProductInfo';
 import ProductDescription from './ProductDescription';
 
@@ -15,20 +15,20 @@ export default class ProductOverview extends React.Component {
     }
   }
 
-  componentDidMount() {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hratx/products`, {
-      headers: {
-        Authorization: sunilAPI
-      }
-    })
-      .then(response => {
-        console.log(response);
-        this.setState({
-          products: response.data,
-          currentProduct: response.data[0]
-        })
-      })
-  }
+  // componentDidMount() {
+  //   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hratx/products`, {
+  //     headers: {
+  //       Authorization: sunilAPI
+  //     }
+  //   })
+  //     .then(response => {
+  //       console.log(response);
+  //       this.setState({
+  //         products: response.data,
+  //         currentProduct: response.data[0]
+  //       })
+  //     })
+  // }
 
   render() {
     return (
