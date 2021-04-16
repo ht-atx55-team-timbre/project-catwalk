@@ -1,12 +1,12 @@
 import React from 'react';
 import axios from 'axios';
 import { Grid } from '@material-ui/core';
-import ReviewsAndRatings from './reviews/ReviewsAndRatings';
+import ReviewsAndRatings from './reviews-components/ReviewsAndRatings';
 import ProductOverview from './product-components/ProductOverview';
-import Related from './components/related/Related'
-// import API_KEY from './config';
+import Related from './related-components/Related';
+import QA from './qa-components/Main.jsx';
+import API_KEY from './config';
 
-import QA from './QA_Components/Main.jsx';
 
 class App extends React.Component {
   // eslint-disable-next-line no-useless-constructor
@@ -15,16 +15,16 @@ class App extends React.Component {
   }
 
 
-  // componentDidMount() {
-  //   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hratx/products', {
-  //     headers: {
-  //       Authorization:''
-  //     }
-  //   })
-  //     .then((results) => {
-  //       console.log(results);
-  //     })
-  // }
+  componentDidMount() {
+    axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hratx/products', {
+      headers: {
+        Authorization: API_KEY
+      }
+    })
+      .then((results) => {
+        console.log(results);
+      })
+  }
 
   render() {
     return (
