@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Grid } from '@material-ui/core';
-// import API_KEY from  './config';
+import ReviewsAndRatings from './reviews/ReviewsAndRatings';
 import ProductOverview from './product-components/ProductOverview';
 import Related from './components/related/Related'
 // import API_KEY from './config';
@@ -15,16 +15,16 @@ class App extends React.Component {
   }
 
 
-  componentDidMount() {
-    axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hratx/products', {
-      headers: {
-        Authorization:''
-      }
-    })
-      .then((results) => {
-        console.log(results);
-      })
-  }
+  // componentDidMount() {
+  //   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hratx/products', {
+  //     headers: {
+  //       Authorization:''
+  //     }
+  //   })
+  //     .then((results) => {
+  //       console.log(results);
+  //     })
+  // }
 
   render() {
     return (
@@ -43,7 +43,7 @@ class App extends React.Component {
             {/* Q/A */}
             <QA />
             {/* Reviews/Ratings */}
-            <h1>This will be for the Reviews/Ratings</h1>
+            <ReviewsAndRatings />
           </Grid>
           <Grid item xs={false} sm={2} />
         </Grid>
