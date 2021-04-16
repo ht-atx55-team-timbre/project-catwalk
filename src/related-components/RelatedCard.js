@@ -1,5 +1,5 @@
-import React from "react";
-
+import React, { useLayoutEffect } from "react";
+import { useState, useEffect } from "react";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import makeStyles from "@material-ui/core/styles/makeStyles";
@@ -10,7 +10,10 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import withStyles from "@material-ui/core/styles/withStyles";
-
+import Grid from "@material-ui/core/Grid";
+import axios from "axios";
+import API_KEY from "../config";
+import { SettingsSystemDaydreamTwoTone } from "@material-ui/icons";
 
 const RelCard = withStyles({
   root: {
@@ -48,8 +51,8 @@ const RelCardMedia = withStyles({
 
 const useStyles = makeStyles({
   card: {
-    width: 300,
-    height: 500
+    width: 200,
+    height: 350
   },
   price: {
     fontSize: '12px'
@@ -61,39 +64,60 @@ const useStyles = makeStyles({
 
 function RelatedCard(props) {
   const classes = useStyles();
+
+  // const [productInfo, setProductInfo] = useState({
+  //   product: {}
+  // });
+
+  // useEffect(() => {
+  //   const fetchData = async() => {
+  //     const result = await axios(
+  //       `https://app-hrsei-api.herokuapp.com/api/fec2/hratx/products/${props.productId}/`, {
+  //         headers: {
+  //           Authorization: API_KEY
+  //         }
+  //       }
+  //     );
+  //     setProductInfo(result.data);
+  //   };
+  //   fetchData();
+  // }, [])
+
   return (
-    <Container>
-        <RelCard className={classes.card}>
-          <RelCardMedia
-            media="picture"
-            alt="Product Name"
-            image="https://s7d5.scene7.com/is/image/UrbanOutfitters/58003260_012_b?$xlarge$&fit=constrain&fmt=webp&qlt=80&wid=540"
-            title="Product Name"
-          />
-          <RelCardContent>
-            <Typography
-              variant="body2"
-              component="p"
-            >
-              CATEGORY
-            </Typography>
-            <Typography variant="h5" className={classes.title}>
-              PRODUCT NAME
-            </Typography>
-            <Typography variant="body1" className={classes.price}>
-              PRICE
-            </Typography>
-            <Typography variant="body1">
-              REVIEWS
-            </Typography>
-          </RelCardContent>
-          <RelCardActions>
-            <IconButton>
-              <StarRoundedIcon />
-            </IconButton>
-          </RelCardActions>
-        </RelCard>
-      </Container>
+    <Grid item xs={3}>
+      <Container>
+          <RelCard className={classes.card}>
+            <RelCardMedia
+              media="picture"
+              alt="Product Name"
+              image="https://s7d5.scene7.com/is/image/UrbanOutfitters/58003260_012_b?$xlarge$&fit=constrain&fmt=webp&qlt=80&wid=540"
+              title="Product Name"
+            />
+            <RelCardContent>
+              <Typography
+                variant="body2"
+                component="p"
+              >
+                CATEGORY
+              </Typography>
+              <Typography variant="h5" className={classes.title}>
+                PRODUCT NAME
+              </Typography>
+              <Typography variant="body1" className={classes.price}>
+                PRICE
+              </Typography>
+              <Typography variant="body1">
+                REVIEWS
+              </Typography>
+            </RelCardContent>
+            <RelCardActions>
+              <IconButton>
+                <StarRoundedIcon />
+              </IconButton>
+            </RelCardActions>
+          </RelCard>
+        </Container>
+      </Grid>
   );
 }
 
