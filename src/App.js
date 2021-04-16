@@ -2,12 +2,14 @@ import React from 'react';
 import axios from 'axios';
 import { Grid } from '@material-ui/core';
 import Related from './components/related/Related'
+// import API_KEY from './config';
+
+import QA from './QA_Components/Main.jsx';
 
 class App extends React.Component {
   // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props)
-  }
   
   componentDidMount() {
     axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hratx/products', {
@@ -35,7 +37,7 @@ class App extends React.Component {
             <Related />
             <h1>This will be for the Related Items</h1>
             {/* Q/A */}
-            <h1>This will be for the Questions/Answers</h1>
+            <QA />
             {/* Reviews/Ratings */}
             <h1>This will be for the Reviews/Ratings</h1>
           </Grid>
