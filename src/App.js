@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Grid } from '@material-ui/core';
 import API_KEY from './config';
-import ProductOverview from './ProductOverview';
+import ProductOverview from './product-components/ProductOverview';
 
 class App extends React.Component {
   // eslint-disable-next-line no-useless-constructor

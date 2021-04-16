@@ -1,7 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import { Grid } from '@material-ui/core';
-import sunilAPI from './sunilConfig';
+import sunilAPI from '../sunilConfig';
+import ProductInfo from './ProductInfo';
+import ProductDescription from './ProductDescription';
 
 export default class ProductOverview extends React.Component {
   // eslint-disable-next-line no-useless-constructor
@@ -14,9 +16,9 @@ export default class ProductOverview extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hratx/products', {
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hratx/products`, {
       headers: {
-        Authorization: sunilAPI //hello
+        Authorization: sunilAPI
       }
     })
       .then(response => {
@@ -38,6 +40,7 @@ export default class ProductOverview extends React.Component {
           <Grid container direction="column" xs={12} md={4}>
             <Grid item xs={12}>
               <h5>This is where the product info will go (category/title/price, rating). </h5>
+              <ProductInfo product={this.state.currentProduct}/>
             </Grid>
             <Grid item xs={12}>
               <h5>This is where the avavilable styles to choose will go.</h5>
