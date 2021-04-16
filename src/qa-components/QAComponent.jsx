@@ -5,19 +5,30 @@ import { Grid } from '@material-ui/core';
 // const useStyles = makeStyles(() => ({
 //   qa: {
 //     flex: 1
-//   },
+//   }
 // }));
 
 const QAComponent = () => {
   // const classes = useStyles();
   return (
     <Grid item>
-      <Grid item>
-        <p>QUESTION</p>
-        <p>ANSWER</p>
-        <p>QUESTION</p>
-        <p>ANSWER</p>
-        <p>HELPFUL | ADD ANSWER</p>
+      <Grid container item direction="row" justify="space-between">
+        <Grid item direction="column">
+          <p>QUESTION</p>
+          <p>ANSWER</p>
+        </Grid>
+        <Grid>
+          <p>HELPFUL | ADD ANSWER</p>
+        </Grid>
+      </Grid>
+      <Grid container item direction="row" justify="space-between">
+        <Grid item direction="column">
+          <p>QUESTION</p>
+          <p>ANSWER</p>
+        </Grid>
+        <Grid>
+          <p>HELPFUL | ADD ANSWER</p>
+        </Grid>
       </Grid>
     </Grid>
   )
