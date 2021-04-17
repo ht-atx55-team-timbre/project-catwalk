@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Grid } from '@material-ui/core';
 import ReviewsAndRatings from './reviews-components/ReviewsAndRatings';
-import ProductOverview from './product-components/ProductOverview';
+import ProductOverview from './product-components/ProductOverview.jsx';
 import Related from './related-components/Related';
 import QA from './qa-components/Main.jsx';
 import API_KEY from './config';
@@ -41,7 +41,7 @@ class App extends React.Component {
         <Grid item container>
           <Grid item xs={false} sm={2} />
           <Grid item xs={12} sm={8}>
-            <ProductOverview />
+            <ProductOverview product={this.state.product_id}/>
             <h1>This will be for the Product Overview</h1>
             <Related />
             <h1>This will be for the Related Items</h1>
