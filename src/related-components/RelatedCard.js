@@ -1,4 +1,3 @@
-import React, { useLayoutEffect } from "react";
 import { useState, useEffect } from "react";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
@@ -13,7 +12,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
 import API_KEY from "../config";
-import { SettingsSystemDaydreamTwoTone } from "@material-ui/icons";
+
 
 const RelCard = withStyles({
   root: {
@@ -59,29 +58,33 @@ const useStyles = makeStyles({
   },
   title: {
     fontSize: '16px'
+  },
+  media: {
+    cursor: 'pointer'
   }
 });
 
-function RelatedCard(props) {
+function RelatedCard({ item }) {
   const classes = useStyles();
 
-  // const [productInfo, setProductInfo] = useState({
-  //   product: {}
-  // });
+  const [product, setProduct] = useState({});
 
-  // useEffect(() => {
-  //   const fetchData = async() => {
-  //     const result = await axios(
-  //       `https://app-hrsei-api.herokuapp.com/api/fec2/hratx/products/${props.productId}/`, {
-  //         headers: {
-  //           Authorization: API_KEY
-  //         }
-  //       }
-  //     );
-  //     setProductInfo(result.data);
-  //   };
-  //   fetchData();
-  // }, [])
+  useEffect(() => {
+    getProudct();
+  }, []) 
+
+  const getProudct = () => {
+    let relatedURL = `https://app-hrsei-api.herokuapp.com/api/fec2/hratx/products/${item}/`;
+    axios.get(relatedURL, {
+      headers: {
+        Authorization: API_KEY
+      }
+    })
+    .then(results => {
+      setProduct(results.data);
+    })
+    .catch(err => console.log('There was an error:' + err))
+  };
 
   return (
     <Grid item xs={3}>
@@ -92,19 +95,23 @@ function RelatedCard(props) {
               alt="Product Name"
               image="https://s7d5.scene7.com/is/image/UrbanOutfitters/58003260_012_b?$xlarge$&fit=constrain&fmt=webp&qlt=80&wid=540"
               title="Product Name"
+              className={classes.media}
             />
             <RelCardContent>
               <Typography
                 variant="body2"
                 component="p"
               >
-                CATEGORY
+                {/* CATEGORY */}
+                {product.category}
               </Typography>
               <Typography variant="h5" className={classes.title}>
-                PRODUCT NAME
+                {/* PRODUCT NAME */}
+                {product.name}
               </Typography>
               <Typography variant="body1" className={classes.price}>
-                PRICE
+                {/* PRICE */}
+                {product.default_price}
               </Typography>
               <Typography variant="body1">
                 REVIEWS

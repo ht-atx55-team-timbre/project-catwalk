@@ -1,48 +1,103 @@
-import React from 'react';
-import { Grid } from '@material-ui/core';
-import RelatedCard from './RelatedCard';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import API_KEY from '../config';
 
-//Assuming that the productID will be passed as a prop from the App.js file:
-const productId = 24156;
+import CardItem from './CardItem';
+import { Grid } from '@material-ui/core';
+import Carousel from 'react-material-ui-carousel';
 
-
-class Related extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      related: []
+const Related = (props) => {
+  
+  const productId = 24156;
+  
+  const [related, setRelated] = useState([]);
+  
+  useEffect(() => {
+    getRelated();
+  }, []) 
+  
+  const createRelatedItems = (array) => {
+    let newItems = [];
+    for (let i = 0; i < array.length; i+=4) {
+      newItems.push(<CardItem key={i} products={array.splice(i, 4)} />)
     }
+    return newItems;
   }
 
-  componentDidMount() {
+  const getRelated = () => {
     let relatedURL = `https://app-hrsei-api.herokuapp.com/api/fec2/hratx/products/${productId}/related`;
     axios.get(relatedURL, {
       headers: {
         Authorization: API_KEY
       }
     })
-    .then(results => this.setState({ related: results.data }));
-  }
+    .then(results => {
+      setRelated(createRelatedItems(results.data));
+    })
+    .catch(err => console.log('There was an error:' + err))
+  };
 
-  render() {
-    return (
+  return (
     <Grid container>
-      <Grid container item xs={8} >
-        {this.state.related.map((product, idx) => {
-          return <RelatedCard key={idx} productId={product} />
-        })}
-      </Grid> 
-      <Grid container item xs={8}>
-      </Grid> 
+      Related Products:
+      <Grid container item justify="center" xs={12}>
+        <Carousel>
+          {related}
+        </Carousel>
+      </Grid>
+      <Grid container item xs={12}>
+      Your Outfit:
+
+      </Grid>
     </Grid>
-    )
-  }
+  )
 }
 
 export default Related;
+
+
+
+
+
+
+// class Related extends React.Component {
+//   constructor(props) {
+//     super(props);
+
+//     this.state = {
+//       related: []
+//     }
+//   }
+
+//   componentDidMount() {
+//     let relatedURL = `https://app-hrsei-api.herokuapp.com/api/fec2/hratx/products/${productId}/related`;
+//     axios.get(relatedURL, {
+//       headers: {
+//         Authorization: API_KEY
+//       }
+//     })
+//     .then(results => this.setState({ related: results.data }));
+//   }
+
+//   render() {
+//     return (
+//     <Grid container>
+//       <Grid container item xs={8} >
+//         This is the related products
+//         <Carousel autoPlay={false} >
+//           {this.state.related.map((product, idx) => {
+//             return <RelatedCard key={idx} productId={product} />
+//           })}
+//         </Carousel>
+//       </Grid> 
+//       <Grid container item xs={8}>
+//         This will be for My Outfit
+//       </Grid> 
+//     </Grid>
+//     )
+//   }
+// }
+
 
 
 
