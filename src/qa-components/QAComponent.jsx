@@ -1,5 +1,6 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
+
 // import { makeStyles } from '@material-ui/styles';
 
 // const useStyles = makeStyles(() => ({
@@ -11,24 +12,13 @@ import { Grid } from '@material-ui/core';
 const QAComponent = () => {
   // const classes = useStyles();
   return (
-    <Grid item>
-      <Grid container item direction="row" justify="space-between">
-        <Grid item direction="column">
-          <p>Q:</p>
-          <p>A:</p>
-        </Grid>
-        <Grid>
-          <p>HELPFUL | ADD ANSWER</p>
-        </Grid>
+    <Grid container>
+      <Grid item xs={6}>
+        <p>Q:</p>
+        <p>A:</p>
       </Grid>
-      <Grid container item direction="row" justify="space-between">
-        <Grid item direction="column">
-            <p>Q:</p>
-            <p>A:</p>
-        </Grid>
-        <Grid>
-          <p>HELPFUL | ADD ANSWER</p>
-        </Grid>
+      <Grid item xs={6}>
+        <p>HELPFUL | ADD ANSWER</p>
       </Grid>
     </Grid>
   )
