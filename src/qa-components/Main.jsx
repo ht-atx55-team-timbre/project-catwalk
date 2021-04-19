@@ -46,7 +46,7 @@ class QA extends React.Component {
           placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
         />
         <Grid item>
-          <QAComponent />
+          <QAComponent questionsAndAnswers={this.state.questionsAndAnswers} />
         </Grid>
         <Grid item>
           <LoadMoreButton />
