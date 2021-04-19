@@ -12,23 +12,29 @@ class QA extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      questions: []
+      questionsAndAnswers: []
     };
   }
 
-  // componentDidMount() {
-  //   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hratx/qa/questions', {
-  //     headers: {
-  //       Authorization: API_KEY
-  //     }
-  //   })
-  //     .then((res) => {
-  //       console.log(res);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }
+  componentDidUpdate(prevProps) {
+    if (this.props.product_id !== prevProps.product_id) {
+      axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hratx/qa/questions', {
+        headers: {
+          Authorization: API_KEY
+        },
+        params: {
+          product_id: this.props.product_id,
+          count: 2
+        }
+      })
+        .then((res) => {
+          this.setState({questionsAndAnswers: res.data.results})
+        })
+        .catch((err) => {
+          console.log(err, 'error getting questions and answers for the product id');
+        });
+    }
+  }
 
   render() {
     return (
