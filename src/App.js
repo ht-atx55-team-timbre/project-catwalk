@@ -12,8 +12,10 @@ class App extends React.Component {
   // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props)
+    this.state = {
+      product_id: -1
+    }
   }
-
 
   componentDidMount() {
     axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hratx/products', {
@@ -21,8 +23,11 @@ class App extends React.Component {
         Authorization: API_KEY
       }
     })
-      .then((results) => {
-        console.log(results);
+      .then((products) => {
+        this.setState({product_id: products.data[0].id})
+      })
+      .catch((err) => {
+        console.log(err, 'error retrieving products from the database');
       })
   }
 
