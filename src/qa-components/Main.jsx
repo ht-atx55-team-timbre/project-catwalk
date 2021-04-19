@@ -1,5 +1,5 @@
 import React from 'react';
-import {Grid} from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import SearchBar from "material-ui-search-bar";
 import API_KEY from '../config.js';
 import axios from 'axios';
@@ -12,8 +12,28 @@ class QA extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      questionsAndAnswers: []
+      questionsAndAnswers: [],
+      helpfulAnswerClicked: false
     };
+
+    this.handleHelpfulAnswer.bind(this);
+  }
+
+  // helpful onclick goes here
+  handleHelpfulAnswer = (event) => {
+    for (var i = 0; i < this.state.questionsAndAnswers.length; i++) {
+      if (this.state.questionsAndAnswers[i].answers[event.target.id] !== undefined) {
+        var changeHelpfulCount = this.state.questionsAndAnswers;
+        if (this.state.helpfulAnswerClicked) {
+          changeHelpfulCount[i].answers[event.target.id].helpfulness--;
+          this.setState({helpfulAnswerClicked: false});
+        } else {
+          changeHelpfulCount[i].answers[event.target.id].helpfulness++;
+          this.setState({helpfulAnswerClicked: true});
+        }
+        this.setState({questionsAndAnswers: changeHelpfulCount});
+      }
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -46,7 +66,10 @@ class QA extends React.Component {
           placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
         />
         <Grid item>
-          <QAComponent questionsAndAnswers={this.state.questionsAndAnswers} />
+          <QAComponent
+            questionsAndAnswers={this.state.questionsAndAnswers}
+            handleHelpfulAnswer={this.handleHelpfulAnswer}
+          />
         </Grid>
         <Grid item>
           <LoadMoreButton />
