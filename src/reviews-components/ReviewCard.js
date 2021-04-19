@@ -3,7 +3,6 @@ import { Grid, Typography } from '@material-ui/core';
 import { Button, ButtonGroup } from '@material-ui/core';
 import { Card, CardActions} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import Rating from '@material-ui/lab/Rating';
 
 import CardInfo from './CardInfo'
 
