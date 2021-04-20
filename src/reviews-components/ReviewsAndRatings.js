@@ -8,7 +8,7 @@ import Reviews from './Reviews';
 import API_KEY from '../config.js';
 
 const ReviewsAndRatings = ({ product_id }) => {
-  const [reviewMetadata, setReviewMetadata] = useState({})
+  const [reviewMetadata, setReviewMetadata] = useState(null)
 
   useEffect(() => {
     axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hratx/reviews/meta', {
@@ -21,34 +21,36 @@ const ReviewsAndRatings = ({ product_id }) => {
     })
       .then(res => {
         setReviewMetadata(res.data);
-        console.log(res.data)
+        console.log(res.data);
       })
       .catch((err) => {
         console.log(err, 'error getting reviews metadate for the product id');
       });
   }, [product_id])
-  return (
-  <Grid
-    container
-    spacing={3}
-  >
-    <Grid
-      item
-      xs={12}
-    >
-      <Typography
-        variant="h6"
-        gutterBottom
+  if (reviewMetadata) {
+    return (
+      <Grid
+        container
+        spacing={3}
       >
-        RATINGS & REVIEWS
-      </Typography>
-    </Grid>
-
-    <Ratings reviewMetadata={reviewMetadata}/>
-
-    <Reviews />
-  </Grid>
-  )
+        <Grid
+          item
+          xs={12}
+        >
+          <Typography
+            variant="h6"
+            gutterBottom
+          >
+            RATINGS & REVIEWS
+          </Typography>
+        </Grid>
+        <Ratings reviewMetadata={reviewMetadata}/>
+        <Reviews />
+      </Grid>
+    )
+  } else {
+    return <></>
+  }
 }
 
 export default ReviewsAndRatings;

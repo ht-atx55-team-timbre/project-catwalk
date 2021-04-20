@@ -36,7 +36,6 @@ const Ratings = ({ reviewMetadata }) => {
 
   const averageRating = Math.round(totalRating / numberOfRating * 10) /10
 
-  if (characteristics && ratings && recommended) {
     return (
       <Grid
         item
@@ -64,7 +63,7 @@ const Ratings = ({ reviewMetadata }) => {
                   key={star}
                   star={star}
                   numberOfRating={numberOfRating}
-                  count={ratings[star] ? Number(ratings[star]) : 0}
+                  count={ratings[star] ? ratings[star] : 0}
                 />
               )}
             </Grid>
@@ -87,9 +86,6 @@ const Ratings = ({ reviewMetadata }) => {
         </Paper>
       </Grid>
     )
-  } else {
-    return <></>;
-  }
 }
 
 export default Ratings;
