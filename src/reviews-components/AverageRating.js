@@ -28,7 +28,7 @@ const AverageRating = ({ averageRating, recommended }) => {
         <Typography
           variant="h3"
         >
-          {averageRating}
+          {'' + averageRating}
         </Typography>
       </Grid>
       <Grid
