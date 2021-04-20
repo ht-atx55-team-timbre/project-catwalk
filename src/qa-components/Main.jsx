@@ -13,7 +13,8 @@ class QA extends React.Component {
     super(props);
     this.state = {
       questionsAndAnswers: [],
-      helpfulAnswerClicked: false
+      helpfulAnswerClicked: false,
+      helpfulQuestionClicked: false
     };
 
     this.handleHelpfulAnswer.bind(this);
@@ -21,15 +22,31 @@ class QA extends React.Component {
 
   // helpful onclick goes here
   handleHelpfulAnswer = (event) => {
+    var changeHelpfulCount = this.state.questionsAndAnswers.slice();
     for (var i = 0; i < this.state.questionsAndAnswers.length; i++) {
       if (this.state.questionsAndAnswers[i].answers[event.target.id] !== undefined) {
-        var changeHelpfulCount = this.state.questionsAndAnswers;
         if (this.state.helpfulAnswerClicked) {
           changeHelpfulCount[i].answers[event.target.id].helpfulness--;
           this.setState({helpfulAnswerClicked: false});
         } else {
           changeHelpfulCount[i].answers[event.target.id].helpfulness++;
           this.setState({helpfulAnswerClicked: true});
+        }
+        this.setState({questionsAndAnswers: changeHelpfulCount});
+      }
+    }
+  }
+
+  handleHelpfulQuestion = (event) => {
+    var changeHelpfulCount = this.state.questionsAndAnswers.slice();
+    for (var i = 0; i < this.state.questionsAndAnswers.length; i++) {
+      if (this.state.questionsAndAnswers[i].question_id === Number(event.target.id)) {
+        if (this.state.helpfulQuestionClicked) {
+          changeHelpfulCount[i].question_helpfulness--;
+          this.setState({helpfulQuestionClicked: false});
+        } else {
+          changeHelpfulCount[i].question_helpfulness++;
+          this.setState({helpfulQuestionClicked: true});
         }
         this.setState({questionsAndAnswers: changeHelpfulCount});
       }
@@ -69,6 +86,7 @@ class QA extends React.Component {
           <QAComponent
             questionsAndAnswers={this.state.questionsAndAnswers}
             handleHelpfulAnswer={this.handleHelpfulAnswer}
+            handleHelpfulQuestion={this.handleHelpfulQuestion}
           />
         </Grid>
         <Grid item>
