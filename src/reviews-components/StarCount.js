@@ -2,7 +2,7 @@ import React from 'react';
 import {Grid, Typography, LinearProgress} from '@material-ui/core';
 
 
-const StarCount = (props) => {
+const StarCount = ({ star, numberOfRating, count}) => {
   return (
     <Grid
       item
@@ -18,7 +18,7 @@ const StarCount = (props) => {
         <Typography
           variant="subtitle2"
         >
-          5 stars
+          {`${star} stars`}
         </Typography>
       </Grid>
       <Grid
@@ -30,7 +30,7 @@ const StarCount = (props) => {
       >
         <LinearProgress
           variant="determinate"
-          value={46}
+          value={100 / numberOfRating * count}
           style={{ width: '100%', height:'8px'}}
         />
       </Grid>

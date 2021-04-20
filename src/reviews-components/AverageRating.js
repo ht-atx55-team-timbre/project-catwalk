@@ -3,7 +3,15 @@ import { Grid, Typography } from '@material-ui/core';
 
 import StarComponent from './StarComponent';
 
-const AverageRating = (props) => {
+const percentRecommend = (recommended) => {
+  let recommend = Number(recommended.true);
+  let notRecommend = Number(recommended.false);
+
+  return Math.round(recommend / (recommend + notRecommend) * 100);
+}
+
+const AverageRating = ({ averageRating, recommended }) => {
+
   return (
     <Grid
       item
@@ -20,7 +28,7 @@ const AverageRating = (props) => {
         <Typography
           variant="h3"
         >
-          4.5
+          {averageRating}
         </Typography>
       </Grid>
       <Grid
@@ -28,7 +36,7 @@ const AverageRating = (props) => {
         md={12}
         lg={8}
       >
-        <StarComponent />
+        <StarComponent rating={averageRating}/>
       </Grid>
       <Grid
         item
@@ -38,7 +46,7 @@ const AverageRating = (props) => {
           variant="subtitle2"
           gutterBottom
         >
-          100% of reviews recommend this Product
+          {`${percentRecommend(recommended)}% of reviews recommend this Product`}
         </Typography>
       </Grid>
     </Grid>
