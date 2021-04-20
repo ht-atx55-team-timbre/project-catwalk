@@ -2,18 +2,12 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 import moment from 'moment';
 import _ from 'underscore';
-// import { DateTime } from 'luxon';
 
-// import { makeStyles } from '@material-ui/styles';
-
-// const useStyles = makeStyles(() => ({
-//   qa: {
-//     flex: 1
-//   }
-// }));
-
-const QAComponent = ({ questionsAndAnswers, handleHelpfulAnswer }) => {
-  // const classes = useStyles();
+const QAComponent = ({
+  questionsAndAnswers,
+  handleHelpfulAnswer,
+  handleHelpfulQuestion
+}) => {
 
   return (
     <Grid>
@@ -37,7 +31,13 @@ const QAComponent = ({ questionsAndAnswers, handleHelpfulAnswer }) => {
             </div>
           </Grid>
           <Grid item xs={12} sm={3}>
-            <p>{`Helpful? Yes (${question.question_helpfulness}) | Add Answer`}</p>
+            <p>
+              {`Helpful? `}
+              <span>
+                <u id={question.question_id} onClick={handleHelpfulQuestion}>Yes</u>
+              </span>
+              {` (${question.question_helpfulness}) | Add Answer`}
+            </p>
           </Grid>
         </Grid>
       )}
