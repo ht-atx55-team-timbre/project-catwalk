@@ -13,39 +13,17 @@ const percentRecommend = (recommended) => {
 const AverageRating = ({ averageRating, recommended }) => {
 
   return (
-    <Grid
-      item
-      container
-      spacing={2}
-      alignItems="center"
-      justify="center"
-    >
-      <Grid
-        item
-        md={12}
-        lg={4}
-      >
-        <Typography
-          variant="h3"
-        >
-          {'' + averageRating}
+    <Grid container spacing={2} alignItems="center" justify="center">
+      <Grid item md={12} lg={4} >
+        <Typography variant="h3" >
+          {String(averageRating)}
         </Typography>
       </Grid>
-      <Grid
-        item
-        md={12}
-        lg={8}
-      >
+      <Grid item md={12} lg={8}>
         <StarComponent rating={averageRating}/>
       </Grid>
-      <Grid
-        item
-        xs={12}
-      >
-        <Typography
-          variant="subtitle2"
-          gutterBottom
-        >
+      <Grid item xs={12}>
+        <Typography variant="subtitle2" gutterBottom>
           {`${percentRecommend(recommended)}% of reviews recommend this Product`}
         </Typography>
       </Grid>

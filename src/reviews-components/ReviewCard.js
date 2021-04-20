@@ -21,23 +21,14 @@ const ReviewCard = (porps) => {
   const classes = useStyles();
 
   return (
-    <Grid
-      item
-    >
-      <Card
-        className={classes.root}
-        variant="outlined"
-      >
+    <Grid item>
+      <Card className={classes.root} variant="outlined">
         <CardInfo />
         <CardActions>
           <Typography>
             Helpful?
           </Typography>
-          <ButtonGroup
-            variant="text"
-            color="primary"
-            aria-label="text primary button group"
-          >
+          <ButtonGroup variant="text" color="primary">
             <Button>Yes(9)</Button>
             <Button>Report</Button>
           </ButtonGroup>

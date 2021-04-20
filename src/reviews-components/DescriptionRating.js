@@ -3,14 +3,8 @@ import { Grid, Typography, Slider } from '@material-ui/core';
 
 const DescriptionRating =({ character, value }) => {
   return (
-    <Grid
-      item
-      container
-    >
-      <Typography
-        id="discrete-slider"
-        gutterBottom
-      >
+    <Grid item container>
+      <Typography id="discrete-slider" gutterBottom>
         {character}
       </Typography>
       <Slider

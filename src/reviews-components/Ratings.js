@@ -5,8 +5,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 
 import AverageRating from './AverageRating';
-import StarCount from './StarCount';
-import DescriptionRating from './DescriptionRating';
+import StarCounts from './StarCounts';
+import DescriptionRatings from './DescriptionRatings';
 import API_KEY from '../config.js';
 
 const useStyles = makeStyles((theme) => ({
@@ -58,57 +58,26 @@ const Ratings = ({ product_id }) => {
 
   const stars = ['5', '4', '3', '2', '1'];
   let [totalRating, numberOfRating] = getRating(ratings);
+  const averageRating = Math.round(totalRating / numberOfRating * 10) /10
 
   const classes = useStyles();
 
-  const averageRating = Math.round(totalRating / numberOfRating * 10) /10
-
   return (
-    <Grid
-      item
-      xs={12}
-      sm={4}
-    >
-      <Paper
-        className={classes.paper}
-      >
-        <Grid
-          item
-          container
-          spacing={2}
-        >
+    <Grid item xs={12} sm={4}>
+      <Paper className={classes.paper}>
+        <Grid item container spacing={2}>
           <AverageRating
             averageRating={averageRating}
             recommended={recommended}
           />
-          <Grid
-            item
-            container
-          >
-            {stars.map((star) =>
-              <StarCount
-                key={star}
-                star={star}
-                numberOfRating={numberOfRating}
-                count={ratings[star] ? ratings[star] : 0}
-              />
-            )}
-          </Grid>
-          <Grid
-            item
-            container
-          >
-            { Object.keys(characteristics).map((key) => {
-              const {id, value} = characteristics[key]
-              return (
-                <DescriptionRating
-                  character={key}
-                  value={Number(value)}
-                  key={id}
-                />
-              )
-            })}
-          </Grid>
+          <StarCounts
+            stars={stars}
+            numberOfRating={numberOfRating}
+            ratings={ratings}
+          />
+          <DescriptionRatings
+            characteristics={characteristics}
+          />
         </Grid>
       </Paper>
     </Grid>
