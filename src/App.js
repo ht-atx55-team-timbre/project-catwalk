@@ -32,35 +32,29 @@ class App extends React.Component {
   }
 
   render() {
-    if (this.state.isUpdated) {
+    if (this.state.product_id) {
       return (
         <Grid container direction="column">
-          <Grid container direction="row">
-            <Grid item xs={12} sm={8}>
-              <ProductImages images={this.state.styleData} onClick={this.handleStyleChange} />
-            </Grid>
-            <Grid item container direction="row" xs={12} sm={4}>
-              <Grid item xs={12}>
-                <ProductInfo product={this.state.productData} />
-              </Grid>
-              <Grid item xs={12}>
-                <ProductStyles styles={this.state.styleData} onClick={this.handleStyleChange} />
-              </Grid>
-              <Grid item xs={12}>
-                <Cart currentStyle={this.state.currentStyle} />
-              </Grid>
-            </Grid>
+          <Grid item>
+            {/* Header component will go here */}
+            <h1>This will be the header</h1>
           </Grid>
-          <Grid container direction="row">
+          <Grid item container>
+            <Grid item xs={false} sm={2} />
             <Grid item xs={12} sm={8}>
-              <ProductDescription product={this.state.productData} />
+              <ProductOverview product={this.state.product_id} />
+              <h1>This will be for the Product Overview</h1>
+              <Related />
+              <h1>This will be for the Related Items</h1>
+              {/* Q/A */}
+              <QA product_id={this.state.product_id} />
+              {/* Reviews/Ratings */}
+              <ReviewsAndRatings product_id={this.state.product_id} />
             </Grid>
-            <Grid item xs={12} sm={4}>
-              <ProductSpecs features={this.state.productData.features} />
-            </Grid>
+            <Grid item xs={false} sm={2} />
           </Grid>
         </Grid>
-      );
+      )
     } else {
       return <></>
     }
