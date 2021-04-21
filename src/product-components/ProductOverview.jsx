@@ -107,7 +107,7 @@ export default class ProductOverview extends React.Component {
         </Grid>
       );
     } else {
-      return <></>
+      return <></>;
     }
   }
 }

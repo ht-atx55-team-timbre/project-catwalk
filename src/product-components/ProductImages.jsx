@@ -1,7 +1,7 @@
 import React from 'react';
 import Carousel from 'react-material-ui-carousel';
 import { Paper } from '@material-ui/core';
-import { sizing } from '@material-ui/system';
+// import { sizing } from '@material-ui/system';
 
 const ProductImages = ({ images }) => {
   return (
@@ -23,7 +23,7 @@ const ProductImages = ({ images }) => {
 const Photo = ({ item, idx }) => {
   return (
     <Paper elevation={3}>
-      <img src={item.url} alt={idx} />
+      <img src={item.url} alt={idx} width="100%" />
     </Paper>
   )
 }
