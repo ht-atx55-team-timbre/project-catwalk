@@ -1,6 +1,6 @@
 import React from 'react';
 import Carousel from 'react-material-ui-carousel';
-import { Paper } from '@material-ui/core';
+import { Paper, Card } from '@material-ui/core';
 // import { sizing } from '@material-ui/system';
 
 const ProductImages = ({ images }) => {
