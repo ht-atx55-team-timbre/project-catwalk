@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import request from './Requests';
 
+import AddOutfitCard from './AddOutfitCard';
 import OutfitItems from './OutfitItems';
 import RelatedItems from './RelatedItems';
 import { Grid } from '@material-ui/core';
@@ -39,7 +40,7 @@ const Related = ({ product_id }) => {
       Your Outfit:
     <Grid container item justify="center" xs={12}>
       <Carousel>
-        <OutfitItems />
+        <AddOutfitCard />
       </Carousel>
     </Grid>
       </Grid>
