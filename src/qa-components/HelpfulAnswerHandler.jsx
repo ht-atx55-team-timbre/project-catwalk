@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, Button, Typography } from '@material-ui/core';
 import moment from 'moment';
 import axios from 'axios';
 import API_KEY from '../config.js';
 import ReportAnswer from './ReportAnswer.jsx';
-import { Button } from '@material-ui/core';
 
 const HelpfulAnswerHandler = ({ answer }) => {
   const [helpfulness, setHelpfulness] = useState(answer.helpfulness);
@@ -31,8 +30,8 @@ const HelpfulAnswerHandler = ({ answer }) => {
 
   return (
     <Grid>
-      <p>{`A: ${answer.body}`}</p>
-      <p>
+      <Typography>{`A: ${answer.body}`}</Typography>
+      <Typography>
         {`by ${answer.answerer_name}, ${moment(answer.date).format('MMMM Do, YYYY')} | Helpful? `}
         <span>
           <Button>
@@ -44,7 +43,7 @@ const HelpfulAnswerHandler = ({ answer }) => {
         <span>
           <ReportAnswer answer_id={answer.answer_id}/>
         </span>
-      </p>
+      </Typography>
     </Grid>
   )
 }

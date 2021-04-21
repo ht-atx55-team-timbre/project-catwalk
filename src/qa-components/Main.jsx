@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import SearchBar from "material-ui-search-bar";
 import Questions from './Questions.jsx';
 
@@ -8,7 +8,7 @@ const QA = ({ product_id }) => {
   return (
     <Grid container direction="column">
       <Grid item>
-        <p>QUESTIONS & ANSWERS</p>
+        <Typography>QUESTIONS & ANSWERS</Typography>
       </Grid>
       <SearchBar
         placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."

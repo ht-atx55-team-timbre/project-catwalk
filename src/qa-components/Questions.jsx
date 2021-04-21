@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Button } from '@material-ui/core';
+import { Grid, Button, Typography } from '@material-ui/core';
 import axios from 'axios';
 import _ from 'underscore';
 import API_KEY from '../config.js';
@@ -39,7 +39,7 @@ const Questions = ({ product_id }) => {
           <Grid key={question.question_id}>
             <Grid container>
               <Grid item xs={12} sm={9}>
-                <p>{`Q: ${question.question_body}`}</p>
+                <Typography>{`Q: ${question.question_body}`}</Typography>
                 <Answers question_id={question.question_id} />
               </Grid>
               <Grid item xs={12} sm={3}>
@@ -50,7 +50,7 @@ const Questions = ({ product_id }) => {
         )}
       </Grid>
       <Grid container direction="row">
-        <Button variant="text" onClick={handleSubmitClick}>MORE ANSWERED QUESTIONS</Button>
+        <Button variant="outlined" onClick={handleSubmitClick}>MORE ANSWERED QUESTIONS</Button>
         <AddQuestion />
       </Grid>
     </Grid>

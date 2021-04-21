@@ -20,7 +20,7 @@ const AddQuestion = () => {
 
   return (
     <div>
-      <Button onClick={handleClickOpen}>
+      <Button variant="outlined" onClick={handleClickOpen}>
         Add A Question +
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
