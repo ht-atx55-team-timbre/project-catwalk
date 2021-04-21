@@ -13,7 +13,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      product_id: -1
+      product_id: null
     }
   }
 
@@ -32,28 +32,32 @@ class App extends React.Component {
   }
 
   render() {
-    return (
-      <Grid container direction="column">
-        <Grid item>
-          {/* Header component will go here */}
-          <h1>This will be the header</h1>
-        </Grid>
-        <Grid item container>
-          <Grid item xs={false} sm={2} />
-          <Grid item xs={12} sm={8}>
-            <ProductOverview />
-            <h1>This will be for the Product Overview</h1>
-            <Related />
-            <h1>This will be for the Related Items</h1>
-            {/* Q/A */}
-            <QA product_id = {this.state.product_id} />
-            {/* Reviews/Ratings */}
-            <ReviewsAndRatings product_id = {this.state.product_id} />
+    if(this.state.product_id) {
+      return (
+        <Grid container direction="column">
+          <Grid item>
+            {/* Header component will go here */}
+            <h1>This will be the header</h1>
           </Grid>
-          <Grid item xs={false} sm={2} />
+          <Grid item container>
+            <Grid item xs={false} sm={2} />
+            <Grid item xs={12} sm={8}>
+              <ProductOverview />
+              <h1>This will be for the Product Overview</h1>
+              <Related />
+              <h1>This will be for the Related Items</h1>
+              {/* Q/A */}
+              <QA product_id = {this.state.product_id} />
+              {/* Reviews/Ratings */}
+              <ReviewsAndRatings product_id = {this.state.product_id} />
+            </Grid>
+            <Grid item xs={false} sm={2} />
+          </Grid>
         </Grid>
-      </Grid>
-    )
+      )
+    } else {
+      return <></>
+    }
   }
 }
 
