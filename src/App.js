@@ -46,7 +46,7 @@ class App extends React.Component {
             <Related />
             <h1>This will be for the Related Items</h1>
             {/* Q/A */}
-            <QA />
+            <QA product_id = {this.state.product_id} />
             {/* Reviews/Ratings */}
             <ReviewsAndRatings />
           </Grid>
