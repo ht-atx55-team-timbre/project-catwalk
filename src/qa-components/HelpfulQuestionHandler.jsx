@@ -4,7 +4,7 @@ import API_KEY from '../config.js';
 
 const HelpfulQuestionHandler = ({ question }) => {
   const [helpfulness, setHelpfulness] = useState(question.question_helpfulness);
-  const [isClicked, setisClicked] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
 
   const url = `https://app-hrsei-api.herokuapp.com/api/fec2/hratx/qa/questions/${question.question_id}/helpful`;
   const headersAndParams = {
@@ -16,7 +16,7 @@ const HelpfulQuestionHandler = ({ question }) => {
     if (!isClicked) {
       axios.put(url, {helpfulness: helpfulness}, headersAndParams)
         .then((response) => {
-          setisClicked(true);
+          setIsClicked(true);
           setHelpfulness(helpfulness + 1);
         })
         .catch((err) => {
