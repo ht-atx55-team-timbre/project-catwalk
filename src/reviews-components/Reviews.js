@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 
 import ReviewsSort from './ReviewsSort';
-import ReviewCard from './ReviewCard';
+import ReviewCards from './ReviewCards';
 import ratingComponent from './ratingComponent';
 import API_KEY from '../config.js';
 
@@ -37,7 +37,6 @@ const Reviews = ({ product_id }) => {
     })
       .then (res => {
         setResults(res.data.results)
-        console.log(results)
       })
       .catch((err) => {
         console.log(err, 'error getting reviews metadate for the product id');
@@ -76,10 +75,7 @@ const Reviews = ({ product_id }) => {
           handleSortChange={handleSortChange}
           classes={classes}
         />
-
-        <ReviewCard />
-        <ReviewCard />
-
+        <ReviewCards results={results}/>
         <Grid item >
           <ButtonGroup color="primary">
             <Button onClick={handleCountChange}>More Reviews</Button>
