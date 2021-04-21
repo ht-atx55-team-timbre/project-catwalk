@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CardInfo = (props) => {
+const CardInfo = ({ body, date, rating, reviewer_name, summary }) => {
 
   const classes = useStyles();
 
@@ -23,24 +23,23 @@ const CardInfo = (props) => {
     <CardContent>
       <Grid container justify="space-between">
         <Grid item>
-          <StarComponent />
+          <StarComponent rating={rating}/>
         </Grid>
         <Grid item>
           <Typography className={classes.pos} color="textSecondary">
-            September 14, 2016
+            {`${reviewer_name}, ${date}`}
           </Typography>
         </Grid>
       </Grid>
       <Grid container direction="column" justify="flex-start" spacing={2}>
         <Grid item>
           <Typography variant="h5" component="h2">
-            dkaj nfljkdlioui ouiou iodfs fsdfsd
-            fs dfsdfs dfsdfd suiouoiuo iuiuouals
+            {summary}
           </Typography>
         </Grid>
         <Grid item >
           <Typography variant="body2" component="p">
-            well meaning and kindly. well meaning and kindly. well meaning and kindly. well meaning and kindly. well meaning and kindly. well meaning and kindly. well meaning and kindly.
+            {body}
           </Typography>
         </Grid>
       </Grid>

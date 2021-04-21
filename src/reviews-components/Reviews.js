@@ -1,9 +1,14 @@
 import React from 'react';
-import { Grid, Paper, Typography } from '@material-ui/core';
+import { useState, useEffect } from 'react';
+import { Grid, Paper } from '@material-ui/core';
 import { Button, ButtonGroup } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import axios from 'axios';
 
-import ReviewCard from './ReviewCard';
+import ReviewsSort from './ReviewsSort';
+import ReviewCards from './ReviewCards';
+import ratingComponent from './ratingComponent';
+import API_KEY from '../config.js';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -13,7 +18,49 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Reviews = (props) => {
+const Reviews = ({ product_id }) => {
+  const [count, setCount] = useState(1)
+  const [sort, setSort] = useState("relevant")
+  const [results, setResults] = useState([])
+  const [totalReviews, setTotalReviews] = useState(0)
+
+  useEffect(() => {
+    axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hratx/reviews', {
+      headers: {
+        Authorization: API_KEY
+      },
+      params: {
+        conut: count,
+        sort: sort,
+        product_id: product_id
+      }
+    })
+      .then (res => {
+        setResults(res.data.results)
+      })
+      .catch((err) => {
+        console.log(err, 'error getting reviews metadate for the product id');
+      });
+  }, [product_id, sort, count])
+
+  useEffect(() => {
+    ratingComponent(product_id)
+    .then(res => {
+      setTotalReviews(res[1])
+    })
+    .catch((err) => {
+      console.log(err, 'error getting reviews metadate for the product id');
+    });
+  }, [product_id])
+
+  const handleSortChange = (event) => {
+    setSort(event.target.value);
+  };
+
+  const handleCountChange = (e) => {
+    setCount(count + 2);
+  }
+
 
   const classes = useStyles();
 
@@ -22,20 +69,16 @@ const Reviews = (props) => {
       <Paper className={classes.paper}>
 
       <Grid container direction="column" spacing={2}>
-        <Grid item>
-          <Paper className={classes.paper}>
-            <Typography variant="subtitle2">
-              248 reviews, sort by relevence
-            </Typography>
-          </Paper>
-        </Grid>
-
-        <ReviewCard />
-        <ReviewCard />
-
+        <ReviewsSort
+          totalReviews={totalReviews}
+          sort={sort}
+          handleSortChange={handleSortChange}
+          classes={classes}
+        />
+        <ReviewCards results={results}/>
         <Grid item >
           <ButtonGroup color="primary">
-            <Button>More Reviews</Button>
+            <Button onClick={handleCountChange}>More Reviews</Button>
             <Button>Add Reviews +</Button>
           </ButtonGroup>
         </Grid>
