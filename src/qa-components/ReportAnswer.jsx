@@ -22,15 +22,6 @@ const ReportAnswer = ({ answer_id }) => {
         .catch(err => {
           console.log(err, 'error marking answer as reported');
         })
-    } else {
-      axios.put(url, { report: false }, headersAndParams)
-        .then(response => {
-          setIsClicked(false);
-          setReportText('Report');
-        })
-        .catch(err => {
-          console.log(err, 'error marking answer as unreported');
-        })
     }
   }
 

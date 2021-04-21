@@ -16,7 +16,7 @@ const Questions = ({ product_id }) => {
       },
       params: {
         product_id: product_id,
-        count: 2
+        count: 10
       }
     })
       .then(questions => {
