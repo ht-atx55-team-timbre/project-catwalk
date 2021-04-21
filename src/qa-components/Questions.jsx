@@ -10,18 +10,20 @@ const Questions = ({ product_id }) => {
   const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
-    axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hratx/qa/questions', {
-      headers: {
-        Authorization: API_KEY
-      },
-      params: {
-        product_id: product_id,
-        count: 10
-      }
-    })
-      .then(questions => {
-        setQuestions(questions.data.results);
+    if (product_id !== null) {
+      axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hratx/qa/questions', {
+        headers: {
+          Authorization: API_KEY
+        },
+        params: {
+          product_id: product_id,
+          count: 3
+        }
       })
+        .then(questions => {
+          setQuestions(questions.data.results);
+        })
+    }
   }, [product_id]);
 
   return (
