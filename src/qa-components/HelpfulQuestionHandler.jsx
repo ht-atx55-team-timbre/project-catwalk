@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import API_KEY from '../config.js';
+import { Button } from '@material-ui/core';
 
 const HelpfulQuestionHandler = ({ question }) => {
   const [helpfulness, setHelpfulness] = useState(question.question_helpfulness);
@@ -29,9 +30,16 @@ const HelpfulQuestionHandler = ({ question }) => {
     <p>
       {`Helpful? `}
       <span>
-        <u id={question.question_id} onClick={handleHelpfulQuestion}>Yes</u>
+        <Button>
+          <u id={question.question_id} onClick={handleHelpfulQuestion}>Yes</u>
+        </Button>
       </span>
-      {` (${helpfulness}) | Add Answer`}
+      {` (${helpfulness}) | `}
+      <span>
+        <Button variant="text">
+          <u>Add Answer</u>
+        </Button>
+      </span>
     </p>
   )
 }

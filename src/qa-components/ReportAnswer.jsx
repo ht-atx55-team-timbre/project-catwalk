@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import API_KEY from '../config.js';
 import axios from 'axios';
+import { Button } from '@material-ui/core';
 
 const ReportAnswer = ({ answer_id }) => {
   const [reportText, setReportText] = useState('Report');
@@ -26,7 +27,9 @@ const ReportAnswer = ({ answer_id }) => {
   }
 
   return(
-    <u onClick={handleReport}>{reportText}</u>
+    <Button>
+      <u onClick={handleReport}>{reportText}</u>
+    </Button>
   )
 }
 

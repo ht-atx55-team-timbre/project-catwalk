@@ -49,8 +49,8 @@ const Questions = ({ product_id }) => {
           </Grid>
         )}
       </Grid>
-      <Grid item>
-        <Button variant="contained" onClick={handleSubmitClick}>MORE ANSWERED QUESTIONS</Button>
+      <Grid container direction="row">
+        <Button variant="text" onClick={handleSubmitClick}>MORE ANSWERED QUESTIONS</Button>
         <AddQuestion />
       </Grid>
     </Grid>

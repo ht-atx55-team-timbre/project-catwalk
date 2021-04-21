@@ -4,6 +4,7 @@ import moment from 'moment';
 import axios from 'axios';
 import API_KEY from '../config.js';
 import ReportAnswer from './ReportAnswer.jsx';
+import { Button } from '@material-ui/core';
 
 const HelpfulAnswerHandler = ({ answer }) => {
   const [helpfulness, setHelpfulness] = useState(answer.helpfulness);
@@ -34,7 +35,10 @@ const HelpfulAnswerHandler = ({ answer }) => {
       <p>
         {`by ${answer.answerer_name}, ${moment(answer.date).format('MMMM Do, YYYY')} | Helpful? `}
         <span>
-          <u id={answer.answer_id} onClick={handleHelpfulAnswer}>Yes</u>
+          <Button>
+            <u id={answer.answer_id} onClick={handleHelpfulAnswer}>Yes</u>
+          </Button>
+
         </span>
         {` (${helpfulness}) | `}
         <span>
