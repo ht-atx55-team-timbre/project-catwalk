@@ -16,20 +16,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ReviewCard = (porps) => {
+const ReviewCard = ({ body, date, helpfulness, photos, rating, recommend, response, reviewer_name, summary }) => {
 
   const classes = useStyles();
 
   return (
     <Grid item>
       <Card className={classes.root} variant="outlined">
-        <CardInfo />
+        <CardInfo
+          body={body}
+          date={date}
+          rating={rating}
+          reviewer_name={reviewer_name}
+          summary={summary}
+        />
         <CardActions>
           <Typography>
             Helpful?
           </Typography>
           <ButtonGroup variant="text" color="primary">
-            <Button>Yes(9)</Button>
+            <Button>Yes ({helpfulness})</Button>
             <Button>Report</Button>
           </ButtonGroup>
         </CardActions>
