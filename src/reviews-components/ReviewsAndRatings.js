@@ -16,7 +16,9 @@ const ReviewsAndRatings = ({ product_id }) => {
       <Ratings
         product_id={product_id}
       />
-      <Reviews />
+      <Reviews
+        product_id={product_id}
+      />
     </Grid>
   )
 }
