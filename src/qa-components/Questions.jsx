@@ -6,25 +6,7 @@ import _ from 'underscore';
 import Answers from './Answers.jsx';
 import HelpfulQuestionHandler from './HelpfulQuestionHandler'
 
-const Questions = ({ product_id }) => {
-  const [questions, setQuestions] = useState([]);
-
-  useEffect(() => {
-    if (product_id) {
-      axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hratx/qa/questions', {
-        headers: {
-          Authorization: API_KEY
-        },
-        params: {
-          product_id: product_id,
-          count: 2
-        }
-      })
-        .then(questions => {
-          setQuestions(questions.data.results);
-        })
-    }
-  }, [product_id]);
+const Questions = ({ questions }) => {
 
   return (
     <Grid>
