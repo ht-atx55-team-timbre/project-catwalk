@@ -1,12 +1,13 @@
 import React from 'react';
-// import App from '../App';
+import { Grid, Paper } from '@material-ui/core';
+
 
 const ProductInfo = ({ product }) => (
-    <div>
-      <div className="category">{product.category}</div>
-      <div className="product-name">{product.name}</div>
-      <div className="price">{product.default_price}</div>
-    </div>
+    <Paper elevation={0}>
+      <Grid item xs={12} className="category">{product.category}</Grid>
+      <Grid item xs={12} className="product-name">{product.name}</Grid>
+      <Grid item xs={12} className="price">{product.default_price}</Grid>
+    </Paper>
   )
 
 export default ProductInfo;

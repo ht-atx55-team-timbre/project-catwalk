@@ -1,18 +1,16 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, Paper } from '@material-ui/core';
 
 
 const ProductStyles = ({ styles }) => {
-  console.log(styles);
-
   return (
-  <div className="styles">
+  <Grid className="styles">
     {styles.map((style, index) => (
       <Grid item key={index}>
         {style.name}
       </Grid>
     ))}
-  </div>
+  </Grid>
   )
 };
 

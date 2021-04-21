@@ -3,8 +3,6 @@ import { Grid } from '@material-ui/core';
 
 
 const ProductSpecs = ({ features }) => {
-  console.log(features);
-
   return (
   <div className="specs">
     {features.map((feature, index) => (
