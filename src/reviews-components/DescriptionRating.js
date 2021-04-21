@@ -1,25 +1,19 @@
 import React from 'react';
 import { Grid, Typography, Slider } from '@material-ui/core';
 
-const DescriptionRating =(props) => {
+const DescriptionRating =({ character, value }) => {
   return (
-    <Grid
-      item
-      container
-    >
-      <Typography
-        id="discrete-slider"
-        gutterBottom
-      >
-        Size
+    <Grid item container>
+      <Typography id="discrete-slider" gutterBottom>
+        {character}
       </Typography>
       <Slider
-        defaultValue={30}
+        defaultValue={value}
         aria-labelledby="discrete-slider"
-        step={25}
+        step={1}
         marks
         min={0}
-        max={100}
+        max={5}
         disabled
       />
     </Grid>
