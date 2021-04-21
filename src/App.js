@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Grid } from '@material-ui/core';
 import ReviewsAndRatings from './reviews-components/ReviewsAndRatings';
-import ProductOverview from './product-components/ProductOverview';
+import ProductOverview from './product-components/ProductOverview.jsx';
 import Related from './related-components/Related';
 import QA from './qa-components/Main.jsx';
 import API_KEY from './config';
@@ -24,7 +24,7 @@ class App extends React.Component {
       }
     })
       .then((products) => {
-        this.setState({product_id: products.data[0].id})
+        this.setState({ product_id: products.data[0].id })
       })
       .catch((err) => {
         console.log(err, 'error retrieving products from the database');
@@ -32,29 +32,35 @@ class App extends React.Component {
   }
 
   render() {
-    if(this.state.product_id) {
+    if (this.state.isUpdated) {
       return (
         <Grid container direction="column">
-          <Grid item>
-            {/* Header component will go here */}
-            <h1>This will be the header</h1>
-          </Grid>
-          <Grid item container>
-            <Grid item xs={false} sm={2} />
+          <Grid container direction="row">
             <Grid item xs={12} sm={8}>
-              <ProductOverview />
-              <h1>This will be for the Product Overview</h1>
-              <Related />
-              <h1>This will be for the Related Items</h1>
-              {/* Q/A */}
-              <QA product_id = {this.state.product_id} />
-              {/* Reviews/Ratings */}
-              <ReviewsAndRatings product_id = {this.state.product_id} />
+              <ProductImages images={this.state.styleData} onClick={this.handleStyleChange} />
             </Grid>
-            <Grid item xs={false} sm={2} />
+            <Grid item container direction="row" xs={12} sm={4}>
+              <Grid item xs={12}>
+                <ProductInfo product={this.state.productData} />
+              </Grid>
+              <Grid item xs={12}>
+                <ProductStyles styles={this.state.styleData} onClick={this.handleStyleChange} />
+              </Grid>
+              <Grid item xs={12}>
+                <Cart currentStyle={this.state.currentStyle} />
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid container direction="row">
+            <Grid item xs={12} sm={8}>
+              <ProductDescription product={this.state.productData} />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <ProductSpecs features={this.state.productData.features} />
+            </Grid>
           </Grid>
         </Grid>
-      )
+      );
     } else {
       return <></>
     }
