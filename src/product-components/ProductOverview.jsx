@@ -15,10 +15,11 @@ export default class ProductOverview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      productId: 24156,
+      productId: this.props.product,
       productData: null,
       currentStyle: null,
-      styleData: null
+      styleData: null,
+      isUpdated: false
     }
     this.handleStyleChange = this.handleStyleChange.bind(this);
   }
@@ -43,6 +44,9 @@ export default class ProductOverview extends React.Component {
             })
           }
         }
+        if (this.state.styleData && this.state.productData) {
+          this.setState({ isUpdated: true });
+        }
         // console.log('.get styles data', this.state.styleData, this.state.currentStyle);
       })
       .catch(err => console.error(err));
@@ -58,6 +62,9 @@ export default class ProductOverview extends React.Component {
         this.setState({
           productData: response.data,
         })
+        if (this.state.styleData && this.state.productData) {
+          this.setState({ isUpdated: true });
+        }
         // console.log('.get product data', this.state.productData);
       })
       .catch(err => console.error(err));
@@ -70,52 +77,38 @@ export default class ProductOverview extends React.Component {
   }
 
   render() {
-    return (
-      <Grid container direction="column">
-        <Grid container direction="row">
-          <Grid item xs={12} sm={8}>
-            {this.state.styleData ?
+    if (this.state.isUpdated) {
+      return (
+        <Grid container direction="column">
+          <Grid container direction="row">
+            <Grid item xs={12} sm={8}>
               <ProductImages images={this.state.styleData} onClick={this.handleStyleChange} />
-              : null
-            }
-          </Grid>
-          <Grid item direction="row" xs={12} sm={4}>
-            <Grid item xs={12}>
-              {this.state.productData ?
+            </Grid>
+            <Grid item container direction="row" xs={12} sm={4}>
+              <Grid item xs={12}>
                 <ProductInfo product={this.state.productData} />
-                : null
-              }
-            </Grid>
-            <Grid item xs={12}>
-              {this.state.styleData ?
+              </Grid>
+              <Grid item xs={12}>
                 <ProductStyles styles={this.state.styleData} onClick={this.handleStyleChange} />
-                : null
-              }
-            </Grid>
-            <Grid item xs={12}>
-              {this.state.currentStyle ?
+              </Grid>
+              <Grid item xs={12}>
                 <Cart currentStyle={this.state.currentStyle} />
-                : null
-              }
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid container direction="row">
+            <Grid item xs={12} sm={8}>
+              <ProductDescription product={this.state.productData} />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <ProductSpecs features={this.state.productData.features} />
             </Grid>
           </Grid>
         </Grid>
-        <Grid container direction="row">
-          <Grid item xs={12} sm={8}>
-            {this.state.productData ?
-              <ProductDescription product={this.state.productData} />
-              : null
-            }
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            {this.state.productData ?
-              <ProductSpecs features={this.state.productData.features} />
-              : null
-            }
-          </Grid>
-        </Grid>
-      </Grid>
-    );
+      );
+    } else {
+      return <></>
+    }
   }
 }
 

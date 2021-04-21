@@ -67,18 +67,18 @@ export default class Cart extends React.Component {
         <form>
           <select id="size" name="size" onChange={this.handleSKUChange}>
             <option value="default">Select A Size</option>
-            {Object.keys(skus).map(sku => {
+            {Object.keys(skus).map((sku, idx) => {
               return (
-                <option value={[sku]}>{skus[sku].size}</option>
+                <option key={idx} value={sku}>{skus[sku].size}</option>
               );
             })}
           </select>
           {this.state.sku ?
             <select id="qty" name="qty">
               <option value="default">qty</option>
-              {this.createQuantity(skus[this.state.sku].quantity).map(number => {
+              {this.createQuantity(skus[this.state.sku].quantity).map((number, idx) => {
                 return (
-                  <option value={number}>{number}</option>
+                  <option key={idx} value={number}>{number}</option>
                 )
               })}
             </select>
