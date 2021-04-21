@@ -4,7 +4,6 @@ import { Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 
-import calculateAverage from './calculateAverage';
 import AverageRating from './AverageRating';
 import StarCounts from './StarCounts';
 import DescriptionRatings from './DescriptionRatings';
@@ -53,8 +52,7 @@ const Ratings = ({ product_id }) => {
   }, [product_id])
 
   const stars = ['5', '4', '3', '2', '1'];
-  let [totalRating, numberOfRating] = getRating(ratings);
-  const average = calculateAverage(totalRating, numberOfRating);
+  let [average, numberOfRating] = getRating(ratings);
 
   const classes = useStyles();
 

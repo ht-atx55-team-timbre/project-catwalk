@@ -5,7 +5,7 @@ const getRating = (ratings) => {
     totalRating += key * Number(ratings[key]);
     numberOfRating += Number(ratings[key]);
   }
-  return [totalRating, numberOfRating];
+  return [Math.round(totalRating / numberOfRating * 10) / 10, numberOfRating];
 }
 
 export default getRating;
