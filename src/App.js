@@ -44,7 +44,7 @@ class App extends React.Component {
             <Grid item xs={12} sm={8}>
               <ProductOverview product={this.state.product_id} />
               <h1>This will be for the Product Overview</h1>
-              <Related />
+              <Related product_id={this.state.product_id}/>
               <h1>This will be for the Related Items</h1>
               {/* Q/A */}
               <QA product_id={this.state.product_id} />

@@ -42,7 +42,8 @@ export const RelCardMedia = withStyles({
 export const useStyles = makeStyles({
   card: {
     width: 200,
-    height: 350
+    height: 350,
+    backgroundColor: 'grey'
   },
   price: {
     fontSize: '12px'
