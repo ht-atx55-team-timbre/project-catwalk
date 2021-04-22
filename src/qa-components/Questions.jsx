@@ -77,7 +77,7 @@ const Questions = ({ product_id, name }) => {
           { questions.length !== moreQuestions.length &&
             <Button variant="outlined" onClick={handleSubmitClick}>MORE ANSWERED QUESTIONS</Button>
           }
-          <AddQuestion name={name} />
+          <AddQuestion product_id={product_id} name={name} />
         </Grid>
     </Grid>
   )

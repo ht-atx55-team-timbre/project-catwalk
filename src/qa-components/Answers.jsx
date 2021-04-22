@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, Button } from '@material-ui/core';
 import _ from 'underscore';
 import axios from 'axios';
 import API_KEY from '../config.js';
 import HelpfulAnswerHandler from './HelpfulAndReport/HelpfulAnswerHandler.jsx';
-import { Button } from '@material-ui/core';
 
 const Answers = ({ question_id }) => {
   const [answers, setAnswers] = useState([]);
