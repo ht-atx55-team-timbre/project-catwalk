@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Button, ButtonGroup, Typography } from '@material-ui/core';
+import { Grid, Box, Button, ButtonGroup, Typography } from '@material-ui/core';
 import axios from 'axios';
 import _ from 'underscore';
 import API_KEY from '../config.js';
@@ -56,7 +56,7 @@ const Questions = ({ product_id, name }) => {
   }
 
   return (
-    <Grid>
+    <Box style={{maxHeight: '75vh', overflow: 'auto'}}>
       <Grid>
         {_.map(questions, question =>
           <Grid key={question.question_id}>
@@ -78,7 +78,7 @@ const Questions = ({ product_id, name }) => {
         }
         <AddQuestion name={name} />
       </Grid>
-    </Grid>
+    </Box>
   )
 }
 
