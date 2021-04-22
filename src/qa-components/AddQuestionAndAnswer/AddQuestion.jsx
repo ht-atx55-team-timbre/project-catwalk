@@ -1,12 +1,16 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import {
+  Grid,
+  Button,
+  TextField,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle
+} from '@material-ui/core';
 
-const AddQuestion = () => {
+const AddQuestion = ({ name }) => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -18,56 +22,63 @@ const AddQuestion = () => {
   };
 
   return (
-    <div>
+    <Grid>
       <Button variant="outlined" onClick={handleClickOpen}>
         Add A Question +
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">
-          <h2>Ask Your Question</h2>
+          Ask Your Question
         </DialogTitle>
         <DialogContent>
+          <DialogContentText>
+            About the {name}
+          </DialogContentText>
           <TextField
+            required
             inputProps={{maxLength: 60}}
             autoFocus
             margin="dense"
-            id="name"
+            id="question"
             label="Your Question:"
             type="text"
             fullWidth
             placeholder="Ask your question here"
             multiline
             rows={5}
-            maxRows={10}
+            maxrows={10}
+            variant="outlined"
           />
           <TextField
+            required
             inputProps={{maxLength: 60}}
-            autoFocus
             margin="dense"
             id="name"
             label="Nickname:"
             type="text"
             fullWidth
             placeholder="Example: jackson11!"
+            variant="outlined"
           />
           <TextField
+            required
             inputProps={{maxLength: 60}}
-            autoFocus
             margin="dense"
-            id="name"
+            id="email"
             label="Email Address:"
             type="text"
             fullWidth
             placeholder="Would you like the product or not?"
+            variant="outlined"
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
-            Subscribe
+            Submit Question
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </Grid>
   );
 }
 

@@ -64,8 +64,8 @@ const Answers = ({ question_id }) => {
       </Grid>
       { (answers.length > 0 && answers.length !== moreAnswers.length) &&
         <Grid>
-          <Button>
-            <b onClick={handleLoadMoreClick}>load more answers</b>
+          <Button onClick={handleLoadMoreClick}>
+            load more answers
           </Button>
         </Grid>
       }

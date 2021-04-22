@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Button, Typography } from '@material-ui/core';
+import { Grid, Button, ButtonGroup, Typography } from '@material-ui/core';
 import axios from 'axios';
 import _ from 'underscore';
 import API_KEY from '../config.js';
@@ -7,10 +7,10 @@ import Answers from './Answers.jsx';
 import HelpfulQuestionHandler from './HelpfulAndReport/HelpfulQuestionHandler';
 import AddQuestion from './AddQuestionAndAnswer/AddQuestion.jsx';
 
-const Questions = ({ product_id }) => {
+const Questions = ({ product_id, name }) => {
   const [questions, setQuestions] = useState([]);
   const [moreQuestions, setMoreQuestions] = useState([]);
-  const [questionCount, setQuestionCount] = useState(4);
+  const [questionCount, setQuestionCount] = useState(2);
 
 
   // I use two requests here because I do not know the total amount of questions in the database.
@@ -66,7 +66,7 @@ const Questions = ({ product_id }) => {
                 <Answers question_id={question.question_id} />
               </Grid>
               <Grid item xs={12} sm={3}>
-                <HelpfulQuestionHandler question={question} />
+                <HelpfulQuestionHandler question={question} name={name} />
               </Grid>
             </Grid>
           </Grid>
@@ -76,7 +76,7 @@ const Questions = ({ product_id }) => {
         { questions.length !== moreQuestions.length &&
           <Button variant="outlined" onClick={handleSubmitClick}>MORE ANSWERED QUESTIONS</Button>
         }
-        <AddQuestion />
+        <AddQuestion name={name} />
       </Grid>
     </Grid>
   )

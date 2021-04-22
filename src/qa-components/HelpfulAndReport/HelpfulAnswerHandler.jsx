@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Grid, Button, Typography } from '@material-ui/core';
+import { Grid, Button, ButtonGroup, Typography } from '@material-ui/core';
 import moment from 'moment';
 import axios from 'axios';
 import API_KEY from '../../config.js';
@@ -29,21 +29,35 @@ const HelpfulAnswerHandler = ({ answer }) => {
   }
 
   return (
+    // <Grid>
+    //   <Typography>{`A: ${answer.body}`}</Typography>
+    //   <Typography>
+    //     {`by ${answer.answerer_name}, ${moment(answer.date).format('MMMM Do, YYYY')} | Helpful? `}
+    //     <span>
+    //       <Button>
+    //         <u id={answer.answer_id} onClick={handleHelpfulAnswer}>Yes</u>
+    //       </Button>
+    //     </span>
+    //     {` (${helpfulness}) | `}
+    //     <span>
+    //       <ReportAnswer answer_id={answer.answer_id}/>
+    //     </span>
+    //   </Typography>
+    // </Grid>
     <Grid>
       <Typography>{`A: ${answer.body}`}</Typography>
-      <Typography>
-        {`by ${answer.answerer_name}, ${moment(answer.date).format('MMMM Do, YYYY')} | Helpful? `}
-        <span>
+      <Grid container direction="row" alignItems="center">
+        <Typography>
+          by {answer.answerer_name}, {moment(answer.date).format('MMMM Do, YYYY')} | Helpful?
+        </Typography>
+        <ButtonGroup variant="text" aria-label="text primary button group">
           <Button>
             <u id={answer.answer_id} onClick={handleHelpfulAnswer}>Yes</u>
+            <Typography>({helpfulness})</Typography>
           </Button>
-
-        </span>
-        {` (${helpfulness}) | `}
-        <span>
-          <ReportAnswer answer_id={answer.answer_id}/>
-        </span>
-      </Typography>
+          <ReportAnswer answer_id={answer.answer_id} />
+        </ButtonGroup>
+      </Grid>
     </Grid>
   )
 }

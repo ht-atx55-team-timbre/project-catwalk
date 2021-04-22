@@ -13,7 +13,8 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      product_id: null
+      product_id: null,
+      name: null
     }
   }
 
@@ -24,7 +25,8 @@ class App extends React.Component {
       }
     })
       .then((products) => {
-        this.setState({ product_id: products.data[0].id })
+        this.setState({ product_id: products.data[0].id });
+        this.setState({ name: products.data[0].name });
       })
       .catch((err) => {
         console.log(err, 'error retrieving products from the database');
@@ -47,7 +49,7 @@ class App extends React.Component {
               <Related />
               <h1>This will be for the Related Items</h1>
               {/* Q/A */}
-              <QA product_id={this.state.product_id} />
+              <QA product_id={this.state.product_id} name={this.state.name} />
               {/* Reviews/Ratings */}
               <ReviewsAndRatings product_id={this.state.product_id} />
             </Grid>
