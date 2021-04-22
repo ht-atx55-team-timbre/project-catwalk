@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Grid, Button, Typography } from '@material-ui/core';
 import moment from 'moment';
 import axios from 'axios';
-import API_KEY from '../config.js';
+import API_KEY from '../../config.js';
 import ReportAnswer from './ReportAnswer.jsx';
 
 const HelpfulAnswerHandler = ({ answer }) => {

@@ -4,13 +4,18 @@ import axios from 'axios';
 import _ from 'underscore';
 import API_KEY from '../config.js';
 import Answers from './Answers.jsx';
-import HelpfulQuestionHandler from './HelpfulQuestionHandler';
-import AddQuestion from './AddQuestion.jsx';
+import HelpfulQuestionHandler from './HelpfulAndReport/HelpfulQuestionHandler';
+import AddQuestion from './AddQuestionAndAnswer/AddQuestion.jsx';
 
 const Questions = ({ product_id }) => {
   const [questions, setQuestions] = useState([]);
-  const [questionCount, setQuestionCount] = useState(2);
+  const [moreQuestions, setMoreQuestions] = useState([]);
+  const [questionCount, setQuestionCount] = useState(4);
 
+
+  // I use two requests here because I do not know the total amount of questions in the database.
+  // The second get requests checks to see if there are any more questions left, if there are not
+  // any, then I know not to display the get more questions button on lines 76-78
   useEffect(() => {
     if (product_id) {
       axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hratx/qa/questions', {
@@ -25,6 +30,24 @@ const Questions = ({ product_id }) => {
         .then(questions => {
           setQuestions(questions.data.results);
         })
+        .catch(err => {
+          console.log(err);
+        });
+      axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hratx/qa/questions', {
+        headers: {
+          Authorization: API_KEY
+        },
+        params: {
+          product_id: product_id,
+          count: questionCount + 2
+        }
+      })
+        .then(questions => {
+          setMoreQuestions(questions.data.results);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   }, [product_id, questionCount]);
 
@@ -50,7 +73,9 @@ const Questions = ({ product_id }) => {
         )}
       </Grid>
       <Grid container direction="row">
-        <Button variant="outlined" onClick={handleSubmitClick}>MORE ANSWERED QUESTIONS</Button>
+        { questions.length !== moreQuestions.length &&
+          <Button variant="outlined" onClick={handleSubmitClick}>MORE ANSWERED QUESTIONS</Button>
+        }
         <AddQuestion />
       </Grid>
     </Grid>

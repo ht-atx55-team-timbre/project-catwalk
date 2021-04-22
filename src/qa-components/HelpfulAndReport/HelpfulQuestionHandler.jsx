@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import API_KEY from '../config.js';
+import API_KEY from '../../config.js';
 import { Button, Typography } from '@material-ui/core';
 
 const HelpfulQuestionHandler = ({ question }) => {
@@ -36,7 +36,7 @@ const HelpfulQuestionHandler = ({ question }) => {
       </span>
       {` (${helpfulness}) | `}
       <span>
-        <Button variant="text">
+        <Button>
           <u>Add Answer</u>
         </Button>
       </span>
