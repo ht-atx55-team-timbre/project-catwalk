@@ -1,16 +1,39 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
+import { useState, useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import {
+  Paper,
+  CardActions,
+  CardContent,
+  Typography
+} from '@material-ui/core';
 
+const useStyles = makeStyles({
+  root: {
+    minWidth: "100%",
+  },
+  minimal: {
+    display: "inline-block",
+    fontSize: 11
+  },
+  title: {
+    fontSize: 14,
+  },
+  pos: {
+    marginBottom: 12,
+  },
+});
 
 const ProductStyles = ({ styles }) => {
   return (
-  <Grid className="styles">
+  <Paper className="root" elevation={0}>
     {styles.map((style, index) => (
-      <Grid item key={index}>
+      <Typography item key={index}>
         {style.name}
-      </Grid>
+      </Typography>
     ))}
-  </Grid>
+  </Paper>
   )
 };
 
