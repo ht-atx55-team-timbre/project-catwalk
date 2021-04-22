@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Box, Button, ButtonGroup, Typography } from '@material-ui/core';
+import { Grid, Box, Button, Typography } from '@material-ui/core';
 import axios from 'axios';
 import _ from 'underscore';
 import API_KEY from '../config.js';
