@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 
 const AddQuestion = ({ product_id, name }) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const [userQuestion, setUserQuestion] = useState('');
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
@@ -41,7 +41,8 @@ const AddQuestion = ({ product_id, name }) => {
     };
 
     axios.post(url, {
-      body: userQuestion,name: nickname,
+      body: userQuestion,
+      name: nickname,
       email: email,
       product_id: product_id },
       headersAndParams)
