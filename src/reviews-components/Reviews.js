@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Reviews = ({ product_id }) => {
-  const [count, setCount] = useState(1)
+  const [count, setCount] = useState(2)
   const [sort, setSort] = useState("relevant")
   const [results, setResults] = useState([])
   const [totalReviews, setTotalReviews] = useState(0)
@@ -30,9 +30,9 @@ const Reviews = ({ product_id }) => {
         Authorization: API_KEY
       },
       params: {
-        conut: count,
+        product_id: product_id,
+        count: count,
         sort: sort,
-        product_id: product_id
       }
     })
       .then (res => {
@@ -41,7 +41,7 @@ const Reviews = ({ product_id }) => {
       .catch((err) => {
         console.log(err, 'error getting reviews metadate for the product id');
       });
-  }, [product_id, sort, count])
+  }, [product_id, count, sort])
 
   useEffect(() => {
     ratingComponent(product_id)
@@ -53,8 +53,8 @@ const Reviews = ({ product_id }) => {
     });
   }, [product_id])
 
-  const handleSortChange = (event) => {
-    setSort(event.target.value);
+  const handleSortChange = (e) => {
+    setSort(e.target.value);
   };
 
   const handleCountChange = (e) => {
@@ -65,26 +65,27 @@ const Reviews = ({ product_id }) => {
   const classes = useStyles();
 
   return (
-    <Grid item xs={12} sm={8}>
+    <Grid item xs={12} sm={9}>
       <Paper className={classes.paper}>
-
-      <Grid container direction="column" spacing={2}>
-        <ReviewsSort
-          totalReviews={totalReviews}
-          sort={sort}
-          handleSortChange={handleSortChange}
-          classes={classes}
-        />
-        <ReviewCards results={results}/>
-        <Grid item >
-          <ButtonGroup color="primary">
-            <Button onClick={handleCountChange}>More Reviews</Button>
-            <Button>Add Reviews +</Button>
-          </ButtonGroup>
+        <Grid container direction="column" spacing={2}>
+          <ReviewsSort
+            totalReviews={totalReviews}
+            sort={sort}
+            handleSortChange={handleSortChange}
+          />
+          <ReviewCards results={results}/>
+          <Grid item >
+            <ButtonGroup color="primary">
+              <Button
+                onClick={handleCountChange}
+                disabled={count >= totalReviews}
+              >More Reviews</Button>
+              <Button>Add Reviews +</Button>
+            </ButtonGroup>
+          </Grid>
         </Grid>
-      </Grid>
-    </Paper>
-  </Grid>
+      </Paper>
+    </Grid>
   )
 }
 

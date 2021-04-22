@@ -19,6 +19,7 @@ const ReviewCards = ({results}) => {
           response={response}
           reviewer_name={reviewer_name}
           summary={summary}
+          review_id={review_id}
           key={review_id}
         />
       )
