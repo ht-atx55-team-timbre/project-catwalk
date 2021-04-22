@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import axios from 'axios';
-import API_KEY from '../config.js';
+import API_KEY from '../../config.js';
+import { Grid, Button, ButtonGroup, Typography } from '@material-ui/core';
+import AddAnswer from '../AddQuestionAndAnswer/AddAnswer.jsx';
 
-const HelpfulQuestionHandler = ({ question }) => {
+const HelpfulQuestionHandler = ({ question, name }) => {
   const [helpfulness, setHelpfulness] = useState(question.question_helpfulness);
   const [isClicked, setIsClicked] = useState(false);
 
@@ -26,13 +28,24 @@ const HelpfulQuestionHandler = ({ question }) => {
   }
 
   return (
-    <p>
-      {`Helpful? `}
-      <span>
-        <u id={question.question_id} onClick={handleHelpfulQuestion}>Yes</u>
-      </span>
-      {` (${helpfulness}) | Add Answer`}
-    </p>
+    <Grid container direction="row" alignItems="center">
+      <Grid item>
+        <Typography>
+          Helpful?
+        </Typography>
+      </Grid>
+      <Grid item>
+        <ButtonGroup variant="text" aria-label="text primary button group">
+          <Button>
+            <Grid container direction="row">
+              <u id={question.question_id} onClick={handleHelpfulQuestion}>Yes</u>
+              <Typography>({helpfulness})</Typography>
+            </Grid>
+          </Button>
+          <AddAnswer question={question} name={name} />
+        </ButtonGroup>
+      </Grid>
+    </Grid>
   )
 }
 
