@@ -21,8 +21,8 @@ const ProductInfo = ({ product, id }) => {
 
   return (
     <Paper elevation={0}>
-      <StarComponent rating={rating}/>
-      <Grid item xs={12} className="totalReviews">{totalReviews}</Grid>
+      <StarComponent rating={rating} />
+      <span className="totalReviews">Read all {totalReviews} reviews</span>
       <Grid item xs={12} className="category">{product.category}</Grid>
       <Grid item xs={12} className="product-name">{product.name}</Grid>
       <Grid item xs={12} className="price">{product.default_price}</Grid>
