@@ -49,7 +49,11 @@ const Answers = ({ question_id }) => {
 
   const handleLoadMoreClick = (event) => {
     setAnswersCount(answersCount + 2);
-  }
+  };
+
+  const handleCollapseClick = (event) => {
+    setAnswersCount(2);
+  };
 
   return (
     <Grid>
@@ -62,10 +66,16 @@ const Answers = ({ question_id }) => {
           </Grid>
         )}
       </Grid>
-      { (answers.length > 0 && answers.length !== moreAnswers.length) &&
-        <Grid>
+      { answers.length > 0 && answers.length !== moreAnswers.length
+        ? <Grid>
           <Button onClick={handleLoadMoreClick}>
             load more answers
+          </Button>
+        </Grid>
+        : answers.length > 2 &&
+        <Grid>
+          <Button onClick={handleCollapseClick}>
+            collapse answers
           </Button>
         </Grid>
       }

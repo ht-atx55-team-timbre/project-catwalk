@@ -12,7 +12,6 @@ const Questions = ({ product_id, name }) => {
   const [moreQuestions, setMoreQuestions] = useState([]);
   const [questionCount, setQuestionCount] = useState(4);
 
-
   // I use two requests here because I do not know the total amount of questions in the database.
   // The second get requests checks to see if there are any more questions left, if there are not
   // any, then I know not to display the get more questions button on lines 76-78
