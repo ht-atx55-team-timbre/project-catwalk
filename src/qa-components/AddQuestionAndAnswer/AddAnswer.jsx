@@ -19,20 +19,20 @@ const AddQuestion = () => {
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Add A Question +
+      <Button onClick={handleClickOpen}>
+        <u>Add Answer</u>
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">
-          <h2>Ask Your Question</h2>
+          <h2>Submit Your Answer</h2>
         </DialogTitle>
         <DialogContent>
           <TextField
-            inputProps={{maxLength: 60}}
+            inputProps={{maxLength: 1000}}
             autoFocus
             margin="dense"
             id="name"
-            label="Your Question:"
+            label="Your Answer:"
             type="text"
             fullWidth
             placeholder="Ask your question here"
@@ -45,7 +45,7 @@ const AddQuestion = () => {
             autoFocus
             margin="dense"
             id="name"
-            label="Nickname:"
+            label="What is your nickname:"
             type="text"
             fullWidth
             placeholder="Example: jackson11!"
@@ -55,7 +55,7 @@ const AddQuestion = () => {
             autoFocus
             margin="dense"
             id="name"
-            label="Email Address:"
+            label="Your email:"
             type="text"
             fullWidth
             placeholder="Would you like the product or not?"
