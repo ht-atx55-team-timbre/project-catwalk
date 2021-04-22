@@ -10,7 +10,7 @@ import AddQuestion from './AddQuestionAndAnswer/AddQuestion.jsx';
 const Questions = ({ product_id, name }) => {
   const [questions, setQuestions] = useState([]);
   const [moreQuestions, setMoreQuestions] = useState([]);
-  const [questionCount, setQuestionCount] = useState(2);
+  const [questionCount, setQuestionCount] = useState(4);
 
 
   // I use two requests here because I do not know the total amount of questions in the database.
@@ -56,29 +56,31 @@ const Questions = ({ product_id, name }) => {
   }
 
   return (
-    <Box style={{maxHeight: '75vh', overflow: 'auto'}}>
-      <Grid>
-        {_.map(questions, question =>
-          <Grid key={question.question_id}>
-            <Grid container>
-              <Grid item xs={12} sm={9}>
-                <Typography>{`Q: ${question.question_body}`}</Typography>
-                <Answers question_id={question.question_id} />
-              </Grid>
-              <Grid item xs={12} sm={3}>
-                <HelpfulQuestionHandler question={question} name={name} />
+    <Grid>
+      <Box style={{maxHeight: '75vh', overflow: 'auto'}}>
+        <Grid>
+          {_.map(questions, question =>
+            <Grid key={question.question_id}>
+              <Grid container>
+                <Grid item xs={12} sm={9}>
+                  <Typography>{`Q: ${question.question_body}`}</Typography>
+                  <Answers question_id={question.question_id} />
+                </Grid>
+                <Grid item xs={12} sm={3}>
+                  <HelpfulQuestionHandler question={question} name={name} />
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
-        )}
-      </Grid>
-      <Grid container direction="row">
-        { questions.length !== moreQuestions.length &&
-          <Button variant="outlined" onClick={handleSubmitClick}>MORE ANSWERED QUESTIONS</Button>
-        }
-        <AddQuestion name={name} />
-      </Grid>
-    </Box>
+          )}
+        </Grid>
+      </Box>
+        <Grid container direction="row">
+          { questions.length !== moreQuestions.length &&
+            <Button variant="outlined" onClick={handleSubmitClick}>MORE ANSWERED QUESTIONS</Button>
+          }
+          <AddQuestion name={name} />
+        </Grid>
+    </Grid>
   )
 }
 
