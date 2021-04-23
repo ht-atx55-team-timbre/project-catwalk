@@ -5,10 +5,11 @@ import axios from 'axios';
 import API_KEY from '../config.js';
 import HelpfulAnswerHandler from './HelpfulAndReport/HelpfulAnswerHandler.jsx';
 
-const Answers = ({ question_id }) => {
+const Answers = ({ question_id, toggleAnswerReload }) => {
   const [answers, setAnswers] = useState([]);
   const [moreAnswers, setMoreAnswers] = useState([]);
   const [answersCount, setAnswersCount] = useState(2);
+  const [answerToggle, setAnswerToggle] = useState(true);
 
   // I use two requests here because I do not know the total amount of answers in the database.
   // The second get requests checks to see if there are any more answers left, if there are not
@@ -44,7 +45,11 @@ const Answers = ({ question_id }) => {
       .catch(err => {
         console.log(err);
       });
-  }, [question_id, answersCount]);
+  }, [question_id, answersCount, answerToggle]);
+
+  useEffect(() => {
+    setAnswerToggle(toggleAnswerReload);
+  }, [toggleAnswerReload])
 
   const handleLoadMoreClick = (event) => {
     setAnswersCount(answersCount + 2);

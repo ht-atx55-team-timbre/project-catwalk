@@ -11,7 +11,8 @@ const Questions = ({ product_id, name }) => {
   const [questions, setQuestions] = useState([]);
   const [moreQuestions, setMoreQuestions] = useState([]);
   const [questionCount, setQuestionCount] = useState(4);
-  const [toggleReload, setToggleReload] = useState(true);
+  const [toggleQuestionReload, setToggleQuestionReload] = useState(true);
+  const [toggleAnswerReload, setToggleAnswerReload] = useState(true);
 
   // I use two requests here because I do not know the total amount of questions in the database.
   // The second get requests checks to see if there are any more questions left, if there are not
@@ -49,14 +50,18 @@ const Questions = ({ product_id, name }) => {
           console.log(err);
         });
     }
-  }, [product_id, questionCount, toggleReload]);
+  }, [product_id, questionCount, toggleQuestionReload]);
 
   const handleSubmitClick = (event) => {
     setQuestionCount(questionCount + 2);
   }
 
-  const toggleReloadOnFormSubmit = () => {
-    setToggleReload(!toggleReload);
+  const toggleQuestionReloadOnFormSubmit = () => {
+    setToggleQuestionReload(!toggleQuestionReload);
+  }
+
+  const toggleAnswerReloadOnFormSubmit = () => {
+    setToggleAnswerReload(!toggleAnswerReload);
   }
 
   return (
@@ -68,10 +73,14 @@ const Questions = ({ product_id, name }) => {
               <Grid container>
                 <Grid item xs={12} sm={9}>
                   <Typography>{`Q: ${question.question_body}`}</Typography>
-                  <Answers question_id={question.question_id} />
+                  <Answers toggleAnswerReload={toggleAnswerReload} question_id={question.question_id} />
                 </Grid>
                 <Grid item xs={12} sm={3}>
-                  <HelpfulQuestionHandler question={question} name={name} />
+                  <HelpfulQuestionHandler
+                    toggleAnswerReloadOnFormSubmit={toggleAnswerReloadOnFormSubmit}
+                    question={question}
+                    name={name}
+                  />
                 </Grid>
               </Grid>
             </Grid>
@@ -83,7 +92,7 @@ const Questions = ({ product_id, name }) => {
             <Button variant="outlined" onClick={handleSubmitClick}>MORE ANSWERED QUESTIONS</Button>
           }
           <AddQuestion
-            toggleReloadOnFormSubmit={toggleReloadOnFormSubmit}
+            toggleQuestionReloadOnFormSubmit={toggleQuestionReloadOnFormSubmit}
             product_id={product_id}
             name={name}
           />
