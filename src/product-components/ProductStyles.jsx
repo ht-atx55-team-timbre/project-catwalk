@@ -8,6 +8,7 @@ import {
   CardContent,
   Typography,
   ButtonBase,
+  Box
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -25,6 +26,18 @@ const useStyles = makeStyles((theme) => ({
     width: '40px',
     height: '40px',
     '&:hover, &$focusVisible': {
+      zIndex: 1,
+      '& $imageBackdrop': {
+        opacity: 0.15,
+      }
+    },
+  },
+  imageSelected: {
+    position: 'relative',
+    borderRadius: '50%',
+    width: '40px',
+    height: '40px',
+    '&$focusVisible': {
       zIndex: 1,
       '& $imageBackdrop': {
         opacity: 0.15,
@@ -68,13 +81,23 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function ProductStyles({ styles }) {
+export default function ProductStyles({ styles, handleStyleChange }) {
   console.log('styles', styles);
   const [selected, setSelected] = useState(styles[0]);
   const classes = useStyles();
 
+  useEffect(() => {
+    handleStyleChange(selected);
+  })
+
   function handleSelection(e) {
-    console.log(e.target);
+    console.log(e.target.id);
+    for (let i = 0; i < styles.length; i++) {
+      if (styles[i].style_id === Number(e.target.id)) {
+        setSelected(styles[i]);
+        return;
+      }
+    }
   }
 
   return (
@@ -83,7 +106,6 @@ export default function ProductStyles({ styles }) {
         <Typography className={classes.root}>
           STYLE > {selected.name}
         </Typography>
-
         {styles.map((style, index) => (
           <ButtonBase
             focusRipple
@@ -91,8 +113,11 @@ export default function ProductStyles({ styles }) {
             className={classes.image}
             focusVisibleClassName={classes.focusVisible}
             style={{
-              width: '50px',
-              height: '50px'
+              width: '40px',
+              height: '40px',
+              marginTop: '4px',
+              marginBottom: '4px',
+              marginRight: '8px'
             }}
             onClick={handleSelection}
           >
@@ -105,12 +130,12 @@ export default function ProductStyles({ styles }) {
             <span className={classes.imageBackdrop} />
             <span
               className={classes.imageButton}
-              value={style.style_id}
+              id={style.style_id}
             >
             </span>
           </ButtonBase>
         ))}
       </CardContent>
-    </div>
+    </div >
   )
 }

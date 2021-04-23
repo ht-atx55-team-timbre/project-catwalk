@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Carousel from 'react-material-ui-carousel';
-import { Card, CardMedia } from '@material-ui/core';
+import { Card, CardMedia, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import CardActionArea from '@material-ui/core/CardActionArea';
-// import { sizing } from '@material-ui/system';
+import StyleGallery from './StyleGallery.jsx';
 
 const useStyles = makeStyles({
   root: {
@@ -17,14 +16,30 @@ const useStyles = makeStyles({
 });
 
 const ProductImages = ({ images }) => {
+  console.log('when does this re-render');
+  const [display, setDisplay] = useState(images.photos[0])
+
+  // useEffect()
+
+  function handleImgChange() {
+    console.log('clicked!');
+  }
+
   return (
-    <Carousel animation="fade" autoPlay={false}>
-      {images[0].photos.map((photo, index) => {
-        return (
-          <Photo key={index} item={photo} />
-        )
-      })}
-    </Carousel>
+    <Grid container direction="row">
+      <Grid item sm={2}>
+        <StyleGallery images={images} handleImgChange={handleImgChange} />
+      </Grid>
+      <Grid item xs={12} sm={10}>
+        <Carousel animation="fade" autoPlay={false}>
+          {images.photos.map((photo, idx) => {
+            return (
+              <Photo key={idx} item={photo} />
+            )
+          })}
+        </Carousel>
+      </Grid>
+    </Grid>
   );
 }
 
@@ -37,9 +52,7 @@ const Photo = ({ item, idx }) => {
       variant="outlined"
     >
       <CardMedia
-        // component="img"
         alt={idx}
-        // padding-top="100%"
         className={classes.media}
         image={item.url}
         title={idx}
@@ -50,7 +63,3 @@ const Photo = ({ item, idx }) => {
 
 
 export default ProductImages;
-
-    // <div className="primary-image">
-    //   <img src={images[0].photos[0].url} alt="main" />
-    // </div>

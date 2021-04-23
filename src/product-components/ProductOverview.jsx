@@ -32,7 +32,6 @@ export default class ProductOverview extends React.Component {
         }
       })
       .then(response => {
-        // console.log(response);
         var styles = response.data.results;
         this.setState({
           styleData: styles,
@@ -47,7 +46,6 @@ export default class ProductOverview extends React.Component {
         if (this.state.styleData && this.state.productData) {
           this.setState({ isUpdated: true });
         }
-        // console.log('.get styles data', this.state.styleData, this.state.currentStyle);
       })
       .catch(err => console.error(err));
 
@@ -58,21 +56,19 @@ export default class ProductOverview extends React.Component {
         }
       })
       .then(response => {
-        // console.log(response);
         this.setState({
           productData: response.data,
         })
         if (this.state.styleData && this.state.productData) {
           this.setState({ isUpdated: true });
         }
-        // console.log('.get product data', this.state.productData);
       })
       .catch(err => console.error(err));
   }
 
-  handleStyleChange(event) {
+  handleStyleChange(newStyle) {
     this.setState({
-      currentStyle: 'placeholder: newStyle'
+      currentStyle: newStyle
     })
   }
 
@@ -82,14 +78,20 @@ export default class ProductOverview extends React.Component {
         <Grid container direction="column">
           <Grid container direction="row">
             <Grid item xs={12} sm={8}>
-              <ProductImages images={this.state.styleData} onClick={this.handleStyleChange} />
+              <ProductImages images={this.state.currentStyle} />
             </Grid>
             <Grid item container direction="row" xs={12} sm={4}>
               <Grid item xs={12}>
-                <ProductInfo product={this.state.productData} id={this.state.productId} />
+                <ProductInfo
+                  product={this.state.productData}
+                  id={this.state.productId}
+                />
               </Grid>
               <Grid item xs={12}>
-                <ProductStyles styles={this.state.styleData} onClick={this.handleStyleChange} />
+                <ProductStyles
+                  styles={this.state.styleData}
+                  handleStyleChange={this.handleStyleChange}
+                />
               </Grid>
               <Grid item xs={12}>
                 <Cart currentStyle={this.state.currentStyle} />
