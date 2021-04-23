@@ -46,9 +46,7 @@ const ProductInfo = ({ product, id }) => {
       <CardContent>
         <div>
           <StarComponent rating={rating} display="inline-block" />
-          <CardActions display="inline-block">
-            <Typography className={classes.minimal}>Read all {totalReviews} reviews</Typography>
-          </CardActions>
+          <Typography className={classes.minimal}>Read all {totalReviews} reviews</Typography>
         </div>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
           {product.category}

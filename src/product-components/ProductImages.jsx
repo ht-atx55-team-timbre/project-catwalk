@@ -7,10 +7,12 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: "100%"
+    width: "100%",
+    boxSizing: "border-box"
   },
   media: {
-    width: "100%"
+    // height: 0,
+    paddingTop: "100%",
   },
 });
 
@@ -30,18 +32,18 @@ const Photo = ({ item, idx }) => {
   const classes = useStyles();
 
   return (
-    <Card className={classes.root} variant="outlined">
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          alt={idx}
-          height="100%"
-          className={classes.media}
-          image={item.url}
-          title={idx}
-          width="100%"
-        />
-      </CardActionArea>
+    <Card
+      className={classes.root}
+      variant="outlined"
+    >
+      <CardMedia
+        // component="img"
+        alt={idx}
+        // padding-top="100%"
+        className={classes.media}
+        image={item.url}
+        title={idx}
+      />
     </Card>
   )
 }

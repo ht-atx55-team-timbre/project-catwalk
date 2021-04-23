@@ -13,13 +13,15 @@ import {
 
 const ProductSpecs = ({ features }) => {
   return (
-  <div className="specs">
-    {features.map((feature, index) => (
-      <Typography item key={index}>
-         {feature.value} {feature.feature}
-      </Typography>
-    ))}
-  </div>
+    <div className="specs">
+      <CardContent>
+        {features.map((feature, index) => (
+          <Typography item key={index}>
+            {feature.value} {feature.feature}
+          </Typography>
+        ))}
+      </CardContent>
+    </div>
   )
 };
 

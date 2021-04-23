@@ -31,7 +31,7 @@ const ProductDescription = ({ product }) => {
 
   return(
     <Paper elevation={0} className="description">
-      <Typography variant="h5" component="h2">{product.slogan}</Typography>
+      <Typography variant="h6" component="h2">{product.slogan}</Typography>
       <Typography variant="body2" component="p">{product.description}</Typography>
     </Paper>
   )
