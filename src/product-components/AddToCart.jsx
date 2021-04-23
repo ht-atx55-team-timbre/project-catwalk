@@ -13,10 +13,42 @@ export default class Cart extends React.Component {
     }
     this.addToCart = this.addToCart.bind(this);
     this.handleSKUChange = this.handleSKUChange.bind(this);
+    this.handleCountChange = this.handleCountChange.bind(this);
     this.createQuantity = this.createQuantity.bind(this);
+    this.getCartContents = this.getCartContents.bind(this);
+    this.postToCart = this.postToCart.bind(this);
   }
 
   componentDidMount() {
+    this.getCartContents();
+  }
+
+  addToCart(e) {
+    e.preventDefault();
+    this.postToCart();
+  };
+
+  handleSKUChange(e) {
+    this.setState({
+      sku: e.target.value
+    });
+  }
+
+  handleCountChange(e) {
+    this.setState({
+      count: e.target.value
+    })
+  }
+
+  createQuantity(quantity) {
+    var array = [];
+    for (var i = 1; i <= quantity; i++) {
+      array.push(i);
+    }
+    return array;
+  }
+
+  getCartContents() {
     axios
       .get(`https://app-hrsei-api.herokuapp.com/api/fec2/hratx/cart`, {
         headers: {
@@ -31,36 +63,28 @@ export default class Cart extends React.Component {
       .catch(err => console.error(err));
   }
 
-  addToCart(e) {
-    e.preventDefault();
-    axios
-      .post(`https://app-hrsei-api.herokuapp.com/api/fec2/hratx/cart`, {
-        sku_id: this.state.sku
+  postToCart() {
+    axios({
+      method: 'post',
+      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hratx/cart`,
+      data: {
+        sku_id: this.state.sku,
+        count: this.state.count
+      },
+      headers: {
+        Authorization: API_KEY
+      }
+    })
+      .then(res => {
+        console.info(res.body);
+        this.getCartContents();
       })
-      .then(response => response.status(201).send('CREATED'))
+      // .then(res => console.info(res))
       .catch(err => console.error(err));
-
-    this.setState({
-      cartContents: this.state.cartContents.push(e.target.value),
-      cartEmpty: !this.state.cartEmpty
-    });
-  };
-
-  handleSKUChange(e) {
-    this.setState({
-      sku: e.target.value
-    });
-  }
-
-  createQuantity(quantity) {
-    var array = [];
-    for (var i = 1; i <= quantity; i++) {
-      array.push(i);
-    }
-    return array;
   }
 
   render() {
+    console.log('on re-render', this.state.cartContents);
     var skus = this.props.currentStyle.skus;
     return (
       <Paper elevation={0} className="cart">
@@ -73,18 +97,17 @@ export default class Cart extends React.Component {
               );
             })}
           </select>
-          {this.state.sku ?
-            <select id="qty" name="qty">
-              <option value="default">qty</option>
-              {this.createQuantity(skus[this.state.sku].quantity).map((number, idx) => {
+          <select id="qty" name="qty" onChange={this.handleCountChange}>
+            {this.state.sku ?
+              this.createQuantity(skus[this.state.sku].quantity).map((number, idx) => {
                 return (
                   <option key={idx} value={number}>{number}</option>
                 )
-              })}
-            </select>
-            : null
-          }
-          <br/>
+              })
+              : <option key="default" value="default">-</option>
+            }
+          </select>
+          <br />
           <input type="submit" id="add-cart" value="Add To Cart" onClick={this.addToCart} />
           <button type="button" id="view-cart">View Cart</button>
         </form>
@@ -96,6 +119,8 @@ export default class Cart extends React.Component {
 
 
 
+
+
 // axios.put(url, { report: false }, headersAndParams)
 // .then(response => {
 //   setIsClicked(false);
@@ -103,4 +128,4 @@ export default class Cart extends React.Component {
 // })
 // .catch(err => {
 //   console.log(err, 'error marking answer as unreported');
-// })
+// })sss
