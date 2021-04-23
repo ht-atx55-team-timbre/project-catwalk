@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Grid, Paper } from '@material-ui/core';
 import { Button, ButtonGroup } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
 import axios from 'axios';
 
 import ReviewsSort from './ReviewsSort';
@@ -15,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     textAlign: 'left',
     color: theme.palette.text.secondary,
-  }
+  },
 }));
 
 const Reviews = ({ product_id }) => {
@@ -49,7 +50,7 @@ const Reviews = ({ product_id }) => {
       setTotalReviews(res[1])
     })
     .catch((err) => {
-      console.log(err, 'error getting reviews metadate for the product id');
+      console.log(err, 'error getting total reviews');
     });
   }, [product_id])
 
@@ -61,25 +62,27 @@ const Reviews = ({ product_id }) => {
     setCount(count + 2);
   }
 
-
   const classes = useStyles();
 
   return (
     <Grid item xs={12} sm={9}>
       <Paper className={classes.paper}>
         <Grid container direction="column" spacing={2}>
+          <Toolbar>
           <ReviewsSort
             totalReviews={totalReviews}
             sort={sort}
             handleSortChange={handleSortChange}
           />
-          <ReviewCards results={results}/>
+          </Toolbar>
+          <ReviewCards
+            results={results}
+          />
           <Grid item >
             <ButtonGroup color="primary">
-              <Button
-                onClick={handleCountChange}
-                disabled={count >= totalReviews}
-              >More Reviews</Button>
+              {count < totalReviews &&
+                <Button onClick={handleCountChange}> More Reviews </Button>
+              }
               <Button>Add Reviews +</Button>
             </ButtonGroup>
           </Grid>
