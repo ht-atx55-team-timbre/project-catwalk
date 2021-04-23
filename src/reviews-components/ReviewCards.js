@@ -1,29 +1,31 @@
 import React from 'react';
+import { Grid, } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 import ReviewCard from './ReviewCard';
 
+const useStyles = makeStyles((theme) => ({
+  grid: {
+    maxHeight: '88vh',
+    overflow: 'auto',
+  },
+}));
+
 const ReviewCards = ({results}) => {
 
+  const classes = useStyles();
+
   return (
-    <>
-    {results.map(review => {
-      const {body, date, helpfulness, photos, rating, recommend, response, review_id, reviewer_name, summary} = review;
-      return (
-        <ReviewCard
-          body={body}
-          date={date}
-          helpfulness={helpfulness}
-          photos={photos}
-          rating={rating}
-          recommend={recommend}
-          response={response}
-          reviewer_name={reviewer_name}
-          summary={summary}
-          key={review_id}
-        />
-      )
-    })}
-    </>
+    <Grid item container spacing={2} className={classes.grid}>
+      {results.map(review => {
+        return (
+          <ReviewCard
+            review={review}
+            key={review.review_id}
+          />
+        )
+      })}
+    </Grid>
   )
 }
 

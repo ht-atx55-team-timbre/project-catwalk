@@ -57,7 +57,7 @@ const Ratings = ({ product_id }) => {
   const classes = useStyles();
 
   return (
-    <Grid item xs={12} sm={4}>
+    <Grid item xs={12} sm={3}>
       <Paper className={classes.paper}>
         <Grid item container spacing={2}>
           <AverageRating
