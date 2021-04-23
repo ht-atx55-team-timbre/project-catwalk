@@ -11,6 +11,7 @@ const Questions = ({ product_id, name }) => {
   const [questions, setQuestions] = useState([]);
   const [moreQuestions, setMoreQuestions] = useState([]);
   const [questionCount, setQuestionCount] = useState(4);
+  const [toggleReload, setToggleReload] = useState(true);
 
   // I use two requests here because I do not know the total amount of questions in the database.
   // The second get requests checks to see if there are any more questions left, if there are not
@@ -48,10 +49,14 @@ const Questions = ({ product_id, name }) => {
           console.log(err);
         });
     }
-  }, [product_id, questionCount]);
+  }, [product_id, questionCount, toggleReload]);
 
   const handleSubmitClick = (event) => {
     setQuestionCount(questionCount + 2);
+  }
+
+  const toggleReloadOnFormSubmit = () => {
+    setToggleReload(!toggleReload);
   }
 
   return (
@@ -77,7 +82,11 @@ const Questions = ({ product_id, name }) => {
           { questions.length !== moreQuestions.length &&
             <Button variant="outlined" onClick={handleSubmitClick}>MORE ANSWERED QUESTIONS</Button>
           }
-          <AddQuestion product_id={product_id} name={name} />
+          <AddQuestion
+            toggleReloadOnFormSubmit={toggleReloadOnFormSubmit}
+            product_id={product_id}
+            name={name}
+          />
         </Grid>
     </Grid>
   )

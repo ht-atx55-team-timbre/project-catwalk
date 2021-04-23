@@ -12,7 +12,7 @@ import {
   DialogTitle
 } from '@material-ui/core';
 
-const AddQuestion = ({ product_id, name }) => {
+const AddQuestion = ({ toggleReloadOnFormSubmit, product_id, name }) => {
   const [open, setOpen] = useState(false);
   const [userQuestion, setUserQuestion] = useState('');
   const [nickname, setNickname] = useState('');
@@ -46,6 +46,9 @@ const AddQuestion = ({ product_id, name }) => {
       email: email,
       product_id: product_id },
       headersAndParams)
+      .then(response => {
+        toggleReloadOnFormSubmit();
+      })
       .catch(err => {
         console.log(err);
       });
