@@ -31,7 +31,8 @@ const PrettoSlider = withStyles({
     borderRadius:0,
   },
   mark: {
-    backgroundColor: '#fff',
+    backgroundColor: '#FFFFFF',
+    opacity: 1,
     height: 10,
     width: 4,
     borderRadius:0,
@@ -46,7 +47,6 @@ const PrettoSlider = withStyles({
 const DescriptionRating =({ character, value }) => {
 
   const classes = useStyles();
-
   return (
     <Grid item container>
       <div className={classes.root}>
