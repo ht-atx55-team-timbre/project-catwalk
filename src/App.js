@@ -51,7 +51,7 @@ class App extends React.Component {
               {/* Q/A */}
               <QA product_id={this.state.product_id} name={this.state.name} />
               {/* Reviews/Ratings */}
-              <ReviewsAndRatings product_id={this.state.product_id} />
+              <ReviewsAndRatings product_id={this.state.product_id} name={this.state.name}/>
             </Grid>
             <Grid item xs={false} sm={2} />
           </Grid>

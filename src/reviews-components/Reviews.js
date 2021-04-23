@@ -8,6 +8,7 @@ import axios from 'axios';
 import ReviewsSort from './ReviewsSort';
 import ReviewCards from './ReviewCards';
 import ratingComponent from './ratingComponent';
+import ReviewSubmit from './ReviewSubmit';
 import API_KEY from '../config.js';
 
 const useStyles = makeStyles((theme) => ({
@@ -18,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Reviews = ({ product_id }) => {
+const Reviews = ({ product_id, name }) => {
   const [count, setCount] = useState(1)
   const [sort, setSort] = useState("relevant")
   const [results, setResults] = useState([])
@@ -77,10 +78,7 @@ const Reviews = ({ product_id }) => {
         />
         <ReviewCards results={results}/>
         <Grid item >
-          <ButtonGroup color="primary">
-            <Button onClick={handleCountChange}>More Reviews</Button>
-            <Button>Add Reviews +</Button>
-          </ButtonGroup>
+          <ReviewSubmit handleCountChange={handleCountChange} name={name}/>
         </Grid>
       </Grid>
     </Paper>
