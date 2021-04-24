@@ -27,11 +27,15 @@ const ProductImages = ({ images }) => {
 
   return (
     <Grid container direction="row">
-      <Grid item sm={2} lg={1}>
-        <StyleGallery images={images} handleImgChange={handleImgChange} />
+      <Grid item xs={2} sm={1}>
+        <StyleGallery
+          images={images}
+          handleImgChange={handleImgChange}
+          display={display}
+        />
       </Grid>
-      <Grid item xs={12} sm={10} lg={11}>
-        <Carousel animation="slide" autoPlay={false}>
+      <Grid item xs={10} sm={11}>
+        <Carousel animation="slide" autoPlay={false} indicators={false}>
           {images.photos.map((photo, idx) => {
             return (
               <Photo key={idx} item={photo} />

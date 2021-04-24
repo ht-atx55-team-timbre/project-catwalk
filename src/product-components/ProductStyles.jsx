@@ -88,7 +88,7 @@ export default function ProductStyles({ styles, handleStyleChange }) {
 
   useEffect(() => {
     handleStyleChange(selected);
-  })
+  }, [handleStyleChange, selected]);
 
   function handleSelection(e) {
     console.log(e.target.id);
