@@ -4,7 +4,7 @@ import API_KEY from '../../config.js';
 import { Grid, Button, ButtonGroup, Typography } from '@material-ui/core';
 import AddAnswer from '../AddQuestionAndAnswer/AddAnswer.jsx';
 
-const HelpfulQuestionHandler = ({ question, name }) => {
+const HelpfulQuestionHandler = ({ toggleAnswerReloadOnFormSubmit, product_id, question, name }) => {
   const [helpfulness, setHelpfulness] = useState(question.question_helpfulness);
   const [isClicked, setIsClicked] = useState(false);
 
@@ -42,7 +42,11 @@ const HelpfulQuestionHandler = ({ question, name }) => {
               <Typography>({helpfulness})</Typography>
             </Grid>
           </Button>
-          <AddAnswer question={question} name={name} />
+          <AddAnswer
+            toggleAnswerReloadOnFormSubmit={toggleAnswerReloadOnFormSubmit}
+            question={question}
+            name={name}
+          />
         </ButtonGroup>
       </Grid>
     </Grid>

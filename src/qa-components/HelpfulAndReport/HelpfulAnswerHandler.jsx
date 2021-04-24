@@ -29,21 +29,6 @@ const HelpfulAnswerHandler = ({ answer }) => {
   }
 
   return (
-    // <Grid>
-    //   <Typography>{`A: ${answer.body}`}</Typography>
-    //   <Typography>
-    //     {`by ${answer.answerer_name}, ${moment(answer.date).format('MMMM Do, YYYY')} | Helpful? `}
-    //     <span>
-    //       <Button>
-    //         <u id={answer.answer_id} onClick={handleHelpfulAnswer}>Yes</u>
-    //       </Button>
-    //     </span>
-    //     {` (${helpfulness}) | `}
-    //     <span>
-    //       <ReportAnswer answer_id={answer.answer_id}/>
-    //     </span>
-    //   </Typography>
-    // </Grid>
     <Grid>
       <Typography>{`A: ${answer.body}`}</Typography>
       <Grid container direction="row" alignItems="center">

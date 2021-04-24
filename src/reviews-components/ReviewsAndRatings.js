@@ -5,9 +5,9 @@ import Ratings from './Ratings';
 import Reviews from './Reviews';
 
 const ReviewsAndRatings = ({ product_id }) => {
-
+  product_id = 24157;
   return (
-    <Grid container spacing={3}>
+    <Grid container alignItems="flex-start" spacing={2}>
       <Grid item xs={12}>
         <Typography variant="h6" gutterBottom>
           RATINGS & REVIEWS
