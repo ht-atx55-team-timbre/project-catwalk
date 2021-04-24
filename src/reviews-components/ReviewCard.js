@@ -1,38 +1,39 @@
 import React from 'react';
-import { Grid, Typography } from '@material-ui/core';
-import { Button, ButtonGroup } from '@material-ui/core';
-import { Card, CardActions} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Grid } from '@material-ui/core';
+import { Card, CardContent } from '@material-ui/core';
 
-import CardInfo from './CardInfo'
+import CardInfo from './CardInfo';
+import CardHeader from './CardHeader';
+import CardResponse from './CardResponse';
+import CardRecommend from './CardRecommend';
+import CardAct from './CardAct'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    minWidth: 275,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-}));
-
-const ReviewCard = (porps) => {
-
-  const classes = useStyles();
+const ReviewCard = ({ review }) => {
+  const {body, date, helpfulness, photos, rating, recommend, response, review_id, reviewer_name, summary} = review;
 
   return (
-    <Grid item>
-      <Card className={classes.root} variant="outlined">
-        <CardInfo />
-        <CardActions>
-          <Typography>
-            Helpful?
-          </Typography>
-          <ButtonGroup variant="text" color="primary">
-            <Button>Yes(9)</Button>
-            <Button>Report</Button>
-          </ButtonGroup>
-        </CardActions>
+    <Grid item xs={12}>
+      <Card variant="outlined">
+        <CardContent>
+          <CardHeader
+            date={date}
+            rating={rating}
+            reviewer_name={reviewer_name}
+          />
+          <CardInfo
+            body={body}
+            summary={summary}
+            photos={photos}
+          />
+          <Grid container spacing={2}>
+            {recommend && <CardRecommend />}
+            {response && <CardResponse response={response} />}
+          </Grid>
+        </CardContent>
+        <CardAct
+          helpfulness={helpfulness}
+          review_id={review_id}
+        />
       </Card>
     </Grid>
   )

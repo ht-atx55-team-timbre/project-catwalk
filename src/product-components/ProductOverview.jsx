@@ -86,7 +86,7 @@ export default class ProductOverview extends React.Component {
             </Grid>
             <Grid item container direction="row" xs={12} sm={4}>
               <Grid item xs={12}>
-                <ProductInfo product={this.state.productData} />
+                <ProductInfo product={this.state.productData} id={this.state.productId} />
               </Grid>
               <Grid item xs={12}>
                 <ProductStyles styles={this.state.styleData} onClick={this.handleStyleChange} />
@@ -107,7 +107,7 @@ export default class ProductOverview extends React.Component {
         </Grid>
       );
     } else {
-      return <></>
+      return <></>;
     }
   }
 }
