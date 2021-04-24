@@ -27,11 +27,11 @@ const ProductImages = ({ images }) => {
 
   return (
     <Grid container direction="row">
-      <Grid item sm={2}>
+      <Grid item sm={2} lg={1}>
         <StyleGallery images={images} handleImgChange={handleImgChange} />
       </Grid>
-      <Grid item xs={12} sm={10}>
-        <Carousel animation="fade" autoPlay={false}>
+      <Grid item xs={12} sm={10} lg={11}>
+        <Carousel animation="slide" autoPlay={false}>
           {images.photos.map((photo, idx) => {
             return (
               <Photo key={idx} item={photo} />
@@ -60,6 +60,5 @@ const Photo = ({ item, idx }) => {
     </Card>
   )
 }
-
 
 export default ProductImages;
