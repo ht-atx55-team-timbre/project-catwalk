@@ -1,22 +1,16 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
 import { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
-  Paper,
-  CardActions,
   CardContent,
   Typography,
-  ButtonBase,
-  Box
+  ButtonBase
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
-    // boxSizing: 'border-box',
-    // minWidth: 300,
     width: '100%',
     fontSize: 12
   },
@@ -78,23 +72,30 @@ const useStyles = makeStyles((theme) => ({
     opacity: 0.4,
     transition: theme.transitions.create('opacity'),
   },
-
+  imageBackdropSelected: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    backgroundColor: theme.palette.common.white,
+    opacity: 0,
+    transition: theme.transitions.create('opacity'),
+  }
 }));
 
 export default function ProductStyles({ styles, handleStyleChange }) {
-  console.log('styles', styles);
-  const [selected, setSelected] = useState(styles[0]);
+  const [selected, setSelected] = useState(0);
   const classes = useStyles();
 
   useEffect(() => {
-    handleStyleChange(selected);
-  }, [handleStyleChange, selected]);
+    handleStyleChange(styles[selected]);
+  }, [handleStyleChange, styles, selected]);
 
   function handleSelection(e) {
-    console.log(e.target.id);
     for (let i = 0; i < styles.length; i++) {
       if (styles[i].style_id === Number(e.target.id)) {
-        setSelected(styles[i]);
+        setSelected(i);
         return;
       }
     }
@@ -104,37 +105,70 @@ export default function ProductStyles({ styles, handleStyleChange }) {
     <div className={classes.root}>
       <CardContent>
         <Typography className={classes.root}>
-          STYLE > {selected.name}
+          STYLE > {styles[selected].name}
         </Typography>
-        {styles.map((style, index) => (
-          <ButtonBase
-            focusRipple
-            key={index}
-            className={classes.image}
-            focusVisibleClassName={classes.focusVisible}
-            style={{
-              width: '40px',
-              height: '40px',
-              marginTop: '4px',
-              marginBottom: '4px',
-              marginRight: '8px'
-            }}
-            onClick={handleSelection}
-          >
-            <span
-              className={classes.imageSrc}
-              style={{
-                backgroundImage: `url(${style.photos[0].thumbnail_url})`,
-              }}
-            />
-            <span className={classes.imageBackdrop} />
-            <span
-              className={classes.imageButton}
-              id={style.style_id}
-            >
-            </span>
-          </ButtonBase>
-        ))}
+        {styles.map((style, idx) => {
+          if (idx === selected) {
+            return (
+              <ButtonBase
+                focusRipple
+                key={idx}
+                className={classes.image}
+                focusVisibleClassName={classes.focusVisible}
+                style={{
+                  width: '40px',
+                  height: '40px',
+                  marginRight: '6px',
+                  border: '2px solid black'
+                }}
+                onClick={handleSelection}
+              >
+                <span
+                  className={classes.imageSrc}
+                  style={{
+                    backgroundImage: `url(${style.photos[0].thumbnail_url})`,
+                  }}
+                />
+                <span className={classes.imageBackdropSelected} />
+                <span
+                  className={classes.imageButton}
+                  id={style.style_id}
+                >
+                </span>
+              </ButtonBase>
+            )
+          } else {
+            return (
+              <ButtonBase
+                focusRipple
+                key={idx}
+                className={classes.image}
+                focusVisibleClassName={classes.focusVisible}
+                style={{
+                  width: '40px',
+                  height: '40px',
+                  marginTop: '4px',
+                  marginBottom: '4px',
+                  marginRight: '8px'
+                }}
+                onClick={handleSelection}
+              >
+                <span
+                  className={classes.imageSrc}
+                  style={{
+                    backgroundImage: `url(${style.photos[0].thumbnail_url})`,
+                  }}
+                />
+                <span className={classes.imageBackdrop} />
+                <span
+                  className={classes.imageButton}
+                  id={style.style_id}
+                >
+                </span>
+              </ButtonBase>
+            )
+          }
+        })}
       </CardContent>
     </div >
   )

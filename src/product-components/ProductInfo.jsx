@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Paper,
-  CardActions,
   CardContent,
   Typography
 } from '@material-ui/core';
@@ -34,7 +33,6 @@ const ProductInfo = ({ product, id }) => {
   useEffect(() => {
     ratingComponent(id)
       .then(result => {
-        console.log('useEffect result', result)
         setRating(result[0]);
         setTotalReviews(result[1]);
       })
@@ -65,12 +63,3 @@ const ProductInfo = ({ product, id }) => {
 }
 
 export default ProductInfo;
-
-
-// import React from 'react';
-// import { makeStyles } from '@material-ui/core/styles';
-// import Card from '@material-ui/core/Card';
-// import CardActions from '@material-ui/core/CardActions';
-// import CardContent from '@material-ui/core/CardContent';
-// import Button from '@material-ui/core/Button';
-// import Typography from '@material-ui/core/Typography';

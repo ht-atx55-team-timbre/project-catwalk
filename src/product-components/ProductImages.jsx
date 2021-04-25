@@ -6,36 +6,41 @@ import ImageGallery from './ImageGallery.jsx';
 
 const useStyles = makeStyles({
   root: {
-    width: "100%",
-    boxSizing: "border-box"
+    width: '100%',
+    boxSizing: 'border-box'
   },
   media: {
     // height: 0,
-    paddingTop: "100%",
+    paddingTop: '100%',
   },
 });
 
 const ProductImages = ({ images }) => {
-  console.log('when does this re-render');
-  const [display, setDisplay] = useState(0)
+  const [selected, setSelected] = useState(0);
 
-  // useEffect()
-
-  function handleImgChange(display) {
-    setDisplay(display);
+  function handleImgChange(clicked) {
+    setSelected(clicked);
   }
 
   return (
-    <Grid container direction="row">
+    <Grid container direction='row'>
       <Grid item xs={2} sm={1}>
         <ImageGallery
           images={images}
           handleImgChange={handleImgChange}
-          display={display}
+          selected={selected}
         />
       </Grid>
       <Grid item xs={10} sm={11}>
-        <Carousel animation="slide" autoPlay={false} indicators={false} index={display}>
+        <Carousel
+          animation='slide'
+          autoPlay={false}
+          indicators={false}
+          index={selected}
+          onChange={(now, previous) => {
+            setSelected(now);
+          }}
+        >
           {images.photos.map((photo, idx) => {
             return (
               <Photo key={idx} item={photo} />
@@ -53,7 +58,7 @@ const Photo = ({ item, idx }) => {
   return (
     <Card
       className={classes.root}
-      variant="outlined"
+      variant='outlined'
     >
       <CardMedia
         alt={idx}
