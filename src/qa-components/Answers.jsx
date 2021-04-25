@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, Button } from '@material-ui/core';
 import _ from 'underscore';
 import axios from 'axios';
 import API_KEY from '../config.js';
 import HelpfulAnswerHandler from './HelpfulAndReport/HelpfulAnswerHandler.jsx';
-import { Button } from '@material-ui/core';
 
-const Answers = ({ question_id }) => {
+const Answers = ({ question_id, toggleAnswerReload }) => {
   const [answers, setAnswers] = useState([]);
   const [moreAnswers, setMoreAnswers] = useState([]);
   const [answersCount, setAnswersCount] = useState(2);
+  const [answerToggle, setAnswerToggle] = useState(true);
 
   // I use two requests here because I do not know the total amount of answers in the database.
   // The second get requests checks to see if there are any more answers left, if there are not
@@ -45,11 +45,19 @@ const Answers = ({ question_id }) => {
       .catch(err => {
         console.log(err);
       });
-  }, [question_id, answersCount]);
+  }, [question_id, answersCount, answerToggle]);
+
+  useEffect(() => {
+    setAnswerToggle(toggleAnswerReload);
+  }, [toggleAnswerReload])
 
   const handleLoadMoreClick = (event) => {
     setAnswersCount(answersCount + 2);
-  }
+  };
+
+  const handleCollapseClick = (event) => {
+    setAnswersCount(2);
+  };
 
   return (
     <Grid>
@@ -62,10 +70,16 @@ const Answers = ({ question_id }) => {
           </Grid>
         )}
       </Grid>
-      { (answers.length > 0 && answers.length !== moreAnswers.length) &&
-        <Grid>
+      { answers.length > 0 && answers.length !== moreAnswers.length
+        ? <Grid>
           <Button onClick={handleLoadMoreClick}>
             load more answers
+          </Button>
+        </Grid>
+        : answers.length > 2 &&
+        <Grid>
+          <Button onClick={handleCollapseClick}>
+            collapse answers
           </Button>
         </Grid>
       }

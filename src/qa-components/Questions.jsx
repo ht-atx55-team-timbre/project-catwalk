@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Button, ButtonGroup, Typography } from '@material-ui/core';
+import { Grid, Box, Button, Typography } from '@material-ui/core';
 import axios from 'axios';
 import _ from 'underscore';
 import API_KEY from '../config.js';
@@ -10,8 +10,9 @@ import AddQuestion from './AddQuestionAndAnswer/AddQuestion.jsx';
 const Questions = ({ product_id, name }) => {
   const [questions, setQuestions] = useState([]);
   const [moreQuestions, setMoreQuestions] = useState([]);
-  const [questionCount, setQuestionCount] = useState(2);
-
+  const [questionCount, setQuestionCount] = useState(4);
+  const [toggleQuestionReload, setToggleQuestionReload] = useState(true);
+  const [toggleAnswerReload, setToggleAnswerReload] = useState(true);
 
   // I use two requests here because I do not know the total amount of questions in the database.
   // The second get requests checks to see if there are any more questions left, if there are not
@@ -49,35 +50,53 @@ const Questions = ({ product_id, name }) => {
           console.log(err);
         });
     }
-  }, [product_id, questionCount]);
+  }, [product_id, questionCount, toggleQuestionReload]);
 
   const handleSubmitClick = (event) => {
     setQuestionCount(questionCount + 2);
   }
 
+  const toggleQuestionReloadOnFormSubmit = () => {
+    setToggleQuestionReload(!toggleQuestionReload);
+  }
+
+  const toggleAnswerReloadOnFormSubmit = () => {
+    setToggleAnswerReload(!toggleAnswerReload);
+  }
+
   return (
     <Grid>
-      <Grid>
-        {_.map(questions, question =>
-          <Grid key={question.question_id}>
-            <Grid container>
-              <Grid item xs={12} sm={9}>
-                <Typography>{`Q: ${question.question_body}`}</Typography>
-                <Answers question_id={question.question_id} />
-              </Grid>
-              <Grid item xs={12} sm={3}>
-                <HelpfulQuestionHandler question={question} name={name} />
+      <Box style={{maxHeight: '75vh', overflow: 'auto'}}>
+        <Grid>
+          {_.map(questions, question =>
+            <Grid key={question.question_id}>
+              <Grid container>
+                <Grid item xs={12} sm={9}>
+                  <Typography>{`Q: ${question.question_body}`}</Typography>
+                  <Answers toggleAnswerReload={toggleAnswerReload} question_id={question.question_id} />
+                </Grid>
+                <Grid item xs={12} sm={3}>
+                  <HelpfulQuestionHandler
+                    toggleAnswerReloadOnFormSubmit={toggleAnswerReloadOnFormSubmit}
+                    question={question}
+                    name={name}
+                  />
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
-        )}
-      </Grid>
-      <Grid container direction="row">
-        { questions.length !== moreQuestions.length &&
-          <Button variant="outlined" onClick={handleSubmitClick}>MORE ANSWERED QUESTIONS</Button>
-        }
-        <AddQuestion name={name} />
-      </Grid>
+          )}
+        </Grid>
+      </Box>
+        <Grid container direction="row">
+          { questions.length !== moreQuestions.length &&
+            <Button variant="outlined" onClick={handleSubmitClick}>MORE ANSWERED QUESTIONS</Button>
+          }
+          <AddQuestion
+            toggleQuestionReloadOnFormSubmit={toggleQuestionReloadOnFormSubmit}
+            product_id={product_id}
+            name={name}
+          />
+        </Grid>
     </Grid>
   )
 }
