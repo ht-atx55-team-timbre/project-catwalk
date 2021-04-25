@@ -153,8 +153,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function StyleGallery({ images }) {
+export default function ImageGallery({ images, handleImgChange }) {
   const classes = useStyles();
+
+  function handleClick(e) {
+    handleImgChange(Number(e.target.id));
+  }
 
   return (
       <div className={classes.root}>
@@ -167,6 +171,7 @@ export default function StyleGallery({ images }) {
             style={{
               width: '100%',
             }}
+            onClick={handleClick}
           >
             <span
               className={classes.imageSrc}

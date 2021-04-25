@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Carousel from 'react-material-ui-carousel';
 import { Card, CardMedia, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import StyleGallery from './StyleGallery.jsx';
+import ImageGallery from './ImageGallery.jsx';
 
 const useStyles = makeStyles({
   root: {
@@ -17,25 +17,25 @@ const useStyles = makeStyles({
 
 const ProductImages = ({ images }) => {
   console.log('when does this re-render');
-  const [display, setDisplay] = useState(images.photos[0])
+  const [display, setDisplay] = useState(0)
 
   // useEffect()
 
-  function handleImgChange() {
-    console.log('clicked!');
+  function handleImgChange(display) {
+    setDisplay(display);
   }
 
   return (
     <Grid container direction="row">
       <Grid item xs={2} sm={1}>
-        <StyleGallery
+        <ImageGallery
           images={images}
           handleImgChange={handleImgChange}
           display={display}
         />
       </Grid>
       <Grid item xs={10} sm={11}>
-        <Carousel animation="slide" autoPlay={false} indicators={false}>
+        <Carousel animation="slide" autoPlay={false} indicators={false} index={display}>
           {images.photos.map((photo, idx) => {
             return (
               <Photo key={idx} item={photo} />
