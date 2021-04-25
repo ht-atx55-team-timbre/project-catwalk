@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Carousel from 'react-material-ui-carousel';
 import { Card, CardMedia, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,13 +10,13 @@ const useStyles = makeStyles({
     boxSizing: 'border-box'
   },
   media: {
-    // height: 0,
     paddingTop: '100%',
   },
 });
 
-const ProductImages = ({ images }) => {
-  const [selected, setSelected] = useState(0);
+const ProductImages = ({ images, initial }) => {
+  const [selected, setSelected] = useState(initial);
+  console.log(selected);
 
   function handleImgChange(clicked) {
     setSelected(clicked);

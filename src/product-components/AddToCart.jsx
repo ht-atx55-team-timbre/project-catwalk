@@ -79,7 +79,6 @@ export default class Cart extends React.Component {
         console.info(res.body);
         this.getCartContents();
       })
-      // .then(res => console.info(res))
       .catch(err => console.error(err));
   }
 
@@ -115,17 +114,3 @@ export default class Cart extends React.Component {
     )
   }
 };
-
-
-
-
-
-
-// axios.put(url, { report: false }, headersAndParams)
-// .then(response => {
-//   setIsClicked(false);
-//   setReportText('Report');
-// })
-// .catch(err => {
-//   console.log(err, 'error marking answer as unreported');
-// })sss

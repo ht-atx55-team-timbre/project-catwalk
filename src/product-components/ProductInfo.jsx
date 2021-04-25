@@ -23,9 +23,13 @@ const useStyles = makeStyles({
   pos: {
     marginBottom: 12,
   },
+  discount: {
+    marginBottom: 12,
+    color: 'red'
+  }
 });
 
-const ProductInfo = ({ product, id }) => {
+const ProductInfo = ({ product, id, style }) => {
   const classes = useStyles();
   const [rating, setRating] = useState(0);
   const [totalReviews, setTotalReviews] = useState(0);
@@ -52,9 +56,21 @@ const ProductInfo = ({ product, id }) => {
         <Typography variant="h5" component="h2">
           {product.name}
         </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          {product.default_price}
-        </Typography>
+        {style.sale_price ?
+          <div>
+            <Typography className={classes.discount}>
+              <strike>{style.original_price}</strike>
+            </Typography>
+            <Typography className={classes.pos} color="textSecondary">
+              {style.sale_price} <em>on sale!</em>
+            </Typography>
+          </div> :
+          <div>
+            <Typography className={classes.pos} color="textSecondary">
+              {style.original_price}
+            </Typography>
+          </div>
+        }
         <Typography variant="body2" component="p">
         </Typography>
       </CardContent>

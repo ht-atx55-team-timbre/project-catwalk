@@ -19,6 +19,7 @@ export default class ProductOverview extends React.Component {
       productData: null,
       currentStyle: null,
       styleData: null,
+      initialPhoto: 0,
       isUpdated: false
     }
     this.handleStyleChange = this.handleStyleChange.bind(this);
@@ -66,9 +67,10 @@ export default class ProductOverview extends React.Component {
       .catch(err => console.error(err));
   }
 
-  handleStyleChange(newStyle) {
+  handleStyleChange(newStyle, initial) {
     this.setState({
-      currentStyle: newStyle
+      currentStyle: newStyle,
+      initialPhoto: initial
     })
   }
 
@@ -78,13 +80,14 @@ export default class ProductOverview extends React.Component {
         <Grid container direction="column">
           <Grid container direction="row">
             <Grid item xs={12} sm={8}>
-              <ProductImages images={this.state.currentStyle} />
+              <ProductImages images={this.state.currentStyle} initial={this.state.initialPhoto} />
             </Grid>
             <Grid item container direction="row" xs={12} sm={4}>
               <Grid item xs={12}>
                 <ProductInfo
                   product={this.state.productData}
                   id={this.state.productId}
+                  style={this.state.currentStyle}
                 />
               </Grid>
               <Grid item xs={12}>
