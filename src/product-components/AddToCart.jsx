@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import API_KEY from '../config.js';
 
-const styles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
       margin: theme.spacing(1),

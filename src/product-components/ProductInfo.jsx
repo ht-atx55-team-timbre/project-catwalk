@@ -59,10 +59,10 @@ const ProductInfo = ({ product, id, style }) => {
         {style.sale_price ?
           <div>
             <Typography className={classes.discount}>
-              <strike>{style.original_price}</strike>
+              {style.sale_price} <em>best price for you!</em>
             </Typography>
             <Typography className={classes.pos} color="textSecondary">
-              {style.sale_price} <em>on sale!</em>
+              <strike>{style.original_price}</strike>
             </Typography>
           </div> :
           <div>

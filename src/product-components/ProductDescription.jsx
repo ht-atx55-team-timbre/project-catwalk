@@ -1,5 +1,4 @@
 import React from 'react';
-// import { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Paper,
@@ -10,7 +9,6 @@ import {
 const useStyles = makeStyles({
   root: {
     minWidth: '100%',
-    // marginTop: '10px'
   },
   minimal: {
     display: "inline-block",
