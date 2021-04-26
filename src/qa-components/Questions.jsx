@@ -7,10 +7,11 @@ import Answers from './Answers.jsx';
 import HelpfulQuestionHandler from './HelpfulAndReport/HelpfulQuestionHandler';
 import AddQuestion from './AddQuestionAndAnswer/AddQuestion.jsx';
 import sortingFunctions from './SortingFunctions.js';
+import SearchBarComponent from './SearchBarComponent.jsx';
 
 const Questions = ({ product_id, name }) => {
   const [questions, setQuestions] = useState([]);
-  const [moreQuestions, setMoreQuestions] = useState([]);
+  const [displayedQuestions, setDisplayedQuestions] = useState([]);
   const [questionCount, setQuestionCount] = useState(4);
   const [toggleQuestionReload, setToggleQuestionReload] = useState(true);
   const [toggleAnswerReload, setToggleAnswerReload] = useState(true);
@@ -19,39 +20,23 @@ const Questions = ({ product_id, name }) => {
   // The second get requests checks to see if there are any more questions left, if there are not
   // any, then I know not to display the get more questions button on lines 76-78
   useEffect(() => {
-    if (product_id) {
-      axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hratx/qa/questions', {
-        headers: {
-          Authorization: API_KEY
-        },
-        params: {
-          product_id: product_id,
-          count: questionCount
-        }
+    axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hratx/qa/questions', {
+      headers: {
+        Authorization: API_KEY
+      },
+      params: {
+        product_id: product_id,
+        count: 1000
+      }
+    })
+      .then(questions => {
+        const sortedByAnswered = sortingFunctions.sortByAnswered(questions.data.results);
+        setQuestions(sortedByAnswered);
+        setDisplayedQuestions(sortedByAnswered.slice(0, questionCount))
       })
-        .then(questions => {
-          const sortedByAnswered = sortingFunctions.sortByAnswered(questions.data.results);
-          setQuestions(sortedByAnswered);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-      axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hratx/qa/questions', {
-        headers: {
-          Authorization: API_KEY
-        },
-        params: {
-          product_id: product_id,
-          count: questionCount + 2
-        }
-      })
-        .then(questions => {
-          setMoreQuestions(questions.data.results);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
+      .catch(err => {
+        console.log(err);
+      });
   }, [product_id, questionCount, toggleQuestionReload]);
 
   const handleSubmitClick = (event) => {
@@ -68,21 +53,31 @@ const Questions = ({ product_id, name }) => {
 
   return (
     <Grid>
-      <Box style={{maxHeight: '75vh', overflow: 'auto'}}>
+      <SearchBarComponent/>
+      <Box style={{maxHeight: '80vh', overflow: 'auto'}}>
         <Grid>
-          {_.map(questions, question =>
+          {_.map(displayedQuestions, question =>
             <Grid key={question.question_id}>
               <Grid container>
                 <Grid item xs={12} sm={9}>
-                  <Typography>{<b>Q: {question.question_body}</b>}</Typography>
-                  <Answers toggleAnswerReload={toggleAnswerReload} question_id={question.question_id} />
+                  <Box pt={2}>
+                    <Typography>{<b>Q: {question.question_body}</b>}</Typography>
+                  </Box>
+                  <Box pt={2}>
+                    <Answers
+                      toggleAnswerReload={toggleAnswerReload}
+                      question_id={question.question_id}
+                    />
+                  </Box>
                 </Grid>
                 <Grid item xs={12} sm={3}>
-                  <HelpfulQuestionHandler
-                    toggleAnswerReloadOnFormSubmit={toggleAnswerReloadOnFormSubmit}
-                    question={question}
-                    name={name}
-                  />
+                  <Box pt={2}>
+                    <HelpfulQuestionHandler
+                      toggleAnswerReloadOnFormSubmit={toggleAnswerReloadOnFormSubmit}
+                      question={question}
+                      name={name}
+                    />
+                  </Box>
                 </Grid>
               </Grid>
             </Grid>
@@ -90,8 +85,10 @@ const Questions = ({ product_id, name }) => {
         </Grid>
       </Box>
         <Grid container direction="row">
-          { questions.length !== moreQuestions.length &&
-            <Button variant="outlined" onClick={handleSubmitClick}>MORE ANSWERED QUESTIONS</Button>
+          { questions.length !== displayedQuestions.length &&
+            <Box pr={2}>
+              <Button variant="outlined" onClick={handleSubmitClick}>MORE ANSWERED QUESTIONS</Button>
+            </Box>
           }
           <AddQuestion
             toggleQuestionReloadOnFormSubmit={toggleQuestionReloadOnFormSubmit}
