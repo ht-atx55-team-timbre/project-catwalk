@@ -6,6 +6,7 @@ import API_KEY from '../config.js';
 import Answers from './Answers.jsx';
 import HelpfulQuestionHandler from './HelpfulAndReport/HelpfulQuestionHandler';
 import AddQuestion from './AddQuestionAndAnswer/AddQuestion.jsx';
+import sortingFunctions from './SortingFunctions.js';
 
 const Questions = ({ product_id, name }) => {
   const [questions, setQuestions] = useState([]);
@@ -29,7 +30,8 @@ const Questions = ({ product_id, name }) => {
         }
       })
         .then(questions => {
-          setQuestions(questions.data.results);
+          const sortedByAnswered = sortingFunctions.sortByAnswered(questions.data.results);
+          setQuestions(sortedByAnswered);
         })
         .catch(err => {
           console.log(err);
@@ -72,7 +74,7 @@ const Questions = ({ product_id, name }) => {
             <Grid key={question.question_id}>
               <Grid container>
                 <Grid item xs={12} sm={9}>
-                  <Typography>{`Q: ${question.question_body}`}</Typography>
+                  <Typography>{<b>Q: {question.question_body}</b>}</Typography>
                   <Answers toggleAnswerReload={toggleAnswerReload} question_id={question.question_id} />
                 </Grid>
                 <Grid item xs={12} sm={3}>

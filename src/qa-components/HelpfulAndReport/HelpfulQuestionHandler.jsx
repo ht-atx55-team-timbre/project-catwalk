@@ -38,7 +38,7 @@ const HelpfulQuestionHandler = ({ toggleAnswerReloadOnFormSubmit, product_id, qu
         <ButtonGroup variant="text" aria-label="text primary button group">
           <Button>
             <Grid container direction="row">
-              <u id={question.question_id} onClick={handleHelpfulQuestion}>Yes</u>
+              <Typography><u id={question.question_id} onClick={handleHelpfulQuestion}>Yes</u>&nbsp;</Typography>
               <Typography>({helpfulness})</Typography>
             </Grid>
           </Button>

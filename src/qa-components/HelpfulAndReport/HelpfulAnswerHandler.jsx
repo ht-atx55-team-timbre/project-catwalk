@@ -30,14 +30,17 @@ const HelpfulAnswerHandler = ({ answer }) => {
 
   return (
     <Grid>
-      <Typography>{`A: ${answer.body}`}</Typography>
+      <Grid container="row">
+        <Typography><b>A:&nbsp;</b></Typography>
+        <Typography>{`${answer.body}`}</Typography>
+      </Grid>
       <Grid container direction="row" alignItems="center">
-        <Typography>
-          by {answer.answerer_name}, {moment(answer.date).format('MMMM Do, YYYY')} | Helpful?
-        </Typography>
         <ButtonGroup variant="text" aria-label="text primary button group">
+          <Button style={{textTransform: "none"}} disabled>
+            by {answer.answerer_name}, {moment(answer.date).format('MMMM Do, YYYY')} | Helpful?
+          </Button>
           <Button>
-            <u id={answer.answer_id} onClick={handleHelpfulAnswer}>Yes</u>
+            <Typography><u id={answer.answer_id} onClick={handleHelpfulAnswer}>Yes</u>&nbsp;</Typography>
             <Typography>({helpfulness})</Typography>
           </Button>
           <ReportAnswer answer_id={answer.answer_id} />
