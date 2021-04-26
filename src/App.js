@@ -36,17 +36,27 @@ class App extends React.Component {
   render() {
     if (this.state.product_id) {
       return (
-        <Grid container direction="column">
-          <Grid item>
-            {/* Header component will go here */}
-            <h1>This will be the header</h1>
+        <Grid container direction='column'>
+          <Grid container direction='row'>
+            <Grid item xs={false} sm={1} />
+            <Grid item xs={12} sm={11}>
+              {/* Header component will go here */}
+              <h1>This will be the header</h1>
+            </Grid>
+            <Grid item xs={false} sm={1} />
+          </Grid>
+          <Grid item container direction='row'>
+            <Grid item xs={false} sm={1} />
+            <Grid item xs={12} sm={10}>
+              <ProductOverview product={this.state.product_id} />
+              <h1>This will be for the Product Overview</h1>
+            </Grid>
+            <Grid item xs={false} sm={1} />
           </Grid>
           <Grid item container>
             <Grid item xs={false} sm={2} />
             <Grid item xs={12} sm={8}>
-              <ProductOverview product={this.state.product_id} />
-              <h1>This will be for the Product Overview</h1>
-              <Related product_id={this.state.product_id}/>
+              <Related product_id={this.state.product_id} />
               <h1>This will be for the Related Items</h1>
               {/* Q/A */}
               <QA product_id={this.state.product_id} name={this.state.name} />
