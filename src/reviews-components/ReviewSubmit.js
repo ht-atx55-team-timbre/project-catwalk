@@ -1,78 +1,87 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Grid, Paper } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { Button, ButtonGroup } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Rating from '@material-ui/lab/Rating';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-import axios from 'axios';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 
-import API_KEY from '../config.js';
+import getCharacteristics from './getCharacteristics';
+import postForm from './review-form/postForm'
+import FormRating from './review-form/FormRating'
+import FormRecommend from './review-form/FormRecommend'
+import FormName from './review-form/FormName'
+import FormEmail from './review-form/FormEmail'
+import FormCharacteristics from './review-form/FormCharacteristics'
+import FormSummary from './review-form/FormSummary'
+import FormBody from './review-form/FormBody'
+import FormUpload from './review-form/FormUpload'
+import FormImages from './review-form/FormImages'
+import postDataHelper from './review-form/postDataHelper'
 
-const ReviewSubmit = ({ handleCountChange, name }) => {
+const ReviewSubmit = ({ name, product_id, setAddReview, open, setOpen}) => {
 
-  const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState('female');
+  const [recommend, setRecommend] = useState(true);
+  const [rating, setRating] = useState(0);
+  const [userName, setUserName] = useState(0);
+  const [email, setEmail] = useState('')
+  const [summary, setSummary] = useState('');
+  const [body, setBody] = useState('');
+  const [characteristics, setCharacteristics] = useState({});
+  const [files, setFile] = useState([]);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  useEffect(()=> {
+    getCharacteristics(product_id)
+      .then(characteristics => setCharacteristics(characteristics))
+  }, [])
 
   const handleClose = () => {
     setOpen(false);
   };
 
+  const handleSubmit = () => {
+    setOpen(false);
+    setAddReview(true);
+    const data = postDataHelper(product_id, rating, summary, body, recommend, userName, email, files, characteristics)
+    postForm(data);
+  }
 
   const handleChange = (event) => {
-    setValue(event.target.value);
+    if (event.target.name in characteristics) {
+      characteristics[event.target.name]['value'] = event.target.value
+      setCharacteristics({...characteristics})
+    }
+    if (event.target.name === 'files') {
+      setFile([...files, URL.createObjectURL(event.target.files[0])])
+    }
   };
 
   return (
-    <ButtonGroup color="primary">
-      <Button onClick={handleCountChange}>More Reviews</Button>
-      <Button color="primary" onClick={handleClickOpen}>Add Reviews +</Button>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Write Your Review</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            About the {name}
-          </DialogContentText>
-          <Rating />
-            <FormLabel component="legend">Gender</FormLabel>
-            <RadioGroup row aria-label="gender" name="gender1" value={value} onChange={handleChange}>
-              <FormControlLabel value="female" control={<Radio />} label="Female" />
-              <FormControlLabel value="male" control={<Radio />} label="Male" />
-              <FormControlLabel value="other" control={<Radio />} label="Other" />
-            </RadioGroup>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Email Address"
-            type="email"
-            fullWidth
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleClose} color="primary">
-            Subscribe
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </ButtonGroup>
+    <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth={'lg'}>
+      <DialogTitle id="form-dialog-title">Write Your Review</DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          About the {name}
+        </DialogContentText>
+        <Grid container>
+          <Grid item container spacing={2} xs={5}>
+            <FormRating rating={rating} setRating={setRating} />
+            <FormRecommend recommend={recommend} setRecommend={setRecommend} />
+            <FormCharacteristics characteristics={characteristics} handleChange={handleChange} />
+          </Grid>
+          <Grid item container spacing={2} xs={7}>
+            <FormName setUserName={setUserName} />
+            <FormEmail setEmail={setEmail} />
+            <FormSummary setSummary={setSummary} />
+            <FormBody setBody={setBody} />
+          </Grid>
+          <FormUpload handleChange={handleChange} />
+          <FormImages files={files} />
+        </Grid>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose} color="primary">Cancel</Button>
+        <Button onClick={handleSubmit} color="primary">Submit</Button>
+      </DialogActions>
+    </Dialog>
   )
 }
 

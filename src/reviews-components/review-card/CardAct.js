@@ -5,7 +5,7 @@ import { Typography } from '@material-ui/core';
 import { Button, ButtonGroup } from '@material-ui/core';
 import axios from 'axios';
 
-import API_KEY from '../config.js';
+import API_KEY from '../../config.js';
 
 const CardAct = ({ helpfulness, review_id }) => {
   const [select, setSelect] = useState(true)

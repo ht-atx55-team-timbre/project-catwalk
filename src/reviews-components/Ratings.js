@@ -4,11 +4,12 @@ import { Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 
-import AverageRating from './AverageRating';
-import StarCounts from './StarCounts';
-import DescriptionRatings from './DescriptionRatings';
-import getRatings from './getRatings';
-import getRating from './getRating';
+import AverageRating from './ratings/AverageRating';
+import StarCounts from './ratings/StarCounts';
+import DescriptionRatings from './ratings/DescriptionRatings';
+import getRatings from './ratings/getRatings';
+import getCharacteristics from './getCharacteristics';
+import getRating from './ratings/getRating';
 import API_KEY from '../config.js';
 
 const useStyles = makeStyles((theme) => ({
@@ -37,9 +38,7 @@ const Ratings = ({ product_id }) => {
       }
     })
       .then(res => {
-        const { characteristics, recommended} = res.data;
-        setCharacteristics(characteristics);
-        setRecommended(recommended);
+        setRecommended(res.data.recommended);
       })
       .catch((err) => {
         console.log(err, 'error getting reviews metadate for the product id');
@@ -47,7 +46,12 @@ const Ratings = ({ product_id }) => {
     getRatings(product_id)
       .then(ratings => setRatings(ratings))
       .catch((err) => {
-        console.log(err, 'error getting reviews metadate for the product id');
+        console.log(err, 'error getting reviews ratings for the product id');
+      });
+    getCharacteristics(product_id)
+      .then(characteristics => setCharacteristics(characteristics))
+      .catch((err) => {
+        console.log(err, 'error getting reviews characteristics for the product id');
       });
   }, [product_id])
 

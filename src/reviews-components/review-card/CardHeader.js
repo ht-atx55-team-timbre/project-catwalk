@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import moment from 'moment';
 
-import StarComponent from './StarComponent';
+import StarComponent from '../StarComponent';
 
 const CardHeader = ({ rating, reviewer_name, date }) => {
 
