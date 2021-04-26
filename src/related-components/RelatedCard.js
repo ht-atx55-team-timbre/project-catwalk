@@ -6,14 +6,14 @@ import StarRoundedIcon from "@material-ui/icons/StarRounded";
 import { IconButton } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import request from "./Requests";
-
+import ratingComponent from '../reviews-components/ratingComponent';
 
 function RelatedCard({ item }) {
   const classes = useStyles();
 
   const [product, setProduct] = useState({
     general: [],
-    styles: []
+    styles: ''
   });
 
   useEffect(() => {
@@ -25,7 +25,6 @@ function RelatedCard({ item }) {
     const styleData = await request.get(`/${item}/styles`);
     // const reviewData = await request.get()
     let stylePhoto = styleData.data.results[0].photos[0].url;
-    console.log(styleData);
     setProduct({ general: productData.data, styles: stylePhoto });
   };
 
