@@ -19,7 +19,8 @@ export default class ProductOverview extends React.Component {
       productData: null,
       currentStyle: null,
       styleData: null,
-      isUpdated: false
+      initialPhoto: 0,
+      isUpdated: false,
     }
     this.handleStyleChange = this.handleStyleChange.bind(this);
   }
@@ -32,7 +33,6 @@ export default class ProductOverview extends React.Component {
         }
       })
       .then(response => {
-        // console.log(response);
         var styles = response.data.results;
         this.setState({
           styleData: styles,
@@ -47,7 +47,6 @@ export default class ProductOverview extends React.Component {
         if (this.state.styleData && this.state.productData) {
           this.setState({ isUpdated: true });
         }
-        // console.log('.get styles data', this.state.styleData, this.state.currentStyle);
       })
       .catch(err => console.error(err));
 
@@ -58,21 +57,20 @@ export default class ProductOverview extends React.Component {
         }
       })
       .then(response => {
-        // console.log(response);
         this.setState({
           productData: response.data,
         })
         if (this.state.styleData && this.state.productData) {
           this.setState({ isUpdated: true });
         }
-        // console.log('.get product data', this.state.productData);
       })
       .catch(err => console.error(err));
   }
 
-  handleStyleChange(event) {
+  handleStyleChange(newStyle, initial) {
     this.setState({
-      currentStyle: 'placeholder: newStyle'
+      currentStyle: newStyle,
+      initialPhoto: initial
     })
   }
 
@@ -81,15 +79,22 @@ export default class ProductOverview extends React.Component {
       return (
         <Grid container direction="column">
           <Grid container direction="row">
-            <Grid item xs={12} sm={8}>
-              <ProductImages images={this.state.styleData} onClick={this.handleStyleChange} />
+            <Grid item xs={12} md={8}>
+              <ProductImages images={this.state.currentStyle} initial={this.state.initialPhoto} />
             </Grid>
-            <Grid item container direction="row" xs={12} sm={4}>
+            <Grid item container direction="row" xs={12} md={4}>
               <Grid item xs={12}>
-                <ProductInfo product={this.state.productData} id={this.state.productId} />
+                <ProductInfo
+                  product={this.state.productData}
+                  id={this.state.productId}
+                  style={this.state.currentStyle}
+                />
               </Grid>
               <Grid item xs={12}>
-                <ProductStyles styles={this.state.styleData} onClick={this.handleStyleChange} />
+                <ProductStyles
+                  styles={this.state.styleData}
+                  handleStyleChange={this.handleStyleChange}
+                />
               </Grid>
               <Grid item xs={12}>
                 <Cart currentStyle={this.state.currentStyle} />
