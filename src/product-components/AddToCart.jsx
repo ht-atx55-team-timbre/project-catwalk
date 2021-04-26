@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
+  Grid,
   CardContent,
   Button,
   Menu,
@@ -17,70 +18,40 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const Cart = ({ currentStyle }) => {
+  const classes = useStyles();
 
-export default class Cart extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      cartContents: [],
-      sku: null,
-      quantity: null,
-      anchorEl: null,
-    }
-    this.addToCart = this.addToCart.bind(this);
-    this.handleSKUChange = this.handleSKUChange.bind(this);
-    this.handleCountChange = this.handleCountChange.bind(this);
-    this.createQuantity = this.createQuantity.bind(this);
-    this.getCartContents = this.getCartContents.bind(this);
-    this.postToCart = this.postToCart.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.handleClose = this.handleClose.bind(this);
+  const [cart, setCart] = useState([]);
+  const [sku, setSKU] = useState(null);
+  const [quantity, setQuantity] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const skus = currentStyle.skus;
+
+  const addToCart = () => {
+    postToCart();
+    setSKU(null);
+    setQuantity(null);
   }
 
-  componentDidMount() {
-    this.getCartContents();
+  const handleSKUChange = (e) => {
+    console.log('sku event', e.target.value);
+    setSKU(e.target.value);
   }
 
-  handleClick(e) {
-    this.setState({
-      anchorEl: e.target
-    })
+  const handleQtyChange = (e) => {
+    console.log('qty event', e.target.value);
+    setQuantity(e.target.value);
   }
 
-  handleClose() {
-    this.setState({
-      anchorEl: null
-    })
-  }
-
-  addToCart(e) {
-    e.preventDefault();
-    this.postToCart();
-  };
-
-  handleSKUChange(e) {
-    this.setState({
-      sku: e.target.id
-    });
-    console.log('sku change', this.state.sku);
-  }
-
-  handleCountChange(e) {
-    console.log('count change', this.state.count)
-    this.setState({
-      count: e.target.id
-    })
-  }
-
-  createQuantity(quantity) {
-    var array = [];
-    for (var i = 1; i <= quantity; i++) {
+  const createQuantity = (quantity) => {
+    let array = [];
+    for (let i = 1; i <= quantity; i++) {
       array.push(i);
     }
     return array;
   }
 
-  getCartContents() {
+  const getCartContents = useCallback(() => {
     axios
       .get(`https://app-hrsei-api.herokuapp.com/api/fec2/hratx/cart`, {
         headers: {
@@ -88,136 +59,145 @@ export default class Cart extends React.Component {
         }
       })
       .then(response => {
-        this.setState({
-          cartContents: response.data
-        });
-        console.log(this.state.cartContents);
+        console.log('response', response.data);
+        setCart(response.data);
+        // console.log('cart', cart);
+      })
+      .then(response => {
+        console.log('cart', cart);
       })
       .catch(err => console.error(err));
-  }
+  }, [cart, setCart]);
 
-  postToCart() {
-    if (this.state.sku && this.state.count) {
+  const postToCart = () => {
+    if (sku && quantity) {
       axios({
         method: 'post',
         url: `https://app-hrsei-api.herokuapp.com/api/fec2/hratx/cart`,
         data: {
-          sku_id: this.state.sku,
-          count: this.state.count
+          sku_id: sku,
+          count: quantity
         },
         headers: {
           Authorization: API_KEY
         }
       })
         .then(res => {
-          console.info(res.body);
-          this.getCartContents();
+          getCartContents();
         })
         .catch(err => console.error(err));
     }
   }
 
-  render() {
-    var skus = this.props.currentStyle.skus;
-    return (
-      <div className='root' display='inline'>
-        <CardContent>
-          {/* <Typography> */}
-          {/* <form> */}
-          {/* <select id="size" name="size" onChange={this.handleSKUChange}> */}
-          <Button
-            variant='contained'
-            aria-controls='select-size'
-            aria-haspopup='true'
-            onClick={this.handleClick}
-          >
-            Select A Size
-          </Button>
-          <Menu
-            id='select-size'
-            anchorEl={this.state.anchorEl}
-            keepMounted
-            open={Boolean(this.state.anchorEl)}
-            onClose={this.handleClose}
-          >
-            {Object.keys(skus).map((sku, idx) => {
-              return (
-                <MenuItem
-                  key={idx}
-                  onClick={this.handleSKUChange}
-                  id={sku}
-                >
-                  {skus[sku].size}
-                </MenuItem>
-                // <span key={idx} id={sku} onChange={this.handleSKUChange}>{skus[sku].size}</span>
-              );
-            })}
-          </Menu>
-          {/* <option value="default">Select A Size</option>
-                {Object.keys(skus).map((sku, idx) => {
-                  return (
-                    <option key={idx} value={sku}>{skus[sku].size}</option>
-                    // <span key={idx} id={sku} onChange={this.handleSKUChange}>{skus[sku].size}</span>
-                  );
-                })}
-              </select>
-              <select id="qty" name="qty" onChange={this.handleCountChange}> */}
-          {this.state.sku ?
-            <div className='root'>
+  const handleClick = (e) => {
+    setAnchorEl(e.target);
+    console.log('sku & qty', sku, quantity);
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null);
+    console.log('sku & qty', sku, quantity);
+  }
+
+  // useEffect(() => {
+  //   setCart();
+  // }, [setCart]);
+
+
+  return (
+    <div className={classes.root} display='inline'>
+      <CardContent>
+        <Grid container direction='column'>
+          <Grid container direction='row'>
+            <Grid item xs={6}>
               <Button
-                aria-controls='select-qty'
+                variant='contained'
+                aria-controls='select-size'
                 aria-haspopup='true'
                 color='primary'
-                onClick={this.handleClick}>
-                Select Qty
+                onClick={handleClick}
+              >
+                Select A Size
               </Button>
               <Menu
-                id='select-qty'
-                anchorEl={this.state.anchorEl}
+                id='select-size'
+                anchorEl={anchorEl}
                 keepMounted
-                open={Boolean(this.state.anchorEl)}
-                onClose={this.handleClose}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
               >
-                {this.createQuantity(skus[this.state.sku].quantity).map((number, idx) => {
+                {Object.keys(skus).map((sku, idx) => {
                   return (
                     <MenuItem
                       key={idx}
-                      onClick={this.handleCountChange}
-                      id={number}
+                      onClick={handleSKUChange}
+                      value={sku}
                     >
-                      {number}
+                      {skus[sku].size}
                     </MenuItem>
-                  )
+                  );
                 })}
               </Menu>
-            </div> :
-            // this.createQuantity(skus[this.state.sku].quantity).map((number, idx) => {
-            //   return (
-            //     <option key={idx} value={number}>{number}</option>
-            //   )
-            // })
-            <Button
-              variant='contained'
-              color='primary'
-              disabled
-            >
-              Select Qty
+            </Grid>
+            <Grid item xs={6}>
+              {sku ?
+                <div className={classes.root}>
+                  <Button
+                    variant='contained'
+                    aria-controls='select-qty'
+                    aria-haspopup='true'
+                    color='secondary'
+                    onClick={handleClick}
+                  >
+                    Select Qty
+                </Button>
+                  <Menu
+                    id='select-qty'
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClick={handleClose}
+                  >
+                    {createQuantity(skus[sku].quantity).map((number, idx) => {
+                      return (
+                        <MenuItem
+                          key={idx}
+                          onClick={handleQtyChange}
+                          value={number}
+                        >
+                          {number}
+                        </MenuItem>
+                      )
+                    })}
+                  </Menu>
+                </div> :
+                <div>
+                  <Button
+                    variant='contained'
+                    color='primary'
+                    disabled
+                  >
+                    Select Qty
+                </Button>
+                </div>
+              }
+            </Grid>
+          </Grid>
+          <Grid container direction='row' item xs={12}>
+            <div>
+              <Button
+                variant='contained'
+                color='primary'
+                onClick={addToCart}
+              >
+                Add To Cart
             </Button>
-          }
-          {/* </select> */}
-          <Button
-            variant='contained'
-            color='primary'
-            onClick={this.addToCart}
-          >
-            Add To Cart
-          </Button>
-          {/* <input type="submit" id="add-cart" value="Add To Cart" onClick={this.addToCart} /> */}
-          {/* <button type="button" id="view-cart">View Cart</button> */}
-          {/* </form> */}
-          {/* </Typography> */}
-        </CardContent>
-      </div>
-    )
-  }
-};
+            </div>
+          </Grid>
+        </Grid>
+      </CardContent>
+    </div>
+  );
+}
+
+export default Cart;

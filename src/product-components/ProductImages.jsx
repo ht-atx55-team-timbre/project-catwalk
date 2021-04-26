@@ -16,7 +16,6 @@ const useStyles = makeStyles({
 
 const ProductImages = ({ images, initial }) => {
   const [selected, setSelected] = useState(initial);
-  console.log(selected);
 
   function handleImgChange(clicked) {
     setSelected(clicked);
