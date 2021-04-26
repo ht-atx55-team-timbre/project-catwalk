@@ -2,12 +2,12 @@ import { RelCard, RelCardActions, RelCardContent, RelCardMedia, useStyles } from
 import { useState, useEffect } from "react";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
-import StarRoundedIcon from "@material-ui/icons/StarRounded";
+import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
 import { IconButton } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import request from "./Requests";
 
-function RelatedCard({ item }) {
+function OutfitCard({ item, removeOutfit }) {
   const classes = useStyles();
 
   const [product, setProduct] = useState({
@@ -58,8 +58,8 @@ function RelatedCard({ item }) {
               </Typography>
             </RelCardContent>
             <RelCardActions>
-              <IconButton>
-                <StarRoundedIcon style={{color: 'white' }} />
+              <IconButton onClick={() => removeOutfit(product.general.id)}>
+                <CloseRoundedIcon style={{color: 'red' }} />
               </IconButton>
             </RelCardActions>
           </RelCard>
@@ -68,4 +68,4 @@ function RelatedCard({ item }) {
   );
 }
 
-export default RelatedCard;
+export default OutfitCard;
