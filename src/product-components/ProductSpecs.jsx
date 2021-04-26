@@ -1,10 +1,6 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 import {
-  Grid,
-  Paper,
-  CardActions,
   CardContent,
   Typography,
 } from '@material-ui/core';

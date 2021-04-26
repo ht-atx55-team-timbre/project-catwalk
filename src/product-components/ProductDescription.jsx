@@ -1,18 +1,16 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Paper,
-  CardActions,
-  CardContent,
-  Typography
+  Typography,
+  CardContent
 } from '@material-ui/core';
-import StarComponent from '../reviews-components/StarComponent.js';
-import ratingComponent from '../reviews-components/ratingComponent.js';
 
 const useStyles = makeStyles({
   root: {
-    minWidth: "100%",
+    minWidth: '100%',
+    // marginTop: '10px'
   },
   minimal: {
     display: "inline-block",
@@ -29,10 +27,12 @@ const useStyles = makeStyles({
 const ProductDescription = ({ product }) => {
   const classes = useStyles();
 
-  return(
-    <Paper elevation={0} className="description">
-      <Typography variant="h6" component="h2">{product.slogan}</Typography>
-      <Typography variant="body2" component="p">{product.description}</Typography>
+  return (
+    <Paper elevation={0} className={classes.root}>
+      <CardContent>
+        <Typography variant="h5" component="h2">{product.slogan}</Typography>
+        <Typography variant="body2" component="p">{product.description}</Typography>
+      </CardContent>
     </Paper>
   )
 };

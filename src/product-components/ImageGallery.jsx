@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     position: 'relative',
+    borderRadius: '5px',
     width: '100%',
     height: '16.6%',
     '&:hover, &$focusVisible': {
@@ -37,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
   focusVisible: {},
   imageButton: {
     position: 'absolute',
+    borderRadius: '5px',
     left: 0,
     right: 0,
     top: 0,
@@ -48,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
   imageSrc: {
     position: 'absolute',
+    borderRadius: '5px',
     left: 0,
     right: 0,
     top: 0,
@@ -57,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
   },
   imageBackdrop: {
     position: 'absolute',
+    borderRadius: '5px',
     left: 0,
     right: 0,
     top: 0,
