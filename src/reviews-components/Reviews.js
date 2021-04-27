@@ -18,12 +18,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Reviews = ({ product_id, name }) => {
+const Reviews = ({ product_id, name, addReview, setAddReview }) => {
   const [count, setCount] = useState(2)
   const [sort, setSort] = useState("relevant")
   const [results, setResults] = useState([])
   const [totalReviews, setTotalReviews] = useState(0)
-  const [addReview, setAddReview] = useState(false)
   const [open, setOpen] = useState(false)
 
   const handleSortChange = (e) => {
@@ -51,7 +50,7 @@ const Reviews = ({ product_id, name }) => {
         setTotalReviews(0)
       }
     })
-  }, [product_id])
+  }, [product_id, addReview])
 
   const classes = useStyles();
 
