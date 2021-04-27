@@ -38,18 +38,27 @@ const Ratings = ({ product_id }) => {
       }
     })
       .then(res => {
+        console.log(res.data.recommended)
         setRecommended(res.data.recommended);
       })
       .catch((err) => {
         console.log(err, 'error getting reviews metadate for the product id');
       });
     getRatings(product_id)
-      .then(ratings => setRatings(ratings))
+      .then(ratings => {
+        setRatings(ratings)
+      })
       .catch((err) => {
         console.log(err, 'error getting reviews ratings for the product id');
       });
     getCharacteristics(product_id)
-      .then(characteristics => setCharacteristics(characteristics))
+      .then(characteristics => {
+        if (characteristics) {
+          setCharacteristics(characteristics)
+        } else {
+          setCharacteristics({})
+        }
+      })
       .catch((err) => {
         console.log(err, 'error getting reviews characteristics for the product id');
       });
@@ -73,9 +82,9 @@ const Ratings = ({ product_id }) => {
             numberOfRating={numberOfRating}
             ratings={ratings}
           />
-          <DescriptionRatings
+          {Object.keys(characteristics).length !== 0 && <DescriptionRatings
             characteristics={characteristics}
-          />
+          />}
         </Grid>
       </Paper>
     </Grid>

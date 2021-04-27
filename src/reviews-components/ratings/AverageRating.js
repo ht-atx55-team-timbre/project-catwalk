@@ -4,6 +4,8 @@ import { Grid, Typography } from '@material-ui/core';
 import StarComponent from '../StarComponent';
 
 const percentRecommend = (recommended) => {
+  if (Object.keys(recommended).length === 0) return 0;
+
   let recommend = Number(recommended.true);
   let notRecommend = Number(recommended.false);
 
