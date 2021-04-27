@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Grid } from '@material-ui/core';
+import Header from './product-components/Header.jsx';
 import ReviewsAndRatings from './reviews-components/ReviewsAndRatings';
 import ProductOverview from './product-components/ProductOverview.jsx';
 import Related from './related-components/Related';
@@ -55,10 +56,20 @@ class App extends React.Component {
   render() {
     if (this.state.product_id) {
       return (
-        <Grid container direction="column">
-          <Grid item>
-            {/* Header component will go here */}
-            <h1>This will be the header</h1>
+        <Grid container direction='column'>
+          <Grid container direction='row'>
+            <Grid item xs={false} sm={1} />
+            <Grid item xs={12} sm={10}>
+              <Header />
+            </Grid>
+            <Grid item xs={false} sm={1} />
+          </Grid>
+          <Grid item container direction='row'>
+            <Grid item xs={false} sm={1} />
+            <Grid item xs={12} sm={10}>
+              <ProductOverview product={this.state.product_id} />
+            </Grid>
+            <Grid item xs={false} sm={1} />
           </Grid>
           <Grid item container>
             <Grid item xs={false} sm={2} />
