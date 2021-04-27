@@ -97,18 +97,20 @@ const Questions = ({ product_id, name }) => {
           )}
         </Grid>
       </Box>
-        <Grid container direction="row">
-          { questions.length !== displayedQuestions.length &&
-            <Box mt={2} mr={2} mb={2}>
-              <Button variant="outlined" style={{borderRadius: 0}} onClick={handleSubmitClick}>MORE ANSWERED QUESTIONS</Button>
-            </Box>
-          }
-          <AddQuestion
-            toggleQuestionReloadOnFormSubmit={toggleQuestionReloadOnFormSubmit}
-            product_id={product_id}
-            name={name}
-          />
-        </Grid>
+        <Box pb={2}>
+          <Grid container direction="row">
+            { questions.length !== displayedQuestions.length &&
+              <Box mt={2} mr={2} mb={2}>
+                <Button variant="outlined" style={{borderRadius: 0}} onClick={handleSubmitClick}>MORE ANSWERED QUESTIONS</Button>
+              </Box>
+            }
+            <AddQuestion
+              toggleQuestionReloadOnFormSubmit={toggleQuestionReloadOnFormSubmit}
+              product_id={product_id}
+              name={name}
+            />
+          </Grid>
+        </Box>
     </Grid>
   )
 }
