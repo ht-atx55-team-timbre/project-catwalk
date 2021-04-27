@@ -99,11 +99,6 @@ const Cart = ({ currentStyle }) => {
     console.log('sku & qty', sku, quantity);
   }
 
-  // useEffect(() => {
-  //   setCart();
-  // }, [setCart]);
-
-
   return (
     <div className={classes.root} display='inline'>
       <CardContent>

@@ -12,6 +12,13 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     height: '100%'
   },
+  rootFewerImages: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    overflow: 'auto',
+    width: '100%',
+    // height: '100%'
+  },
   image: {
     position: 'relative',
     borderRadius: '5px',
@@ -92,7 +99,7 @@ export default function ImageGallery({ images, handleImgChange, selected }) {
   return (
     <div className={classes.root}>
       {images.photos.map((image, idx) => {
-        if (idx === selected) {
+        if (idx === selected && image.thumbnail_url) {
           return (
             <ButtonBase
               focusRipple

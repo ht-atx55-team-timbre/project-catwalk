@@ -3,6 +3,7 @@ import Carousel from 'react-material-ui-carousel';
 import { Card, CardMedia, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ImageGallery from './ImageGallery.jsx';
+import poochy from '../poochy.jpg';
 
 const useStyles = makeStyles({
   root: {
@@ -13,6 +14,7 @@ const useStyles = makeStyles({
     paddingTop: '100%',
   },
 });
+
 
 const ProductImages = ({ images, initial }) => {
   const [selected, setSelected] = useState(initial);
@@ -59,12 +61,20 @@ const Photo = ({ item, idx }) => {
       className={classes.root}
       variant='outlined'
     >
-      <CardMedia
-        alt={idx}
-        className={classes.media}
-        image={item.url}
-        title={idx}
-      />
+      {item.url === null ?
+        <CardMedia
+          alt={idx}
+          className={classes.media}
+          image={poochy}
+          title={idx}
+        /> :
+        <CardMedia
+          alt={idx}
+          className={classes.media}
+          image={item.url}
+          title={idx}
+        />
+      }
     </Card>
   )
 }
