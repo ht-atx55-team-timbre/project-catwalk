@@ -7,7 +7,7 @@ import ReportAnswer from './ReportAnswer.jsx';
 
 const HelpfulAnswerHandler = ({ answer }) => {
   const [helpfulness, setHelpfulness] = useState(answer.helpfulness);
-  const [isClicked, setisClicked] = useState(false);
+  const [aIsClicked, setAIsClicked] = useState(false);
 
   const url = `https://app-hrsei-api.herokuapp.com/api/fec2/hratx/qa/answers/${answer.answer_id}/helpful`;
   const headersAndParams = {
@@ -16,10 +16,10 @@ const HelpfulAnswerHandler = ({ answer }) => {
   };
 
   const handleHelpfulAnswer = (event) => {
-    if (!isClicked) {
+    if (!aIsClicked) {
       axios.put(url, { helpfulness: helpfulness }, headersAndParams)
         .then((response) => {
-          setisClicked(true);
+          setAIsClicked(!aIsClicked);
           setHelpfulness(helpfulness + 1);
         })
         .catch((err) => {
@@ -30,14 +30,17 @@ const HelpfulAnswerHandler = ({ answer }) => {
 
   return (
     <Grid>
-      <Typography>{`A: ${answer.body}`}</Typography>
+      <Grid container="row">
+        <Typography><b>A:&nbsp;</b></Typography>
+        <Typography>{`${answer.body}`}</Typography>
+      </Grid>
       <Grid container direction="row" alignItems="center">
-        <Typography>
-          by {answer.answerer_name}, {moment(answer.date).format('MMMM Do, YYYY')} | Helpful?
-        </Typography>
         <ButtonGroup variant="text" aria-label="text primary button group">
-          <Button>
-            <u id={answer.answer_id} onClick={handleHelpfulAnswer}>Yes</u>
+          <Button style={{textTransform: "none"}} disabled>
+            by {answer.answerer_name}, {moment(answer.date).format('MMMM Do, YYYY')}
+          </Button>
+          <Button style={{textTransform: "none"}}>
+            <Typography>Helpful?&nbsp;<u id={answer.answer_id} onClick={handleHelpfulAnswer}>Yes</u>&nbsp;</Typography>
             <Typography>({helpfulness})</Typography>
           </Button>
           <ReportAnswer answer_id={answer.answer_id} />

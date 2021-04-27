@@ -9,7 +9,8 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle
+  DialogTitle,
+  Box
 } from '@material-ui/core';
 
 const AddQuestion = ({ toggleQuestionReloadOnFormSubmit, product_id, name }) => {
@@ -56,9 +57,11 @@ const AddQuestion = ({ toggleQuestionReloadOnFormSubmit, product_id, name }) => 
 
   return (
     <Grid>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Add A Question +
-      </Button>
+      <Box mt={2}>
+        <Button variant="outlined" onClick={handleClickOpen}>
+          Add A Question +
+        </Button>
+      </Box>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <form onSubmit={handleFormSubmit}>
           <DialogTitle id="form-dialog-title">

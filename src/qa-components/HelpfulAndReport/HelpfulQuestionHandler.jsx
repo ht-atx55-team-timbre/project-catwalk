@@ -6,7 +6,7 @@ import AddAnswer from '../AddQuestionAndAnswer/AddAnswer.jsx';
 
 const HelpfulQuestionHandler = ({ toggleAnswerReloadOnFormSubmit, product_id, question, name }) => {
   const [helpfulness, setHelpfulness] = useState(question.question_helpfulness);
-  const [isClicked, setIsClicked] = useState(false);
+  const [qIsClicked, setQIsClicked] = useState(false);
 
   const url = `https://app-hrsei-api.herokuapp.com/api/fec2/hratx/qa/questions/${question.question_id}/helpful`;
   const headersAndParams = {
@@ -15,10 +15,10 @@ const HelpfulQuestionHandler = ({ toggleAnswerReloadOnFormSubmit, product_id, qu
   };
 
   const handleHelpfulQuestion = (event) => {
-    if (!isClicked) {
+    if (!qIsClicked) {
       axios.put(url, {helpfulness: helpfulness}, headersAndParams)
         .then((response) => {
-          setIsClicked(true);
+          setQIsClicked(true);
           setHelpfulness(helpfulness + 1);
         })
         .catch((err) => {
@@ -36,9 +36,9 @@ const HelpfulQuestionHandler = ({ toggleAnswerReloadOnFormSubmit, product_id, qu
       </Grid>
       <Grid item>
         <ButtonGroup variant="text" aria-label="text primary button group">
-          <Button>
+          <Button style={{textTransform: "none"}}>
             <Grid container direction="row">
-              <u id={question.question_id} onClick={handleHelpfulQuestion}>Yes</u>
+              <Typography><u id={question.question_id} onClick={handleHelpfulQuestion}>Yes</u>&nbsp;</Typography>
               <Typography>({helpfulness})</Typography>
             </Grid>
           </Button>
