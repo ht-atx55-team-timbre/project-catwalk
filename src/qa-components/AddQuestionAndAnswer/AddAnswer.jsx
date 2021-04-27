@@ -57,7 +57,7 @@ const AddAnswer = ({ toggleAnswerReloadOnFormSubmit, question, name }) => {
 
   return (
     <Grid>
-      <Button style={{textTransform: "none"}} onClick={handleClickOpen}>
+      <Button style={{textTransform: "none", color: "grey"}} onClick={handleClickOpen}>
         <u>Add Answer</u>
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">

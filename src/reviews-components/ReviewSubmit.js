@@ -31,7 +31,7 @@ const ReviewSubmit = ({ name, product_id, setAddReview, open, setOpen}) => {
   useEffect(()=> {
     getCharacteristics(product_id)
       .then(characteristics => setCharacteristics(characteristics))
-  }, [])
+  }, [product_id])
 
   const handleClose = () => {
     setOpen(false);

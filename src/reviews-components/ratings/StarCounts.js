@@ -3,6 +3,12 @@ import { Grid } from '@material-ui/core';
 import StarCount from './StarCount';
 
 const StarCounts = ({ stars, numberOfRating, ratings }) => {
+  if (Object.keys(ratings).length === 0) {
+    stars.forEach(star => {
+      ratings[star] = 0;
+    })
+  }
+
   return (
     <Grid item container>
       {stars.map((star) =>
