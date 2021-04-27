@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
+
   },
   search: {
     position: 'relative',
@@ -102,7 +103,7 @@ export default function Header() {
         </Toolbar>
       </AppBar>
       <Typography className={classes.announcement}>
-      <span><em>SITE-WIDE SALE...</em></span><span>SELECT STYLES DISCOUNTED</span>
+        FREE shipping on orders $99+ | Register for FREE Shipping on Your 1st Order
       </Typography>
     </div>
   );
