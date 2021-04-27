@@ -10,15 +10,13 @@ import sortingFunctions from './SortingFunctions.js';
 import SearchBarComponent from './SearchBarComponent.jsx';
 
 const Questions = ({ product_id, name }) => {
+  const [allQuestions, setAllQuestions] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [displayedQuestions, setDisplayedQuestions] = useState([]);
   const [questionCount, setQuestionCount] = useState(4);
   const [toggleQuestionReload, setToggleQuestionReload] = useState(true);
   const [toggleAnswerReload, setToggleAnswerReload] = useState(true);
 
-  // I use two requests here because I do not know the total amount of questions in the database.
-  // The second get requests checks to see if there are any more questions left, if there are not
-  // any, then I know not to display the get more questions button on lines 76-78
   useEffect(() => {
     axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hratx/qa/questions', {
       headers: {
@@ -31,13 +29,17 @@ const Questions = ({ product_id, name }) => {
     })
       .then(questions => {
         const sortedByAnswered = sortingFunctions.sortByAnswered(questions.data.results);
+        setAllQuestions(sortedByAnswered)
         setQuestions(sortedByAnswered);
-        setDisplayedQuestions(sortedByAnswered.slice(0, questionCount))
       })
       .catch(err => {
         console.log(err);
       });
-  }, [product_id, questionCount, toggleQuestionReload]);
+  }, [product_id, toggleQuestionReload]);
+
+  useEffect(() => {
+    setDisplayedQuestions(questions.slice(0, questionCount))
+  }, [questions, questionCount])
 
   const handleSubmitClick = (event) => {
     setQuestionCount(questionCount + 2);
@@ -51,16 +53,29 @@ const Questions = ({ product_id, name }) => {
     setToggleAnswerReload(!toggleAnswerReload);
   }
 
+  const sortQuestionsBySearchTerm = (event) => {
+    if (event.length > 2) {
+      const filteredQuestions = questions.filter(question => {
+        if (question.question_body.toLowerCase().includes(event.toLowerCase())) {
+          return question;
+        }
+      })
+      setQuestions(filteredQuestions);
+    } else {
+      setQuestions(allQuestions);
+    }
+  }
+
   return (
     <Grid>
-      <SearchBarComponent/>
-      <Box style={{maxHeight: '80vh', overflow: 'auto'}}>
+      <SearchBarComponent sortQuestionsBySearchTerm={sortQuestionsBySearchTerm} />
+      <Box style={{maxHeight: '84vh', overflow: 'auto'}}>
         <Grid>
           {_.map(displayedQuestions, question =>
             <Grid key={question.question_id}>
               <Grid container>
                 <Grid item xs={12} sm={9}>
-                  <Box pt={2}>
+                  <Box>
                     <Typography>{<b>Q: {question.question_body}</b>}</Typography>
                   </Box>
                   <Box pt={2}>
@@ -71,7 +86,7 @@ const Questions = ({ product_id, name }) => {
                   </Box>
                 </Grid>
                 <Grid item xs={12} sm={3}>
-                  <Box pt={2}>
+                  <Box>
                     <HelpfulQuestionHandler
                       toggleAnswerReloadOnFormSubmit={toggleAnswerReloadOnFormSubmit}
                       question={question}
@@ -86,7 +101,7 @@ const Questions = ({ product_id, name }) => {
       </Box>
         <Grid container direction="row">
           { questions.length !== displayedQuestions.length &&
-            <Box pr={2}>
+            <Box mt={2} mr={2} mb={2}>
               <Button variant="outlined" onClick={handleSubmitClick}>MORE ANSWERED QUESTIONS</Button>
             </Box>
           }

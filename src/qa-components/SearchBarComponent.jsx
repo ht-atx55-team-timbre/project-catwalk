@@ -9,11 +9,14 @@ import HelpfulQuestionHandler from './HelpfulAndReport/HelpfulQuestionHandler';
 import AddQuestion from './AddQuestionAndAnswer/AddQuestion.jsx';
 import sortingFunctions from './SortingFunctions.js';
 
-const SearchBarComponent = () => {
+const SearchBarComponent = ({ sortQuestionsBySearchTerm }) => {
   return (
-    <SearchBar
-      placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
-    />
+    <Box pb={2}>
+      <SearchBar
+        placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
+        onChange={sortQuestionsBySearchTerm}
+      />
+    </Box>
   )
 };
 
