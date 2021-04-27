@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 
-import StarComponent from './StarComponent';
+import StarComponent from '../StarComponent';
 
 const percentRecommend = (recommended) => {
   let recommend = Number(recommended.true);
