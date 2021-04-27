@@ -20,7 +20,7 @@ function OutfitCard({ item, removeOutfit, handleIdChange }) {
       const productData = await request.get(`/${item}/`);
       const styleData = await request.get(`/${item}/styles`);
       // const reviewData = await request.get()
-      let stylePhoto = styleData.data.results[0].photos[0].url;
+      let stylePhoto = styleData.data.results[0].photos[0].thumbnail_url;
       setProduct({ general: productData.data, styles: stylePhoto });
     };
     getAllProductData();

@@ -10,7 +10,6 @@ import Related from './related-components/Related';
 import QA from './qa-components/Main.jsx';
 import API_KEY from './config';
 
-
 class App extends React.Component {
   // eslint-disable-next-line no-useless-constructor
   constructor(props) {
@@ -82,6 +81,7 @@ class App extends React.Component {
             </Grid>
           </Grid>
         </MuiThemeProvider>
+
       )
     } else {
       return <></>
