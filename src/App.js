@@ -60,13 +60,7 @@ class App extends React.Component {
       return (
         <MuiThemeProvider theme={theme}>
           <Grid container direction='column'>
-            <Grid container direction='row'>
-              <Grid item xs={false} sm={1} />
-              <Grid item xs={12} sm={10}>
-                <Header />
-              </Grid>
-              <Grid item xs={false} sm={1} />
-            </Grid>
+            <Header />
             <Grid item container direction='row'>
               <Grid item xs={false} sm={1} />
               <Grid item xs={12} sm={10}>

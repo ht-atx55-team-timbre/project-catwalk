@@ -64,7 +64,7 @@ const Cart = ({ currentStyle }) => {
         // console.log('cart', cart);
       })
       .catch(err => console.error(err));
-  }, [cart, setCart]);
+  }, [setCart]);
 
   const postToCart = () => {
     if (sku && quantity) {
@@ -106,7 +106,7 @@ const Cart = ({ currentStyle }) => {
                 variant='contained'
                 aria-controls='select-size'
                 aria-haspopup='true'
-                color='primary'
+                color='secondary'
                 onClick={handleClick}
               >
                 Select Size
@@ -166,7 +166,7 @@ const Cart = ({ currentStyle }) => {
                 <div>
                   <Button
                     variant='contained'
-                    color='primary'
+                    color='secondary'
                     disabled
                   >
                     Qty
@@ -178,8 +178,8 @@ const Cart = ({ currentStyle }) => {
           <Grid container direction='row' item xs={12}>
             <div>
               <Button
-                variant='contained'
-                color='primary'
+                variant='outlined'
+                color='secondary'
                 onClick={addToCart}
               >
                 Add To Cart
