@@ -1,5 +1,5 @@
-import getRatings from './getRatings';
-import getRating from './getRating';
+import getRatings from './ratings/getRatings';
+import getRating from './ratings/getRating';
 
 const ratingComponent = (product_id) => {
   return getRatings(product_id)

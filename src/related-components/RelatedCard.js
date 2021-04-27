@@ -7,7 +7,7 @@ import { IconButton } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import request from "./Requests";
 
-function RelatedCard({ item }) {
+function RelatedCard({ item, handleIdChange }) {
   const classes = useStyles();
 
   const [product, setProduct] = useState({
@@ -36,6 +36,7 @@ function RelatedCard({ item }) {
               image={product.styles}
               title="Product Name"
               className={classes.media}
+              onClick={() => { handleIdChange(product.general.id, product.general.name) }}
             />
             <RelCardContent>
               <Typography
