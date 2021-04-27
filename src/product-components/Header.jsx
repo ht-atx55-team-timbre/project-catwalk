@@ -1,11 +1,11 @@
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  InputBase
+} from '@material-ui/core';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles((theme) => ({
@@ -14,6 +14,11 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: theme.spacing(2),
+  },
+  announcement: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   title: {
     flexGrow: 1,
@@ -96,6 +101,9 @@ export default function Header() {
           </div>
         </Toolbar>
       </AppBar>
+      <Typography className={classes.announcement}>
+      <span><em>SITE-WIDE SALE...</em></span><span>SELECT STYLES DISCOUNTED</span>
+      </Typography>
     </div>
   );
 }

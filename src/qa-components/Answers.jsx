@@ -69,13 +69,13 @@ const Answers = ({ question_id, toggleAnswerReload }) => {
       </Grid>
       { answers.length > 0 && answers.length !== moreAnswers.length
         ? <Grid>
-          <Button onClick={handleLoadMoreClick}>
+          <Button onClick={handleLoadMoreClick} style={{fontSize: 10}}>
             load more answers
           </Button>
         </Grid>
         : answers.length > 2 &&
         <Grid>
-          <Button onClick={handleCollapseClick}>
+          <Button onClick={handleCollapseClick} style={{fontSize: 10}}>
             collapse answers
           </Button>
         </Grid>

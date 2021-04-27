@@ -86,7 +86,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProductStyles({ styles, handleStyleChange }) {
   const [selected, setSelected] = useState(0);
-  console.log('style data', styles[selected]);
   const classes = useStyles();
 
   useEffect(() => {

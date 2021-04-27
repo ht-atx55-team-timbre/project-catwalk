@@ -8,7 +8,7 @@ const QA = ({ product_id, name }) => {
     <Grid container direction="column">
       <Grid item>
         <Box pb={2}>
-          <Typography>QUESTIONS & ANSWERS</Typography>
+          <Typography style={{fontSize: 14}}>QUESTIONS & ANSWERS</Typography>
         </Box>
       </Grid>
       <Grid item>

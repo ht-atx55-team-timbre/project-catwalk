@@ -58,7 +58,7 @@ const AddQuestion = ({ toggleQuestionReloadOnFormSubmit, product_id, name }) => 
   return (
     <Grid>
       <Box mt={2}>
-        <Button variant="outlined" onClick={handleClickOpen}>
+        <Button variant="outlined" style={{borderRadius: 0}} onClick={handleClickOpen}>
           Add A Question +
         </Button>
       </Box>

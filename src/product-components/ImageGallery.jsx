@@ -12,6 +12,13 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     height: '100%'
   },
+  rootFewerImages: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    overflow: 'auto',
+    width: '100%',
+    // height: '100%'
+  },
   image: {
     position: 'relative',
     borderRadius: '5px',
@@ -23,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
         opacity: 0.15,
       }
     },
+    // marginBottom: '2px'
   },
   imageSelected: {
     position: 'relative',
@@ -91,7 +99,7 @@ export default function ImageGallery({ images, handleImgChange, selected }) {
   return (
     <div className={classes.root}>
       {images.photos.map((image, idx) => {
-        if (idx === selected) {
+        if (idx === selected && image.thumbnail_url) {
           return (
             <ButtonBase
               focusRipple
@@ -100,8 +108,9 @@ export default function ImageGallery({ images, handleImgChange, selected }) {
               focusVisibleClassName={classes.focusVisible}
               style={{
                 width: '100%',
-                padding: '1px',
-                border: '2px solid black', // want to set this to theme highlight color
+                // padding: '1px',
+                paddingBottom: '1px',
+                borderBottom: '2px solid black', // want to set this to theme highlight color
               }}
               onClick={handleClick}
             >
