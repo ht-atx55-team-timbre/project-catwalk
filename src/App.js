@@ -7,8 +7,6 @@ import ProductOverview from './product-components/ProductOverview.jsx';
 import Related from './related-components/Related';
 import QA from './qa-components/Main.jsx';
 import API_KEY from './config';
-import { ThemeProvider } from '@material-ui/core/styles';
-import customTheme from './theme';
 
 class App extends React.Component {
   // eslint-disable-next-line no-useless-constructor
@@ -57,7 +55,6 @@ class App extends React.Component {
   render() {
     if (this.state.product_id) {
       return (
-        <ThemeProvider theme={customTheme}>
           <Grid container direction='column'>
             <Grid container direction='row'>
               <Grid item xs={false} sm={1} />
@@ -86,7 +83,6 @@ class App extends React.Component {
               <Grid item xs={false} sm={2} />
             </Grid>
           </Grid>
-        </ThemeProvider>
       )
     } else {
       return <></>
