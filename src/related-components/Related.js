@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import request from './Requests';
 
 import AddOutfitCard from './AddOutfitCard';
@@ -13,6 +13,7 @@ const Related = ({ product_id, handleIdChange }) => {
   const [outfitArray, setOutfitArray] = useState([]);
   const [outfits, setOutfits] = useState([]);
   const [related, setRelated] = useState([]);
+  const currItemRef = useRef(currItem);
 
   useEffect(() => {
     function createRelatedItems(array) {
@@ -32,7 +33,7 @@ const Related = ({ product_id, handleIdChange }) => {
     async function getRelated() {
       const results = await request.get(`/${product_id}/related`);
       setRelated(createRelatedItems(results.data));
-      setCurrItem(product_id);
+      currItemRef.current = product_id;
     };
 
     getRelated();
@@ -56,8 +57,8 @@ const Related = ({ product_id, handleIdChange }) => {
 
   const handleOutfitAdd = () => {
     let itemsArray = outfitArray;
-    if (!itemsArray.includes(currItem)) {
-      itemsArray.push(currItem);
+    if (!itemsArray.includes(currItemRef.current)) {
+      itemsArray.push(currItemRef.current);
     }
     setOutfitArray(itemsArray);
     createOutfitItems(itemsArray);
@@ -82,7 +83,19 @@ const Related = ({ product_id, handleIdChange }) => {
       <Grid container>
         <Grid container item justify="center" xs={12}>
           <Carousel autoPlay={false} >
-            {related.map((item, idx) => (<Grid container item direction='row' xs={12} key={idx}>{item}</Grid>))}
+            {related.map((item, idx) => {
+              if (item.length > 1) {
+                return (
+                  <Grid container item direction='row' justify='space-evenly' spacing={10} xs={12} key={idx}>{item}</Grid>
+                )
+              }else{
+                return (
+                  <Grid container item direction='row' spacing={10} xs={12} key={idx}>{item}</Grid>
+                )
+              }
+            })
+          }
+            
           </Carousel>
         </Grid>
         <Grid container item xs={12}>
