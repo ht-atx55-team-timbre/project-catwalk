@@ -1,20 +1,42 @@
 import { createMuiTheme } from '@material-ui/core/styles';
+import { deepOrange, red } from '@material-ui/core/colors';
 
-const theme = createMuiTheme({
+const theme = createMuiTheme ({
   palette: {
+    type: 'light',
     primary: {
-      main: '#F7F8F8',
-      dark: '#121626'
+      light: deepOrange[100],
+      main: deepOrange[200],
+      dark: deepOrange[300],
     },
     secondary: {
-      main: '#F7F7F8',
-      dark: '#1D243E'
+      light: red[700],
+      main: red[800],
+      dark: red[900],
+    },
+  },
+  typography: {
+    // Use the system font instead of the default Roboto font.
+    fontFamily: [
+      '"Libre Baskerville"',
+      'Serif'
+    ].join(','),
+    // fontSize: 24
+    body1: {
+      fontFamily: [
+        '"Nunito"',
+        'Sans-Serif'
+      ],
+      fontSize: 16
+    },
+    body2: {
+      fontFamily: [
+        '"Nunito"',
+        'Sans-Serif'
+      ].join(','),
+      fontSize: 16
     }
   },
-  text: {
-    primary: '#181E34',
-    secondary: '#FBE7D5',
-  }
-})
+});
 
-export default theme
+export default theme;
