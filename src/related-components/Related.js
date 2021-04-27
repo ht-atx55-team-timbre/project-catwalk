@@ -7,27 +7,43 @@ import Carousel from 'react-material-ui-carousel';
 import RelatedCard from './RelatedCard';
 import OutfitCard from './OutfitCard';
 
-const Related = ({ product_id }) => {
+const Related = ({ product_id, handleIdChange }) => {
   
+  const [currItem, setCurrItem] = useState(0);
   const [outfitArray, setOutfitArray] = useState([]);
   const [outfits, setOutfits] = useState([]);
   const [related, setRelated] = useState([]);
 
   useEffect(() => {
+    function createRelatedItems(array) {
+      let relatedItems = [];
+      let results = [];
+      let chunk = 4;
+      for (let i = 0; i < array.length; i++) {
+        relatedItems.push(<RelatedCard key={i} item={array[i]} handleIdChange={handleIdChange} />)
+      }
+      for (let i = 0; i < relatedItems.length; i += chunk) {
+        let tempArr = relatedItems.slice(i, i+chunk);
+        results.push(tempArr);
+      }
+      return results;
+    }
+
     async function getRelated() {
       const results = await request.get(`/${product_id}/related`);
       setRelated(createRelatedItems(results.data));
+      setCurrItem(product_id);
     };
 
     getRelated();
-  }, [product_id]) 
+  }, [product_id, handleIdChange]) 
   
   const createOutfitItems = (array) => {
     let outfitItems = [];
     let results = [];
     let chunk = 3;
     for (let i = 0; i < array.length; i++) {
-      outfitItems.push(<OutfitCard key={i} item={array[i]} removeOutfit={handleOutfitRemove} />)
+      outfitItems.push(<OutfitCard key={i} item={array[i]} removeOutfit={handleOutfitRemove} handleIdChange={handleIdChange} />)
     }
     for (let i = 0; i < outfitItems.length; i+=chunk) {
       let tempArr = [];
@@ -35,15 +51,15 @@ const Related = ({ product_id }) => {
       tempArr.push(outfitItems.slice(i, i+chunk));
       results.push(tempArr);
     }
-    setOutfits([results]);
+    setOutfits(results);
   }
 
   const handleOutfitAdd = () => {
     let itemsArray = outfitArray;
-    if (!itemsArray.includes(product_id)) {
-      itemsArray.push(product_id);
+    if (!itemsArray.includes(currItem)) {
+      itemsArray.push(currItem);
     }
-    setOutfitArray([...itemsArray]);
+    setOutfitArray(itemsArray);
     createOutfitItems(itemsArray);
   }
 
@@ -56,20 +72,6 @@ const Related = ({ product_id }) => {
       }
     }
     setOutfitArray(result);
-  }
-
-  const createRelatedItems = (array) => {
-    let relatedItems = [];
-    let results = [];
-    let chunk = 4;
-    for (let i = 0; i < array.length; i++) {
-      relatedItems.push(<RelatedCard key={i} item={array[i]} />)
-    }
-    for (let i = 0; i < relatedItems.length; i += chunk) {
-      let tempArr = relatedItems.slice(i, i+chunk);
-      results.push(tempArr);
-    }
-    return results;
   }
 
   return (

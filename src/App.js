@@ -16,6 +16,8 @@ class App extends React.Component {
       product_id: null,
       name: null
     }
+
+    this.handleProductChange = this.handleProductChange.bind(this);
   }
 
   componentDidMount() {
@@ -25,13 +27,29 @@ class App extends React.Component {
       }
     })
       .then((products) => {
-        this.setState({ product_id: 24158 })
-        // this.setState({ product_id: products.data[0].id });
-        // this.setState({ name: products.data[0].name });
+        this.setState({ product_id: products.data[0].id });
+        this.setState({ name: products.data[0].name });
       })
       .catch((err) => {
         console.log(err, 'error retrieving products from the database');
       })
+  }
+
+  handleProductChange(id, name) {
+    // axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hratx/products/${id}`, {
+    //   headers: {
+    //     Authorization: API_KEY
+    //   }
+    // })
+    //   .then((product) => {
+    //     this.setState({ product_id: product.data.id });
+    //     this.setState({ name: product.data.name})
+    //   })
+    //   .catch((err) => {
+    //     console.log(err, 'error retrieving products from the database');
+    //   })
+    console.log(id, name);
+    this.setState({ product_id: id, name: name});
   }
 
   render() {
@@ -47,7 +65,7 @@ class App extends React.Component {
             <Grid item xs={12} sm={8}>
               <ProductOverview product={this.state.product_id} />
               <h1>This will be for the Product Overview</h1>
-              <Related product_id={this.state.product_id}/>
+              <Related product_id={this.state.product_id} handleIdChange={this.handleProductChange} />
               <h1>This will be for the Related Items</h1>
               {/* Q/A */}
               <QA product_id={this.state.product_id} name={this.state.name} />
