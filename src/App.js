@@ -74,8 +74,6 @@ class App extends React.Component {
           <Grid item container>
             <Grid item xs={false} sm={2} />
             <Grid item xs={12} sm={8}>
-              <ProductOverview product={this.state.product_id} />
-              <h1>This will be for the Product Overview</h1>
               <Related product_id={this.state.product_id} handleIdChange={this.handleProductChange} />
               <h1>This will be for the Related Items</h1>
               {/* Q/A */}
@@ -94,3 +92,5 @@ class App extends React.Component {
 }
 
 export default App;
+
+
