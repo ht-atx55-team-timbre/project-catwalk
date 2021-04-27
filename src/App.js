@@ -26,8 +26,9 @@ class App extends React.Component {
       }
     })
       .then((products) => {
-        this.setState({ product_id: products.data[0].id });
-        this.setState({ name: products.data[0].name });
+        this.setState({ product_id: 24158 })
+        // this.setState({ product_id: products.data[0].id });
+        // this.setState({ name: products.data[0].name });
       })
       .catch((err) => {
         console.log(err, 'error retrieving products from the database');

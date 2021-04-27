@@ -55,11 +55,3 @@ export const useStyles = makeStyles({
     cursor: 'pointer'
   }
 });
-
-export default {
-  RelCard,
-  RelCardActions,
-  RelCardContent,
-  RelCardMedia,
-  useStyles
-}
