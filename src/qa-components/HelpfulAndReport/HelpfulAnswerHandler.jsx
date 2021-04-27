@@ -17,11 +17,9 @@ const HelpfulAnswerHandler = ({ answer }) => {
 
   const handleHelpfulAnswer = (event) => {
     if (!aIsClicked) {
+      setAIsClicked(!aIsClicked);
+      setHelpfulness(helpfulness + 1);
       axios.put(url, { helpfulness: helpfulness }, headersAndParams)
-        .then((response) => {
-          setAIsClicked(!aIsClicked);
-          setHelpfulness(helpfulness + 1);
-        })
         .catch((err) => {
           console.log(err, 'error sending new helpful question information');
         });

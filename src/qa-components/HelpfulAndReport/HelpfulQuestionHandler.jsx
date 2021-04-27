@@ -16,11 +16,9 @@ const HelpfulQuestionHandler = ({ toggleAnswerReloadOnFormSubmit, product_id, qu
 
   const handleHelpfulQuestion = (event) => {
     if (!qIsClicked) {
+      setQIsClicked(true);
+      setHelpfulness(helpfulness + 1);
       axios.put(url, {helpfulness: helpfulness}, headersAndParams)
-        .then((response) => {
-          setQIsClicked(true);
-          setHelpfulness(helpfulness + 1);
-        })
         .catch((err) => {
           console.log(err, 'error sending new helpful question information');
         });
