@@ -55,11 +55,9 @@ const Questions = ({ product_id, name }) => {
 
   const sortQuestionsBySearchTerm = (event) => {
     if (event.length > 2) {
-      const filteredQuestions = questions.filter(question => {
-        if (question.question_body.toLowerCase().includes(event.toLowerCase())) {
-          return question;
-        }
-      })
+      const filteredQuestions = questions.filter(question =>
+        question.question_body.toLowerCase().includes(event.toLowerCase())
+      );
       setQuestions(filteredQuestions);
     } else {
       setQuestions(allQuestions);
@@ -69,13 +67,13 @@ const Questions = ({ product_id, name }) => {
   return (
     <Grid>
       <SearchBarComponent sortQuestionsBySearchTerm={sortQuestionsBySearchTerm} />
-      <Box style={{maxHeight: '84vh', overflow: 'auto'}}>
+      <Box style={{maxHeight: '80vh', overflow: 'auto'}}>
         <Grid>
           {_.map(displayedQuestions, question =>
             <Grid key={question.question_id}>
               <Grid container>
                 <Grid item xs={12} sm={9}>
-                  <Box>
+                  <Box pt={2}>
                     <Typography>{<b>Q: {question.question_body}</b>}</Typography>
                   </Box>
                   <Box pt={2}>
@@ -102,7 +100,7 @@ const Questions = ({ product_id, name }) => {
         <Grid container direction="row">
           { questions.length !== displayedQuestions.length &&
             <Box mt={2} mr={2} mb={2}>
-              <Button variant="outlined" onClick={handleSubmitClick}>MORE ANSWERED QUESTIONS</Button>
+              <Button variant="outlined" style={{borderRadius: 0}} onClick={handleSubmitClick}>MORE ANSWERED QUESTIONS</Button>
             </Box>
           }
           <AddQuestion
