@@ -117,7 +117,7 @@ const Cart = ({ currentStyle }) => {
                 color='primary'
                 onClick={handleClick}
               >
-                Select A Size
+                Select Size
               </Button>
               <Menu
                 id='select-size'
@@ -150,7 +150,7 @@ const Cart = ({ currentStyle }) => {
                     onClick={handleClick}
                   >
                     Select Qty
-                </Button>
+                  </Button>
                   <Menu
                     id='select-qty'
                     anchorEl={anchorEl}
@@ -167,7 +167,7 @@ const Cart = ({ currentStyle }) => {
                         >
                           {number}
                         </MenuItem>
-                      )
+                      );
                     })}
                   </Menu>
                 </div> :
@@ -177,8 +177,8 @@ const Cart = ({ currentStyle }) => {
                     color='primary'
                     disabled
                   >
-                    Select Qty
-                </Button>
+                    Qty
+                  </Button>
                 </div>
               }
             </Grid>

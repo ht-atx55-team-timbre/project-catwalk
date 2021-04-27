@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
         opacity: 0.15,
       }
     },
+    // marginBottom: '2px'
   },
   imageSelected: {
     position: 'relative',
@@ -100,8 +101,9 @@ export default function ImageGallery({ images, handleImgChange, selected }) {
               focusVisibleClassName={classes.focusVisible}
               style={{
                 width: '100%',
-                padding: '1px',
-                border: '2px solid black', // want to set this to theme highlight color
+                // padding: '1px',
+                paddingBottom: '1px',
+                borderBottom: '2px solid black', // want to set this to theme highlight color
               }}
               onClick={handleClick}
             >
