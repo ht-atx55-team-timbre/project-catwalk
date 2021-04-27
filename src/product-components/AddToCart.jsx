@@ -34,12 +34,10 @@ const Cart = ({ currentStyle }) => {
   }
 
   const handleSKUChange = (e) => {
-    console.log('sku event', e.target.value);
     setSKU(e.target.value);
   }
 
   const handleQtyChange = (e) => {
-    console.log('qty event', e.target.value);
     setQuantity(e.target.value);
   }
 
@@ -59,12 +57,11 @@ const Cart = ({ currentStyle }) => {
         }
       })
       .then(response => {
-        console.log('response', response.data);
+        // console.log('response', response.data);
         setCart(response.data);
-        // console.log('cart', cart);
       })
       .then(response => {
-        console.log('cart', cart);
+        // console.log('cart', cart);
       })
       .catch(err => console.error(err));
   }, [cart, setCart]);
@@ -91,12 +88,12 @@ const Cart = ({ currentStyle }) => {
 
   const handleClick = (e) => {
     setAnchorEl(e.target);
-    console.log('sku & qty', sku, quantity);
+    // console.log('sku & qty', sku, quantity);
   }
 
   const handleClose = () => {
     setAnchorEl(null);
-    console.log('sku & qty', sku, quantity);
+    // console.log('sku & qty', sku, quantity);
   }
 
   return (
