@@ -1,4 +1,4 @@
-import Reac, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Grid } from '@material-ui/core';
 import API_KEY from '../config.js';
@@ -49,7 +49,7 @@ const ProductOverview = ({ product }) => {
         setProductData(response.data);
       })
       .catch(err => console.error(err));
-  })
+  }, [product]);
 
   if (currentStyle && styleData) {
     return (
