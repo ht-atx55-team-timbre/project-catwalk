@@ -102,12 +102,14 @@ export default class ProductOverview extends React.Component {
             </Grid>
           </Grid>
           <Grid container direction="row">
-            <Grid item xs={12} sm={8}>
+            <Grid item sm={1} />
+            <Grid item xs={12} sm={7}>
               <ProductDescription product={this.state.productData} />
             </Grid>
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={3}>
               <ProductSpecs features={this.state.productData.features} />
             </Grid>
+            <Grid item sm={1} />
           </Grid>
         </Grid>
       );
