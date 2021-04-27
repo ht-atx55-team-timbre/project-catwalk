@@ -4,7 +4,6 @@ import { Grid, Paper } from '@material-ui/core';
 import { Button, ButtonGroup } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-
 import getReviews from './review-card/getReviews'
 import ReviewsSort from './ReviewsSort';
 import ReviewCards from './ReviewCards';
@@ -33,12 +32,25 @@ const Reviews = ({ product_id, name }) => {
 
   useEffect(() => {
     getReviews(product_id, count, sort)
-      .then (res => setResults(res.data.results))
+      .then (res => {
+        if (res) {
+          setResults(res.data.results)
+        } else {
+          setResults([])
+        }
+
+      })
   }, [product_id, count, sort, addReview])
 
   useEffect(() => {
     ratingComponent(product_id)
-    .then(res => setTotalReviews(res[1]))
+    .then(res => {
+      if (res) {
+        setTotalReviews(res[1])
+      } else {
+        setTotalReviews(0)
+      }
+    })
   }, [product_id])
 
   const classes = useStyles();
