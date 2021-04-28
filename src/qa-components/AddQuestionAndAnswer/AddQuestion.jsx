@@ -13,8 +13,16 @@ import {
   Box,
   Typography
 } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  input: {
+    color: "#181E34"
+  }
+}));
 
 const AddQuestion = ({ toggleQuestionReloadOnFormSubmit, product_id, name }) => {
+  const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [userQuestion, setUserQuestion] = useState('');
   const [nickname, setNickname] = useState('');
@@ -64,7 +72,7 @@ const AddQuestion = ({ toggleQuestionReloadOnFormSubmit, product_id, name }) => 
           style={{borderRadius: 0, borderColor: "red"}}
           onClick={handleClickOpen}
         >
-          <Typography>Add A Question +</Typography>
+          <Typography style={{fontSize: 14}}>Add A Question +</Typography>
         </Button>
       </Box>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
@@ -92,6 +100,7 @@ const AddQuestion = ({ toggleQuestionReloadOnFormSubmit, product_id, name }) => 
               variant="outlined"
               value={userQuestion}
               onInput={ e=>setUserQuestion(e.target.value)}
+              InputProps={{className: classes.input}}
             />
             <TextField
               required
@@ -105,6 +114,7 @@ const AddQuestion = ({ toggleQuestionReloadOnFormSubmit, product_id, name }) => 
               variant="outlined"
               value={nickname}
               onInput={ e=>setNickname(e.target.value)}
+              InputProps={{className: classes.input}}
             />
             <TextField
               required
@@ -118,6 +128,7 @@ const AddQuestion = ({ toggleQuestionReloadOnFormSubmit, product_id, name }) => 
               variant="outlined"
               value={email}
               onInput={ e=>setEmail(e.target.value)}
+              InputProps={{className: classes.input}}
             />
           </DialogContent>
           <DialogActions>

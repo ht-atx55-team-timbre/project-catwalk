@@ -12,8 +12,16 @@ import {
   DialogTitle,
   Typography
 } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  input: {
+    color: "#181E34"
+  }
+}));
 
 const AddAnswer = ({ toggleAnswerReloadOnFormSubmit, question, name }) => {
+  const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [userAnswer, setUserAnswer] = useState('');
   const [nickname, setNickname] = useState('');
@@ -87,6 +95,7 @@ const AddAnswer = ({ toggleAnswerReloadOnFormSubmit, question, name }) => {
               variant="outlined"
               value={userAnswer}
               onInput={ e=>setUserAnswer(e.target.value)}
+              InputProps={{className: classes.input}}
             />
             <TextField
               required
@@ -100,6 +109,7 @@ const AddAnswer = ({ toggleAnswerReloadOnFormSubmit, question, name }) => {
               variant="outlined"
               value={nickname}
               onInput={ e=>setNickname(e.target.value)}
+              InputProps={{className: classes.input}}
             />
             <TextField
               required
@@ -113,6 +123,7 @@ const AddAnswer = ({ toggleAnswerReloadOnFormSubmit, question, name }) => {
               variant="outlined"
               value={email}
               onInput={ e=>setEmail(e.target.value)}
+              InputProps={{className: classes.input}}
             />
           </DialogContent>
           <DialogActions>
