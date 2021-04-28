@@ -8,7 +8,7 @@ const theme = createMuiTheme ({
       light: deepOrange[100],
       main: deepOrange[200],
       dark: deepOrange[300],
-      contrastText: "red",
+      contrastText: "#181E34",
     },
     secondary: {
       light: red[700],
@@ -24,7 +24,7 @@ const theme = createMuiTheme ({
     ].join(','),
     // fontSize: 24
     body1: {
-      color: "red",
+      color: "#181E34",
       fontFamily: [
         '"Nunito"',
         'Sans-Serif'
@@ -32,7 +32,7 @@ const theme = createMuiTheme ({
       fontSize: 16
     },
     body2: {
-      color: "red",
+      color: "#181E34",
       fontFamily: [
         '"Nunito"',
         'Sans-Serif'
@@ -40,7 +40,7 @@ const theme = createMuiTheme ({
       fontSize: 16
     },
     h1: {
-      color: "red",
+      color: "#181E34",
       fontFamily: [
         '"Nunito"',
         'Sans-Serif'
@@ -48,7 +48,7 @@ const theme = createMuiTheme ({
       fontSize: 16
     },
     h2: {
-      color: "red",
+      color: "#181E34",
       fontFamily: [
         '"Nunito"',
         'Sans-Serif'
@@ -56,7 +56,7 @@ const theme = createMuiTheme ({
       fontSize: 16
     },
     h3: {
-      color: "red",
+      color: "#181E34",
       fontFamily: [
         '"Nunito"',
         'Sans-Serif'
@@ -64,7 +64,7 @@ const theme = createMuiTheme ({
       fontSize: 16
     },
     h4: {
-      color: "red",
+      color: "#181E34",
       fontFamily: [
         '"Nunito"',
         'Sans-Serif'
@@ -72,7 +72,7 @@ const theme = createMuiTheme ({
       fontSize: 16
     },
     h5: {
-      color: "red",
+      color: "#181E34",
       fontFamily: [
         '"Nunito"',
         'Sans-Serif'
@@ -80,7 +80,7 @@ const theme = createMuiTheme ({
       fontSize: 16
     },
     h6: {
-      color: "red",
+      color: "#181E34",
       fontFamily: [
         '"Nunito"',
         'Sans-Serif'
@@ -88,7 +88,7 @@ const theme = createMuiTheme ({
       fontSize: 16
     },
     subtitle1: {
-      color: "red",
+      color: "#181E34",
       fontFamily: [
         '"Nunito"',
         'Sans-Serif'
