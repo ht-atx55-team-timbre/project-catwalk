@@ -29,18 +29,14 @@ const HelpfulQuestionHandler = ({ toggleAnswerReloadOnFormSubmit, product_id, qu
     <Box pt={2}>
       <Grid container direction="row" alignItems="center">
         <Grid item>
-          <Typography style={{fontSize: 12, color: "grey"}}>
-            Helpful?
-          </Typography>
-        </Grid>
-        <Grid item>
           <ButtonGroup variant="text" aria-label="text primary button group">
             <Button style={{textTransform: "none", color: "grey"}}>
               <Grid container direction="row">
-                <Typography style={{fontSize: 12}}>
+                <Typography style={{fontSize: 12, color: "grey"}}>
+                  Helpful?&nbsp;
                   <u id={question.question_id} onClick={handleHelpfulQuestion}>Yes</u>&nbsp;
                 </Typography>
-                <Typography style={{fontSize: 12}}>
+                <Typography style={{fontSize: 12, color: "grey"}}>
                   ({helpfulness})
                 </Typography>
               </Grid>

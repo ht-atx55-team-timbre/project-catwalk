@@ -59,8 +59,12 @@ const AddQuestion = ({ toggleQuestionReloadOnFormSubmit, product_id, name }) => 
   return (
     <Grid>
       <Box mt={2}>
-        <Button variant="outlined" style={{borderRadius: 0}} onClick={handleClickOpen}>
-          Add A Question +
+        <Button
+          variant="outlined"
+          style={{borderRadius: 0, borderColor: "red"}}
+          onClick={handleClickOpen}
+        >
+          <Typography>Add A Question +</Typography>
         </Button>
       </Box>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">

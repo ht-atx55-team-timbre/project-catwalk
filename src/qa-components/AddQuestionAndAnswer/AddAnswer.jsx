@@ -9,7 +9,8 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle
+  DialogTitle,
+  Typography
 } from '@material-ui/core';
 
 const AddAnswer = ({ toggleAnswerReloadOnFormSubmit, question, name }) => {
@@ -57,8 +58,8 @@ const AddAnswer = ({ toggleAnswerReloadOnFormSubmit, question, name }) => {
 
   return (
     <Grid>
-      <Button style={{textTransform: "none", fontSize: 10}} onClick={handleClickOpen}>
-        <u>Add Answer</u>
+      <Button style={{textTransform: "none"}} onClick={handleClickOpen}>
+        <Typography style={{fontSize: 12, color: "grey"}}><u>Add Answer</u></Typography>
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <form onSubmit={handleFormSubmit}>

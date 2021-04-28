@@ -104,7 +104,13 @@ const Questions = ({ product_id, name }) => {
           <Grid container direction="row">
             { questions.length !== displayedQuestions.length &&
               <Box mt={2} mr={2} mb={2}>
-                <Button variant="outlined" style={{borderRadius: 0}} onClick={handleSubmitClick}>MORE ANSWERED QUESTIONS</Button>
+                <Button
+                  variant="outlined"
+                  style={{borderRadius: 0, borderColor: "red"}}
+                  onClick={handleSubmitClick}
+                >
+                  <Typography>MORE ANSWERED QUESTIONS</Typography>
+                </Button>
               </Box>
             }
             <AddQuestion
