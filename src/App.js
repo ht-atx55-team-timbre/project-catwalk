@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import { Grid } from '@material-ui/core';
+import { Grid, Box } from '@material-ui/core';
 import { MuiThemeProvider } from '@material-ui/core/styles';
+import Divider from '@material-ui/core/Divider';
 import theme from './theme.js';
 import Header from './product-components/Header.jsx';
 import ReviewsAndRatings from './reviews-components/ReviewsAndRatings';
@@ -65,15 +66,25 @@ class App extends React.Component {
               <Grid item xs={12} sm={10}>
                 <ProductOverview product={this.state.product_id} />
               </Grid>
+              
               <Grid item xs={false} sm={1} />
             </Grid>
             <Grid item container>
               <Grid item xs={false} sm={2} />
               <Grid item xs={12} sm={8}>
+                <Box pt={3} pb={3}>
+                  <Divider varient='middle'></Divider>
+                </Box>
                 <Related product_id={this.state.product_id} handleIdChange={this.handleProductChange} />
                 {/* Q/A */}
+                <Box pt={3} pb={3}>
+                  <Divider varient='middle'></Divider>
+                </Box>
                 <QA product_id={this.state.product_id} name={this.state.name} />
                 {/* Reviews/Ratings */}
+                <Box pt={3} pb={6}>
+                  <Divider varient='middle'></Divider>
+                </Box>
                 <ReviewsAndRatings product_id={this.state.product_id} name={this.state.name} />
               </Grid>
               <Grid item xs={false} sm={2} />
