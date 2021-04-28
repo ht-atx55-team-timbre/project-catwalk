@@ -7,9 +7,10 @@ import {
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    float: 'right',
     flexWrap: 'wrap',
     overflow: 'auto',
-    width: '100%',
+    width: '90%',
     height: '100%'
   },
   rootFewerImages: {
@@ -21,8 +22,8 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     position: 'relative',
-    borderRadius: '5px',
-    width: '100%',
+    // borderRadius: '5px',
+    width: '95%',
     height: '16.6%',
     '&:hover, &$focusVisible': {
       zIndex: 1,
@@ -34,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
   imageSelected: {
     position: 'relative',
+    // borderRadius: '5px',
     width: '100%',
     height: '16.6%',
     '&$focusVisible': {
@@ -42,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
         opacity: 0.15,
       }
     },
+    paddingLeft: '3px',
   },
   focusVisible: {},
   imageButton: {
@@ -58,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
   },
   imageSrc: {
     position: 'absolute',
-    borderRadius: '5px',
+    // borderRadius: '5px',
     left: 0,
     right: 0,
     top: 0,
@@ -68,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
   },
   imageBackdrop: {
     position: 'absolute',
-    borderRadius: '5px',
+    // borderRadius: '5px',
     left: 0,
     right: 0,
     top: 0,
@@ -103,14 +106,14 @@ export default function ImageGallery({ images, handleImgChange, selected }) {
           return (
             <ButtonBase
               focusRipple
-              key={image.name}
-              className={classes.image}
+              key={idx}
+              className={classes.imageSelected}
               focusVisibleClassName={classes.focusVisible}
               style={{
                 width: '100%',
                 // padding: '1px',
-                paddingBottom: '1px',
-                borderBottom: '2px solid black', // want to set this to theme highlight color
+                paddingLeft: '5%',
+                borderLeft: '2px solid #181E34', // want to set this to theme highlight color
               }}
               onClick={handleClick}
             >
@@ -129,7 +132,7 @@ export default function ImageGallery({ images, handleImgChange, selected }) {
           return (
             <ButtonBase
               focusRipple
-              key={image.name}
+              key={idx}
               className={classes.image}
               focusVisibleClassName={classes.focusVisible}
               style={{

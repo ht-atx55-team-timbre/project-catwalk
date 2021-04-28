@@ -7,6 +7,7 @@ import {
 } from '@material-ui/core';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
+import jeff from '../jeffssecret.png';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,7 +19,9 @@ const useStyles = makeStyles((theme) => ({
   announcement: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginTop: 12,
+    marginBottom: 12
   },
   title: {
     flexGrow: 1,
@@ -26,7 +29,9 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
-
+    fontFamily: ['"Cinzel"', 'serif'],
+    marginTop: '20px',
+    marginBottom: '20px',
   },
   search: {
     position: 'relative',
@@ -74,7 +79,7 @@ export default function Header() {
 
   return (
     <div className={classes.root}>
-      <AppBar elevation={0} color='primary' position="static">
+      <AppBar elevation={0} color='primary' position='static'>
         <Toolbar>
           {/* <IconButton
             edge="start"
@@ -84,8 +89,9 @@ export default function Header() {
           >
             <MenuIcon />
           </IconButton> */}
-          <Typography className={classes.title} variant="h6" noWrap>
-            🍉 Watermelon Co.
+          <img src={jeff} alt='js' height='45px' />
+          <Typography className={classes.title} style={{ fontSize: 30 }} noWrap>
+            <span>Jeff's Secret</span>
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -103,7 +109,7 @@ export default function Header() {
         </Toolbar>
       </AppBar>
       <Typography className={classes.announcement}>
-        FREE shipping on orders $99+ | Register for FREE Shipping on Your 1st Order
+        FREE shipping on orders $99+ | Register for FREE Shipping on Your 1st Order and a Chance to Learn Jeff's Secret
       </Typography>
     </div>
   );
