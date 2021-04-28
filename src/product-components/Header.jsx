@@ -1,11 +1,11 @@
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  InputBase
+} from '@material-ui/core';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles((theme) => ({
@@ -15,12 +15,18 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
+  announcement: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   title: {
     flexGrow: 1,
     display: 'none',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
+
   },
   search: {
     position: 'relative',
@@ -68,7 +74,7 @@ export default function Header() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar color='primary' position="static">
         <Toolbar>
           {/* <IconButton
             edge="start"
@@ -96,6 +102,9 @@ export default function Header() {
           </div>
         </Toolbar>
       </AppBar>
+      <Typography className={classes.announcement}>
+        FREE shipping on orders $99+ | Register for FREE Shipping on Your 1st Order
+      </Typography>
     </div>
   );
 }

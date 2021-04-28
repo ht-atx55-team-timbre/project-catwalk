@@ -27,7 +27,7 @@ const ReportAnswer = ({ answer_id }) => {
   }
 
   return(
-    <Button>
+    <Button style={{textTransform: "none", color: "grey", fontSize: 12}}>
       <u onClick={handleReport}>{reportText}</u>
     </Button>
   )

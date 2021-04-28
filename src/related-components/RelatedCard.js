@@ -20,7 +20,7 @@ function RelatedCard({ item, handleIdChange }) {
       const productData = await request.get(`/${item}/`);
       const styleData = await request.get(`/${item}/styles`);
       // const reviewData = await request.get()
-      let stylePhoto = styleData.data.results[0].photos[0].url;
+      let stylePhoto = styleData.data.results[0].photos[0].thumbnail_url;
       setProduct({ general: productData.data, styles: stylePhoto });
     };
     getAllProductData();
@@ -29,7 +29,7 @@ function RelatedCard({ item, handleIdChange }) {
   return (
     <Grid item xs={3}>
       <Container>
-          <RelCard className={classes.card}>
+          <RelCard className={classes.card} color='primary'>
             <RelCardMedia
               media="picture"
               alt="Product Name"

@@ -34,12 +34,10 @@ const Cart = ({ currentStyle }) => {
   }
 
   const handleSKUChange = (e) => {
-    console.log('sku event', e.target.value);
     setSKU(e.target.value);
   }
 
   const handleQtyChange = (e) => {
-    console.log('qty event', e.target.value);
     setQuantity(e.target.value);
   }
 
@@ -59,15 +57,14 @@ const Cart = ({ currentStyle }) => {
         }
       })
       .then(response => {
-        console.log('response', response.data);
+        // console.log('response', response.data);
         setCart(response.data);
-        // console.log('cart', cart);
       })
       .then(response => {
-        console.log('cart', cart);
+        // console.log('cart', cart);
       })
       .catch(err => console.error(err));
-  }, [cart, setCart]);
+  }, [setCart]);
 
   const postToCart = () => {
     if (sku && quantity) {
@@ -91,18 +88,13 @@ const Cart = ({ currentStyle }) => {
 
   const handleClick = (e) => {
     setAnchorEl(e.target);
-    console.log('sku & qty', sku, quantity);
+    // console.log('sku & qty', sku, quantity);
   }
 
   const handleClose = () => {
     setAnchorEl(null);
-    console.log('sku & qty', sku, quantity);
+    // console.log('sku & qty', sku, quantity);
   }
-
-  // useEffect(() => {
-  //   setCart();
-  // }, [setCart]);
-
 
   return (
     <div className={classes.root} display='inline'>
@@ -114,10 +106,10 @@ const Cart = ({ currentStyle }) => {
                 variant='contained'
                 aria-controls='select-size'
                 aria-haspopup='true'
-                color='primary'
+                color='secondary'
                 onClick={handleClick}
               >
-                Select A Size
+                Select Size
               </Button>
               <Menu
                 id='select-size'
@@ -150,7 +142,7 @@ const Cart = ({ currentStyle }) => {
                     onClick={handleClick}
                   >
                     Select Qty
-                </Button>
+                  </Button>
                   <Menu
                     id='select-qty'
                     anchorEl={anchorEl}
@@ -167,18 +159,18 @@ const Cart = ({ currentStyle }) => {
                         >
                           {number}
                         </MenuItem>
-                      )
+                      );
                     })}
                   </Menu>
                 </div> :
                 <div>
                   <Button
                     variant='contained'
-                    color='primary'
+                    color='secondary'
                     disabled
                   >
-                    Select Qty
-                </Button>
+                    Qty
+                  </Button>
                 </div>
               }
             </Grid>
@@ -186,8 +178,8 @@ const Cart = ({ currentStyle }) => {
           <Grid container direction='row' item xs={12}>
             <div>
               <Button
-                variant='contained'
-                color='primary'
+                variant='outlined'
+                color='secondary'
                 onClick={addToCart}
               >
                 Add To Cart

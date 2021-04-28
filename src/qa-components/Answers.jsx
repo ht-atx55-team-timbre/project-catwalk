@@ -11,9 +11,6 @@ const Answers = ({ question_id, toggleAnswerReload }) => {
   const [answersCount, setAnswersCount] = useState(2);
   const [answerToggle, setAnswerToggle] = useState(true);
 
-  // I use two requests here because I do not know the total amount of answers in the database.
-  // The second get requests checks to see if there are any more answers left, if there are not
-  // any, then I know not to display the get more answers button on lines 65-71
   useEffect(() => {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hratx/qa/questions/${question_id}/answers`, {
       headers: {
@@ -72,13 +69,13 @@ const Answers = ({ question_id, toggleAnswerReload }) => {
       </Grid>
       { answers.length > 0 && answers.length !== moreAnswers.length
         ? <Grid>
-          <Button onClick={handleLoadMoreClick}>
+          <Button onClick={handleLoadMoreClick} style={{fontSize: 10}}>
             load more answers
           </Button>
         </Grid>
         : answers.length > 2 &&
         <Grid>
-          <Button onClick={handleCollapseClick}>
+          <Button onClick={handleCollapseClick} style={{fontSize: 10}}>
             collapse answers
           </Button>
         </Grid>
