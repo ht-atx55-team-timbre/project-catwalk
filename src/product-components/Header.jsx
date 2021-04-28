@@ -76,7 +76,7 @@ export default function Header() {
 
   return (
     <div className={classes.root}>
-      <AppBar elevation={0} position="static">
+      <AppBar color='primary' position="static">
         <Toolbar>
           {/* <IconButton
             edge="start"
