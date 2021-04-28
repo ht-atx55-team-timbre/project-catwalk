@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import request from './Requests';
-
 import AddOutfitCard from './AddOutfitCard';
 import { Grid } from '@material-ui/core';
 import Carousel from 'react-material-ui-carousel';
@@ -21,7 +20,7 @@ const Related = ({ product_id, handleIdChange }) => {
       let results = [];
       let chunk = 4;
       for (let i = 0; i < array.length; i++) {
-        relatedItems.push(<RelatedCard key={i} item={array[i]} handleIdChange={handleIdChange} />)
+        relatedItems.push(<RelatedCard key={i} item={array[i]} original={product_id} handleIdChange={handleIdChange} />)
       }
       for (let i = 0; i < relatedItems.length; i += chunk) {
         let tempArr = relatedItems.slice(i, i+chunk);
@@ -32,7 +31,8 @@ const Related = ({ product_id, handleIdChange }) => {
 
     async function getRelated() {
       const results = await request.get(`/${product_id}/related`);
-      setRelated(createRelatedItems(results.data));
+      let uniqueResults = [...new Set(results.data)]
+      setRelated(createRelatedItems(uniqueResults));
       currItemRef.current = product_id;
     };
 
