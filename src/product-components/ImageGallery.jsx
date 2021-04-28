@@ -105,7 +105,7 @@ export default function ImageGallery({ images, handleImgChange, selected }) {
           return (
             <ButtonBase
               focusRipple
-              key={image.name}
+              key={idx}
               className={classes.imageSelected}
               focusVisibleClassName={classes.focusVisible}
               style={{
@@ -131,7 +131,7 @@ export default function ImageGallery({ images, handleImgChange, selected }) {
           return (
             <ButtonBase
               focusRipple
-              key={image.name}
+              key={idx}
               className={classes.image}
               focusVisibleClassName={classes.focusVisible}
               style={{
