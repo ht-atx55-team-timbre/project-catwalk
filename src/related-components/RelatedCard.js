@@ -12,8 +12,13 @@ import { DialogTitle, DialogContent } from './ComparisonDialog';
 import StarComponent from '../reviews-components/StarComponent.js';
 import ratingComponent from '../reviews-components/ratingComponent.js';
 
-function RelatedCard({ item, handleIdChange }) {
+function RelatedCard({ item, handleIdChange, original }) {
   const classes = useStyles();
+
+  const [comparison, setComparison] = useState({
+    original: [],
+    new: []
+  })
 
   const [product, setProduct] = useState({
     general: [],
@@ -34,6 +39,7 @@ function RelatedCard({ item, handleIdChange }) {
   
   useEffect(() => {
     async function getAllProductData() {
+      const originalData = await request.get(`${original}`);
       const productData = await request.get(`/${item}/`);
       const styleData = await request.get(`/${item}/styles`);
       let stylePhoto = 'https://lightwidget.com/wp-content/uploads/local-file-not-found.png';
@@ -41,6 +47,7 @@ function RelatedCard({ item, handleIdChange }) {
         stylePhoto = styleData.data.results[0].photos[0].thumbnail_url
       }
       setProduct({ general: productData.data, styles: stylePhoto });
+      setComparison({original: originalData.data.features, new: productData.data.features});
       ratingComponent(item)
       .then(result => {
         setRating(result[0]);
@@ -62,6 +69,7 @@ function RelatedCard({ item, handleIdChange }) {
   //     })
   //     .catch(err => console.error(err));
   // }, [product]);
+  // console.log(comparison.original.data.features[0]);
 
   return (
     <Grid item xs={3}>
@@ -105,17 +113,10 @@ function RelatedCard({ item, handleIdChange }) {
                 </DialogTitle>
                 <DialogContent dividers>
                   <Typography gutterBottom>
-                    Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
-                    in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                    {comparison.original.map((item, idx) => <li key={idx}>{item.feature}</li>)}
                   </Typography>
                   <Typography gutterBottom>
-                    Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis
-                    lacus vel augue laoreet rutrum faucibus dolor auctor.
-                  </Typography>
-                  <Typography gutterBottom>
-                    Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-                    scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-                    auctor fringilla.
+                    {comparison.new.map((item, idx) => <li key={idx}>{item.feature}</li>)}
                   </Typography>
                 </DialogContent>
               </Dialog>
