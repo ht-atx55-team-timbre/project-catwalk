@@ -10,7 +10,8 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Box
+  Box,
+  Typography
 } from '@material-ui/core';
 
 const AddQuestion = ({ toggleQuestionReloadOnFormSubmit, product_id, name }) => {
@@ -116,8 +117,8 @@ const AddQuestion = ({ toggleQuestionReloadOnFormSubmit, product_id, name }) => 
             />
           </DialogContent>
           <DialogActions>
-            <Button type="submit" onClick={handleClose} color="primary">
-              Submit Question
+            <Button type="submit" onClick={handleClose}>
+              <Typography>Submit Question</Typography>
             </Button>
           </DialogActions>
         </form>

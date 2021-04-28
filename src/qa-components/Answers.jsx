@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Grid, Button } from '@material-ui/core';
+import { Grid, Button, Box, Typography } from '@material-ui/core';
 import _ from 'underscore';
 import axios from 'axios';
 import API_KEY from '../config.js';
@@ -69,15 +69,19 @@ const Answers = ({ question_id, toggleAnswerReload }) => {
       </Grid>
       { answers.length > 0 && answers.length !== moreAnswers.length
         ? <Grid>
-          <Button onClick={handleLoadMoreClick} style={{fontSize: 10}}>
-            load more answers
-          </Button>
+          <Box pl={1.5}>
+            <Button onClick={handleLoadMoreClick} style={{fontSize: 12}}>
+              <Typography style={{fontSize: 12}}>load more answers</Typography>
+            </Button>
+          </Box>
         </Grid>
         : answers.length > 2 &&
         <Grid>
-          <Button onClick={handleCollapseClick} style={{fontSize: 10}}>
-            collapse answers
-          </Button>
+          <Box pl={1.5}>
+            <Button onClick={handleCollapseClick} style={{fontSize: 12}}>
+              collapse answers
+            </Button>
+          </Box>
         </Grid>
       }
     </Grid>
