@@ -59,19 +59,19 @@ class App extends React.Component {
     if (this.state.product_id) {
       return (
         <MuiThemeProvider theme={theme}>
-          <Grid container direction='column'>
+          <Grid container={true} direction='column'>
             <Header />
-            <Grid item container direction='row'>
-              <Grid item xs={false} sm={1} />
-              <Grid item xs={12} sm={10}>
+            <Grid item={true} container={true} direction='row'>
+              <Grid item={true} xs={false} sm={1} />
+              <Grid item={true} xs={12} sm={10}>
                 <ProductOverview product={this.state.product_id} />
               </Grid>
-              
-              <Grid item xs={false} sm={1} />
+
+              <Grid item={true} xs={false} sm={1} />
             </Grid>
-            <Grid item container>
-              <Grid item xs={false} sm={2} />
-              <Grid item xs={12} sm={8}>
+            <Grid item={true} container={true}>
+              <Grid item={true} xs={false} sm={2} />
+              <Grid item={true} xs={12} sm={8}>
                 <Box pt={3} pb={3}>
                   <Divider varient='middle'></Divider>
                 </Box>
@@ -87,7 +87,7 @@ class App extends React.Component {
                 </Box>
                 <ReviewsAndRatings product_id={this.state.product_id} name={this.state.name} />
               </Grid>
-              <Grid item xs={false} sm={2} />
+              <Grid item={true} xs={false} sm={2} />
             </Grid>
           </Grid>
         </MuiThemeProvider>

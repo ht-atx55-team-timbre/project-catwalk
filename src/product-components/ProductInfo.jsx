@@ -51,7 +51,7 @@ const ProductInfo = ({ product, id, style }) => {
           <div></div> :
           <div>
             <StarComponent rating={rating} display="inline-block" />
-            <Typography className={classes.minimal} alignItems='center'>Read all {totalReviews} reviews</Typography>
+            <Typography className={classes.minimal} alignitems='center'>Read all {totalReviews} reviews</Typography>
           </div>
         }
         <Typography className={classes.title} color="textSecondary" gutterBottom>
