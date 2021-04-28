@@ -1,11 +1,13 @@
-import { RelCard, RelCardActions, RelCardContent, RelCardMedia, useStyles } from "./CardTemplate";
-import { useState, useEffect } from "react";
-import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
+import { RelCard, RelCardActions, RelCardContent, RelCardMedia, useStyles } from './CardTemplate';
+import { useState, useEffect } from 'react';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
-import { IconButton } from "@material-ui/core";
-import Grid from "@material-ui/core/Grid";
-import request from "./Requests";
+import { IconButton } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import request from './Requests';
+import StarComponent from '../reviews-components/StarComponent.js';
+import ratingComponent from '../reviews-components/ratingComponent.js';
 
 function OutfitCard({ item, removeOutfit, handleIdChange }) {
   const classes = useStyles();
@@ -14,6 +16,8 @@ function OutfitCard({ item, removeOutfit, handleIdChange }) {
     general: [],
     styles: ''
   });
+
+  const [rating, setRating] = useState(0);
 
   useEffect(() => {
     async function getAllProductData() {
@@ -24,6 +28,11 @@ function OutfitCard({ item, removeOutfit, handleIdChange }) {
       setProduct({ general: productData.data, styles: stylePhoto });
     };
     getAllProductData();
+    ratingComponent(item)
+      .then(result => {
+        setRating(result[0]);
+      })
+      .catch(err => console.error(err));
   }, [item]) 
 
   return (
@@ -54,9 +63,9 @@ function OutfitCard({ item, removeOutfit, handleIdChange }) {
                 {/* PRICE */}
                 {product.general.default_price}
               </Typography>
-              <Typography variant="body1">
-                REVIEWS
-              </Typography>
+              <div>
+                <StarComponent rating={rating} display="inline-block" />
+              </div>
             </RelCardContent>
             <RelCardActions>
               <IconButton onClick={() => removeOutfit(product.general.id)}>
