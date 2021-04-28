@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Box, Button, Typography } from '@material-ui/core';
+import { Grid, Box, Button, Typography, Divider } from '@material-ui/core';
 import axios from 'axios';
 import _ from 'underscore';
 import API_KEY from '../config.js';
@@ -71,6 +71,9 @@ const Questions = ({ product_id, name }) => {
         <Grid>
           {_.map(displayedQuestions, question =>
             <Grid key={question.question_id}>
+              <Box pt={1.5}>
+                <Divider variant="middle" />
+              </Box>
               <Grid container>
                 <Grid item xs={12} sm={9}>
                   <Box pt={2}>
