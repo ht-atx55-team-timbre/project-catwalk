@@ -7,7 +7,7 @@ import HelpfulAnswerHandler from './HelpfulAndReport/HelpfulAnswerHandler.jsx';
 
 const Answers = ({ question_id, toggleAnswerReload }) => {
   const [answers, setAnswers] = useState([]);
-  const [moreAnswers, setMoreAnswers] = useState([]);
+  const [displayedAnswers, setDisplayedAnswers] = useState([]);
   const [answersCount, setAnswersCount] = useState(2);
   const [answerToggle, setAnswerToggle] = useState(true);
 
@@ -18,7 +18,7 @@ const Answers = ({ question_id, toggleAnswerReload }) => {
       },
       params: {
         question_id: question_id,
-        count: answersCount
+        count: 1000
       }
     })
       .then(answers => {
@@ -27,26 +27,15 @@ const Answers = ({ question_id, toggleAnswerReload }) => {
       .catch(err => {
         console.log(err);
       });
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hratx/qa/questions/${question_id}/answers`, {
-      headers: {
-        Authorization: API_KEY
-      },
-      params: {
-        question_id: question_id,
-        count: answersCount + 2
-      }
-    })
-      .then(answers => {
-        setMoreAnswers(answers.data.results);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, [question_id, answersCount, answerToggle]);
+  }, [question_id, answerToggle]);
 
   useEffect(() => {
     setAnswerToggle(toggleAnswerReload);
   }, [toggleAnswerReload])
+
+  useEffect(() => {
+    setDisplayedAnswers(answers.slice(0, answersCount));
+  }, [answers, answersCount])
 
   const handleLoadMoreClick = (event) => {
     setAnswersCount(answersCount + 2);
@@ -59,7 +48,7 @@ const Answers = ({ question_id, toggleAnswerReload }) => {
   return (
     <Grid>
       <Grid>
-        {_.map(answers, answer =>
+        {_.map(displayedAnswers, answer =>
           <Grid key={answer.answer_id}>
             <Grid>
               <HelpfulAnswerHandler answer={answer}/>
@@ -67,10 +56,10 @@ const Answers = ({ question_id, toggleAnswerReload }) => {
           </Grid>
         )}
       </Grid>
-      { answers.length > 0 && answers.length !== moreAnswers.length
+      { answers.length > 0 && answers.length !== displayedAnswers.length
         ? <Grid>
           <Box pl={1.5}>
-            <Button onClick={handleLoadMoreClick} style={{fontSize: 12}}>
+            <Button onClick={handleLoadMoreClick}>
               <Typography style={{fontSize: 12}}>load more answers</Typography>
             </Button>
           </Box>
@@ -79,7 +68,7 @@ const Answers = ({ question_id, toggleAnswerReload }) => {
         <Grid>
           <Box pl={1.5}>
             <Button onClick={handleCollapseClick} style={{fontSize: 12}}>
-              collapse answers
+              <Typography style={{fontSize: 12}}>collapse answers</Typography>
             </Button>
           </Box>
         </Grid>

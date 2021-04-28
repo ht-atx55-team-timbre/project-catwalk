@@ -79,7 +79,7 @@ const Questions = ({ product_id, name }) => {
                   <Box pt={2}>
                     <Typography>{<b>Q: {question.question_body}</b>}</Typography>
                   </Box>
-                  <Box pt={2}>
+                  <Box pt={1.5}>
                     <Answers
                       toggleAnswerReload={toggleAnswerReload}
                       question_id={question.question_id}
