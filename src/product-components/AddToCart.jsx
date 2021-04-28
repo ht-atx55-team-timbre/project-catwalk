@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
   Grid,
   CardContent,
@@ -10,6 +10,7 @@ import {
   Menu,
   MenuItem,
   MenuList,
+  Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
@@ -34,7 +35,15 @@ const Cart = ({ currentStyle }) => {
   const [sku, setSKU] = useState(null);
   const [quantity, setQuantity] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [open, setOpen] = useState(false);
+  const anchorRef = useRef(null);
   const skus = currentStyle.skus;
+
+  const handleToggle = () => {
+    setOpen(prevOpen => !prevOpen);
+  }
+
+
 
   const addToCart = () => {
     postToCart();
@@ -96,12 +105,32 @@ const Cart = ({ currentStyle }) => {
   const handleClick = (e) => {
     setAnchorEl(e.target);
     // console.log('sku & qty', sku, quantity);
+  };
+
+  const handleClose = (e) => {
+    if (anchorRef.current && anchorRef.current.contains(e.target)) {
+      return;
+    }
+
+    setOpen(false);
+    // console.log('sku & qty', sku, quantity);
+  };
+
+  function handleListKeyDown(e) {
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      setOpen(false);
+    }
   }
 
-  const handleClose = () => {
-    setAnchorEl(null);
-    // console.log('sku & qty', sku, quantity);
-  }
+  const prevOpen = useRef(open);
+  useEffect(() => {
+    if (prevOpen.current === true && open === false) {
+      anchorRef.current.focus();
+    }
+
+    prevOpen.current = open;
+  }, [open]);
 
   return (
     <div className={classes.root} display='inline'>
@@ -111,14 +140,41 @@ const Cart = ({ currentStyle }) => {
             <Grid item xs={6}>
               <Button
                 variant='outlined'
-                aria-controls='select-size'
+                ref={anchorRef}
+                aria-controls={open ? 'size-list-grow' : undefined}
                 aria-haspopup='true'
-                color='secondary'
-                onClick={handleClick}
+                style={{ borderRadius: 0, borderColor: 'red' }}
+                onClick={handleToggle}
               >
                 {sku ? skus[sku].size : 'select size'}
               </Button>
-              <Menu
+              <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+                {({ TransitionProps, placement }) => (
+                  <Grow
+                    {...TransitionProps}
+                    style={{ transforOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+                  >
+                    <Paper>
+                      <ClickAwayListener onClickAway={handleClose}>
+                        <MenuList autoFocusItem={open} id='size-list-grow' onKeyDown={handleListKeyDown}>
+                          {Object.keys(skus).map((sku, idx) => {
+                            return (
+                              <MenuItem
+                                key={idx}
+                                onClick={handleSKUChange}
+                                value={sku}
+                              >
+                                {skus[sku].size}
+                              </MenuItem>
+                            );
+                          })}
+                        </MenuList>
+                      </ClickAwayListener>
+                    </Paper>
+                  </Grow>
+                )}
+              </Popper>
+              {/* <Menu
                 id='select-size'
                 anchorEl={anchorEl}
                 keepMounted
@@ -136,7 +192,7 @@ const Cart = ({ currentStyle }) => {
                     </MenuItem>
                   );
                 })}
-              </Menu>
+              </Menu> */}
             </Grid>
             <Grid item xs={6}>
               {sku ?
@@ -145,8 +201,8 @@ const Cart = ({ currentStyle }) => {
                     variant='outlined'
                     aria-controls='select-qty'
                     aria-haspopup='true'
-                    color='secondary'
-                    onClick={handleClick}
+                    style={{ borderRadius: 0, borderColor: 'red' }}
+                    onClick={handleClose}
                   >
                     {quantity ? quantity : '1'}
                   </Button>
@@ -173,7 +229,7 @@ const Cart = ({ currentStyle }) => {
                 <div>
                   <Button
                     variant='outlined'
-                    color='secondary'
+                    style={{ borderRadius: 0, borderColor: 'red' }}
                     disabled
                   >
                     -
@@ -186,7 +242,7 @@ const Cart = ({ currentStyle }) => {
             <div>
               <Button
                 variant='outlined'
-                color='secondary'
+                style={{ borderRadius: 0, borderColor: 'red' }}
                 onClick={addToCart}
               >
                 Add To Cart
