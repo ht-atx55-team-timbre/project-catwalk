@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Ratings = ({ product_id }) => {
+const Ratings = ({ product_id,addReview }) => {
   const [characteristics, setCharacteristics] = useState({});
   const [ratings, setRatings] = useState({});
   const [recommended, setRecommended] = useState({});
@@ -38,7 +38,6 @@ const Ratings = ({ product_id }) => {
       }
     })
       .then(res => {
-        console.log(res.data.recommended)
         setRecommended(res.data.recommended);
       })
       .catch((err) => {
@@ -62,7 +61,7 @@ const Ratings = ({ product_id }) => {
       .catch((err) => {
         console.log(err, 'error getting reviews characteristics for the product id');
       });
-  }, [product_id])
+  }, [product_id, addReview])
 
   const stars = ['5', '4', '3', '2', '1'];
   let [average, numberOfRating] = getRating(ratings);
@@ -77,11 +76,11 @@ const Ratings = ({ product_id }) => {
             averageRating={average}
             recommended={recommended}
           />
-          <StarCounts
+          {Object.keys(ratings).length !== 0 && <StarCounts
             stars={stars}
             numberOfRating={numberOfRating}
             ratings={ratings}
-          />
+          />}
           {Object.keys(characteristics).length !== 0 && <DescriptionRatings
             characteristics={characteristics}
           />}

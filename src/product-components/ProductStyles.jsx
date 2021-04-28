@@ -6,6 +6,7 @@ import {
   Typography,
   ButtonBase
 } from '@material-ui/core';
+import theme from '../theme.js';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
         opacity: 0.15,
       }
     },
+    borderColor: theme.palette.secondary.main
   },
   focusVisible: {},
   imageButton: {
@@ -119,7 +121,8 @@ export default function ProductStyles({ styles, handleStyleChange }) {
                   width: '40px',
                   height: '40px',
                   marginRight: '6px',
-                  border: '2px solid black'
+                  // border: '2px',
+                  // borderColor: theme.palette.secondary.main
                 }}
                 onClick={handleSelection}
               >
