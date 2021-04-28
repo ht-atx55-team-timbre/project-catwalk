@@ -69,9 +69,6 @@ const Questions = ({ product_id, name }) => {
     }
   }
 
-  const moreText = 'More Answered Questions';
-  const collapseText = 'Collapse Questions';
-
   return (
     <Grid>
       <SearchBarComponent sortQuestionsBySearchTerm={sortQuestionsBySearchTerm} />
@@ -111,9 +108,9 @@ const Questions = ({ product_id, name }) => {
         <Box pb={2}>
           <Grid container direction="row">
             { questions.length && questions.length !== displayedQuestions.length
-              ? <MoreQuestionsButton text={moreText} handleClick={handleMoreClick} />
+              ? <MoreQuestionsButton text="More Answered Questions" handleClick={handleMoreClick} />
               : questions.length > 2 &&
-              <MoreQuestionsButton text={collapseText} handleClick={handleCollapseClick} />
+              <MoreQuestionsButton text="Collapse Questions" handleClick={handleCollapseClick} />
             }
             <AddQuestion
               toggleQuestionReloadOnFormSubmit={toggleQuestionReloadOnFormSubmit}
