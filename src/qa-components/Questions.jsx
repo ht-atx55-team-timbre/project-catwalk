@@ -67,7 +67,7 @@ const Questions = ({ product_id, name }) => {
   return (
     <Grid>
       <SearchBarComponent sortQuestionsBySearchTerm={sortQuestionsBySearchTerm} />
-      <Box style={{maxHeight: '80vh', overflow: 'auto'}}>
+      <Box style={{maxHeight: '75vh', overflow: 'auto'}}>
         <Grid>
           {_.map(displayedQuestions, question =>
             <Grid key={question.question_id}>

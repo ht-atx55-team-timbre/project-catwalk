@@ -117,7 +117,7 @@ const AddAnswer = ({ toggleAnswerReloadOnFormSubmit, question, name }) => {
           </DialogContent>
           <DialogActions>
             <Button type="submit" onClick={handleClose} color="primary">
-              Submit Answer
+              <Typography>Submit Answer</Typography>
             </Button>
           </DialogActions>
         </form>
