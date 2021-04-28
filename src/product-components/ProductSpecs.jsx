@@ -12,7 +12,7 @@ const ProductSpecs = ({ features }) => {
     <div className="specs">
       <CardContent>
         {features.map((feature, index) => (
-          <Typography item key={index}>
+          <Typography key={index}>
             {feature.value} {feature.feature}
           </Typography>
         ))}
