@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Grid } from '@material-ui/core';
+import { Grid, Divider, Box } from '@material-ui/core';
 import API_KEY from '../config.js';
 
 import ProductInfo from './ProductInfo.jsx';
@@ -36,7 +36,6 @@ const ProductOverview = ({ product }) => {
             setCurrentStyle(styles[i]);
           }
         }
-        console.log('get')
       })
       .catch(err => console.error(err));
 
@@ -48,7 +47,6 @@ const ProductOverview = ({ product }) => {
       })
       .then(response => {
         setProductData(response.data);
-        console.log('get');
       })
       .catch(err => console.error(err));
   }, [product]);
@@ -84,7 +82,17 @@ const ProductOverview = ({ product }) => {
           <Grid item xs={12} sm={7}>
             <ProductDescription product={productData} />
           </Grid>
-          <Grid item xs={12} sm={3}>
+          <Box pt={1.75} >
+            <Divider
+              orientation='vertical'
+              flexItem
+              variant='middle'
+              style={{
+                height: '85%',
+              }}
+            ></Divider>
+          </Box>
+          <Grid container item xs={12} sm={3} alignItems='center'>
             <ProductSpecs features={productData.features} />
           </Grid>
           <Grid item sm={1} />

@@ -18,7 +18,9 @@ const useStyles = makeStyles((theme) => ({
   announcement: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginTop: 12,
+    marginBottom: 12
   },
   title: {
     flexGrow: 1,
