@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   image: {
     position: 'relative',
     borderRadius: '5px',
-    width: '100%',
+    width: '95%',
     height: '16.6%',
     '&:hover, &$focusVisible': {
       zIndex: 1,
@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
   imageSelected: {
     position: 'relative',
+    borderRadius: '5px',
     width: '100%',
     height: '16.6%',
     '&$focusVisible': {
@@ -42,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
         opacity: 0.15,
       }
     },
+    // paddingLeft: '2px',
   },
   focusVisible: {},
   imageButton: {
@@ -104,13 +106,13 @@ export default function ImageGallery({ images, handleImgChange, selected }) {
             <ButtonBase
               focusRipple
               key={image.name}
-              className={classes.image}
+              className={classes.imageSelected}
               focusVisibleClassName={classes.focusVisible}
               style={{
                 width: '100%',
                 // padding: '1px',
-                paddingBottom: '1px',
-                borderBottom: '2px solid black', // want to set this to theme highlight color
+                // paddingLeft: '5%',
+                borderLeft: '2px solid', // want to set this to theme highlight color
               }}
               onClick={handleClick}
             >

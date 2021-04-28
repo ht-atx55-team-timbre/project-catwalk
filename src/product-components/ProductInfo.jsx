@@ -11,11 +11,12 @@ import ratingComponent from '../reviews-components/ratingComponent.js';
 
 const useStyles = makeStyles({
   root: {
-    minWidth: "100%",
+    maxWidth: '100%',
   },
   minimal: {
-    display: "inline-block",
-    fontSize: 11
+    display: 'flex',
+    fontSize: 11,
+    marginBottom: 12
   },
   title: {
     fontSize: 14,
@@ -41,19 +42,22 @@ const ProductInfo = ({ product, id, style }) => {
         setTotalReviews(result[1]);
       })
       .catch(err => console.error(err));
-  }, [id]);
+  }, [id, totalReviews]);
 
   return (
     <Paper elevation={0} className={classes.root}>
       <CardContent>
-        <div>
-          <StarComponent rating={rating} display="inline-block" />
-          <Typography className={classes.minimal}>Read all {totalReviews} reviews</Typography>
-        </div>
+        {!totalReviews ?
+          <div></div> :
+          <div>
+            <StarComponent rating={rating} display="inline-block" />
+            <Typography className={classes.minimal} alignItems='center'>Read all {totalReviews} reviews</Typography>
+          </div>
+        }
         <Typography className={classes.title} color="textSecondary" gutterBottom>
           {product.category}
         </Typography>
-        <Typography variant="h5" component="h2">
+        <Typography variant="h5" component="h2" gutterBottom>
           {product.name}
         </Typography>
         {style.sale_price ?

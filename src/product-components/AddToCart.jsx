@@ -29,7 +29,7 @@ const Cart = ({ currentStyle }) => {
 
   const addToCart = () => {
     postToCart();
-    setSKU(null);
+    setSKU(null); // deal with this async
     setQuantity(null);
   }
 
@@ -43,7 +43,7 @@ const Cart = ({ currentStyle }) => {
 
   const createQuantity = (quantity) => {
     let array = [];
-    for (let i = 1; i <= quantity; i++) {
+    for (let i = 1; i <= Math.min(quantity, 15); i++) {
       array.push(i);
     }
     return array;
@@ -59,9 +59,7 @@ const Cart = ({ currentStyle }) => {
       .then(response => {
         // console.log('response', response.data);
         setCart(response.data);
-      })
-      .then(response => {
-        // console.log('cart', cart);
+        //   // console.log('cart', cart);
       })
       .catch(err => console.error(err));
   }, [setCart]);
@@ -103,13 +101,13 @@ const Cart = ({ currentStyle }) => {
           <Grid container direction='row'>
             <Grid item xs={6}>
               <Button
-                variant='contained'
+                variant='outlined'
                 aria-controls='select-size'
                 aria-haspopup='true'
                 color='secondary'
                 onClick={handleClick}
               >
-                Select Size
+                {sku ? skus[sku].size : 'select size'}
               </Button>
               <Menu
                 id='select-size'
@@ -135,13 +133,13 @@ const Cart = ({ currentStyle }) => {
               {sku ?
                 <div className={classes.root}>
                   <Button
-                    variant='contained'
+                    variant='outlined'
                     aria-controls='select-qty'
                     aria-haspopup='true'
                     color='secondary'
                     onClick={handleClick}
                   >
-                    Select Qty
+                    {quantity ? quantity : '1'}
                   </Button>
                   <Menu
                     id='select-qty'
@@ -165,11 +163,11 @@ const Cart = ({ currentStyle }) => {
                 </div> :
                 <div>
                   <Button
-                    variant='contained'
+                    variant='outlined'
                     color='secondary'
                     disabled
                   >
-                    Qty
+                    -
                   </Button>
                 </div>
               }

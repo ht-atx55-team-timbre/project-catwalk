@@ -18,7 +18,9 @@ const useStyles = makeStyles((theme) => ({
   announcement: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginTop: 12,
+    marginBottom: 12
   },
   title: {
     flexGrow: 1,
@@ -74,7 +76,7 @@ export default function Header() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar elevation={0} position="static">
         <Toolbar>
           {/* <IconButton
             edge="start"

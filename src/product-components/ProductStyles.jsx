@@ -18,27 +18,31 @@ const useStyles = makeStyles((theme) => ({
   image: {
     position: 'relative',
     borderRadius: '50%',
-    width: '40px',
-    height: '40px',
+    width: '50px',
+    height: '50px',
     '&:hover, &$focusVisible': {
       zIndex: 1,
       '& $imageBackdrop': {
         opacity: 0.15,
       }
     },
+    boxShadow: 'none'
   },
   imageSelected: {
     position: 'relative',
     borderRadius: '50%',
-    width: '40px',
-    height: '40px',
+    width: '50px',
+    height: '50px',
     '&$focusVisible': {
       zIndex: 1,
       '& $imageBackdrop': {
         opacity: 0.15,
-      }
+      },
     },
+    padding: '2px',
+    border: '2px solid',
     borderColor: theme.palette.secondary.main
+
   },
   focusVisible: {},
   imageButton: {
@@ -54,8 +58,8 @@ const useStyles = makeStyles((theme) => ({
   },
   imageSrc: {
     position: 'absolute',
-    width: '40px',
-    height: '40px',
+    width: '50px',
+    height: '50px',
     borderRadius: '50%',
     left: 0,
     right: 0,
@@ -115,12 +119,14 @@ export default function ProductStyles({ styles, handleStyleChange }) {
               <ButtonBase
                 focusRipple
                 key={idx}
-                className={classes.image}
+                className={classes.imageSelected}
                 focusVisibleClassName={classes.focusVisible}
                 style={{
-                  width: '40px',
-                  height: '40px',
-                  marginRight: '6px',
+                  width: '50px',
+                  height: '50px',
+                  marginTop: '4px',
+                  marginBottom: '4px',
+                  marginRight: '8px',
                   // border: '2px',
                   // borderColor: theme.palette.secondary.main
                 }}
@@ -148,11 +154,11 @@ export default function ProductStyles({ styles, handleStyleChange }) {
                 className={classes.image}
                 focusVisibleClassName={classes.focusVisible}
                 style={{
-                  width: '40px',
-                  height: '40px',
+                  width: '50px',
+                  height: '50px',
                   marginTop: '4px',
                   marginBottom: '4px',
-                  marginRight: '8px'
+                  marginRight: '8px',
                 }}
                 onClick={handleSelection}
               >

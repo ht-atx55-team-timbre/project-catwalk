@@ -36,7 +36,6 @@ const ProductOverview = ({ product }) => {
             setCurrentStyle(styles[i]);
           }
         }
-        console.log('get')
       })
       .catch(err => console.error(err));
 
@@ -48,7 +47,6 @@ const ProductOverview = ({ product }) => {
       })
       .then(response => {
         setProductData(response.data);
-        console.log('get');
       })
       .catch(err => console.error(err));
   }, [product]);
