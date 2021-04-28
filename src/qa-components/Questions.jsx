@@ -71,9 +71,9 @@ const Questions = ({ product_id, name }) => {
         <Grid>
           {_.map(displayedQuestions, question =>
             <Grid key={question.question_id}>
-              <Box pt={1.5}>
-                <Divider variant="middle" />
-              </Box>
+              {question.question_id !== displayedQuestions[0].question_id &&
+                <Box pt={1.5}><Divider variant="middle" /></Box>
+              }
               <Grid container>
                 <Grid item xs={12} sm={9}>
                   <Box pt={2}>
