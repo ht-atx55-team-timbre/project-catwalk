@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Box, Button, Typography } from '@material-ui/core';
+import { Grid, Box, Button, Typography, Divider } from '@material-ui/core';
 import axios from 'axios';
 import _ from 'underscore';
 import API_KEY from '../config.js';
@@ -71,12 +71,15 @@ const Questions = ({ product_id, name }) => {
         <Grid>
           {_.map(displayedQuestions, question =>
             <Grid key={question.question_id}>
+              {question.question_id !== displayedQuestions[0].question_id &&
+                <Box pt={1.5}><Divider variant="middle" /></Box>
+              }
               <Grid container>
                 <Grid item xs={12} sm={9}>
                   <Box pt={2}>
                     <Typography>{<b>Q: {question.question_body}</b>}</Typography>
                   </Box>
-                  <Box pt={2}>
+                  <Box pt={1.5}>
                     <Answers
                       toggleAnswerReload={toggleAnswerReload}
                       question_id={question.question_id}
@@ -101,7 +104,13 @@ const Questions = ({ product_id, name }) => {
           <Grid container direction="row">
             { questions.length !== displayedQuestions.length &&
               <Box mt={2} mr={2} mb={2}>
-                <Button variant="outlined" style={{borderRadius: 0}} onClick={handleSubmitClick}>MORE ANSWERED QUESTIONS</Button>
+                <Button
+                  variant="outlined"
+                  style={{borderRadius: 0, borderColor: "red"}}
+                  onClick={handleSubmitClick}
+                >
+                  <Typography>MORE ANSWERED QUESTIONS</Typography>
+                </Button>
               </Box>
             }
             <AddQuestion
