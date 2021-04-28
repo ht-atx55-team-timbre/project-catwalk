@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Grid, Button, ButtonGroup, Typography, Box } from '@material-ui/core';
+import { Grid, Button, Divider, Typography, Box } from '@material-ui/core';
 import moment from 'moment';
 import axios from 'axios';
 import API_KEY from '../../config.js';
@@ -33,27 +33,23 @@ const HelpfulAnswerHandler = ({ answer }) => {
         <Typography>{`${answer.body}`}</Typography>
       </Grid>
       <Grid container direction="row" alignItems="center">
-        <ButtonGroup variant="text" aria-label="text primary button group">
-          <Box pl={1.5}>
-            <Button
-              style={{
-                textTransform: "none",
-                fontSize: 12,
-                color: "grey"
-              }}
-              disabled
-            >
-              by {answer.answerer_name}, {moment(answer.date).format('MMMM Do, YYYY')}
-            </Button>
-          </Box>
-          <Button style={{textTransform: "none"}}>
-            <Typography style={{fontSize: 12, color: "grey"}}>
-              Helpful?&nbsp;<u id={answer.answer_id} onClick={handleHelpfulAnswer}>Yes</u>&nbsp;
-            </Typography>
-            <Typography style={{fontSize: 12, color: "grey"}}>({helpfulness})</Typography>
-          </Button>
-          <ReportAnswer answer_id={answer.answer_id} />
-        </ButtonGroup>
+        <Box pl={2.5} pt={0.5} pb={0.5}>
+          <Typography style={{fontSize: 12, color: "grey"}}>
+            {`by ${answer.answerer_name}, ${moment(answer.date).format('MMMM Do, YYYY')}`}
+            &nbsp;&nbsp;
+          </Typography>
+        </Box>
+        <Divider orientation="vertical" flexItem />
+        <Typography style={{fontSize: 12, color: "grey"}}>
+          &nbsp;&nbsp;
+          Helpful?&nbsp;<u id={answer.answer_id} onClick={handleHelpfulAnswer}>Yes</u>&nbsp;
+        </Typography>
+        <Typography style={{fontSize: 12, color: "grey"}}>
+          ({helpfulness})
+          &nbsp;&nbsp;
+        </Typography>
+        <Divider orientation="vertical" flexItem />
+        <ReportAnswer answer_id={answer.answer_id} />
       </Grid>
     </Grid>
   )
