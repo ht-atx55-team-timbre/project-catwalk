@@ -2,16 +2,16 @@ import React from 'react';
 import {
   AppBar,
   Toolbar,
-  Typography
+  Typography,
+  Button,
+  Grid,
+  Box
 } from '@material-ui/core';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import jeff from '../jeffssecret.png';
 import SearchBar from './SearchBar.jsx';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
   menuButton: {
     marginRight: theme.spacing(2),
   },
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 12
   },
   title: {
-    flexGrow: 1,
+    flex: 1,
     display: 'none',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
@@ -80,17 +80,52 @@ export default function Header({ onSearchFormSubmit }) {
     <div className={classes.root}>
       <AppBar elevation={0} color='primary' position='static'>
         <Toolbar>
-          <img src={jeff} alt='js' height='45px' />
-          <Typography className={classes.title} style={{ fontSize: 30 }} noWrap>
-            <span>Jeff's Secret</span>
-          </Typography>
-          <SearchBar
-            searchClass={classes.search}
-            searchIconClass={classes.searchIcon}
-            inputRootClass={classes.inputRoot}
-            inputInputClass={classes.inputInput}
-            onSearchFormSubmit={onSearchFormSubmit}
-          />
+          <Grid container direction="row" alignItems="center">
+            <Grid item xs={12} md={3}>
+              <Grid container direction="row" alignItems="center">
+                <img src={jeff} alt='js' height='45px' />
+                <Typography className={classes.title} style={{ fontSize: 30 }} noWrap>
+                  <span>Jeff's Secret</span>
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid item container xs={12} md={6}>
+              <Box p={3}>
+                <Button className>
+                  Jackets
+                </Button>
+              </Box>
+              <Box p={3}>
+                <Button className>
+                  Pants
+                </Button>
+              </Box>
+              <Box p={3}>
+                <Button className>
+                  Dress Shoes
+                </Button>
+              </Box>
+              <Box p={3}>
+                <Button className>
+                  Heels
+                </Button>
+              </Box>
+              <Box p={3}>
+                <Button className>
+                  Accessories
+                </Button>
+              </Box>
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <SearchBar
+                searchClass={classes.search}
+                searchIconClass={classes.searchIcon}
+                inputRootClass={classes.inputRoot}
+                inputInputClass={classes.inputInput}
+                onSearchFormSubmit={onSearchFormSubmit}
+              />
+            </Grid>
+          </Grid>
         </Toolbar>
       </AppBar>
       <Typography className={classes.announcement}>

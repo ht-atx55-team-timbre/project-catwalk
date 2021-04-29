@@ -22,10 +22,13 @@ const App = () => {
         Authorization: API_KEY
       },
       params: {
-        count: 10
+        count: 15
       }
     })
       .then((products) => {
+        for (var i = 0; i < products.data.length; i++) {
+          console.log(products.data[i].category);
+        }
         setAllProducts(products.data);
         setProduct_id(products.data[0].id);
         setName(products.data[0].name);
