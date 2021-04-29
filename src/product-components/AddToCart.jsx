@@ -1,16 +1,13 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
-  Grid,
   CardContent,
   Button,
   ClickAwayListener,
   Grow,
   Popper,
   Paper,
-  Menu,
   MenuItem,
   MenuList,
-  Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
@@ -34,30 +31,30 @@ const Cart = ({ currentStyle }) => {
   const [cart, setCart] = useState([]);
   const [sku, setSKU] = useState(null);
   const [quantity, setQuantity] = useState(null);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [open, setOpen] = useState(false);
+  // const [anchorEl, setAnchorEl] = useState(null);
+  const [sizeOpen, setSizeOpen] = useState(false);
+  const [qtyOpen, setQtyOpen] = useState(false);
   const anchorRef = useRef(null);
+
   const skus = currentStyle.skus;
-
-  const handleToggle = () => {
-    setOpen(prevOpen => !prevOpen);
-  }
-
-
 
   const addToCart = () => {
     postToCart();
     setSKU(null); // deal with this async
     setQuantity(null);
-  }
+  };
 
   const handleSKUChange = (e) => {
+    console.log(e.target.value)
     setSKU(e.target.value);
-  }
+    handleSizeClose(e);
+  };
 
   const handleQtyChange = (e) => {
+    console.log(e.target.value);
     setQuantity(e.target.value);
-  }
+    handleQtyClose(e);
+  };
 
   const createQuantity = (quantity) => {
     let array = [];
@@ -65,7 +62,7 @@ const Cart = ({ currentStyle }) => {
       array.push(i);
     }
     return array;
-  }
+  };
 
   const getCartContents = useCallback(() => {
     axios
@@ -77,10 +74,10 @@ const Cart = ({ currentStyle }) => {
       .then(response => {
         // console.log('response', response.data);
         setCart(response.data);
-        //   // console.log('cart', cart);
+        // console.log('cart', cart);
       })
       .catch(err => console.error(err));
-  }, [setCart]);
+  }, [cart, setCart]);
 
   const postToCart = () => {
     if (sku && quantity) {
@@ -96,160 +93,171 @@ const Cart = ({ currentStyle }) => {
         }
       })
         .then(res => {
+          setSKU(null);
+          setQuantity(null);
           getCartContents();
         })
         .catch(err => console.error(err));
     }
-  }
-
-  const handleClick = (e) => {
-    setAnchorEl(e.target);
-    // console.log('sku & qty', sku, quantity);
   };
 
-  const handleClose = (e) => {
+  const handleSizeToggle = () => {
+    setSizeOpen(prevOpen => !prevOpen);
+  };
+
+  const handleQtyToggle = () => {
+    setQtyOpen(prevOpen => !prevOpen);
+  };
+
+  const handleSizeClose = (e) => {
+    if (anchorRef.current === true && anchorRef.current.contains(e.target)) {
+      handleSKUChange(e);
+      return;
+    }
+    setSizeOpen(false);
+  };
+
+  const handleQtyClose = (e) => {
     if (anchorRef.current && anchorRef.current.contains(e.target)) {
+      handleQtyChange(e);
       return;
     }
 
-    setOpen(false);
+    setQtyOpen(false);
     // console.log('sku & qty', sku, quantity);
   };
 
-  function handleListKeyDown(e) {
+  function handleSizeListKeyDown(e) {
     if (e.key === 'Tab') {
       e.preventDefault();
-      setOpen(false);
+      console.log('e.key', e.key);
+      setSizeOpen(false);
     }
   }
 
-  const prevOpen = useRef(open);
+  function handleQtyListKeyDown(e) {
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      console.log('e.key in qty', e.key);
+      setQtyOpen(false);
+    }
+  }
+
+  const prevSizeOpen = useRef(sizeOpen);
   useEffect(() => {
-    if (prevOpen.current === true && open === false) {
+    if (prevSizeOpen.current === true && sizeOpen === false) {
       anchorRef.current.focus();
     }
 
-    prevOpen.current = open;
-  }, [open]);
+    prevSizeOpen.current = sizeOpen;
+  }, [sizeOpen]);
+
+  const prevQtyOpen = useRef(qtyOpen);
+  useEffect(() => {
+    if (prevQtyOpen.current === true && qtyOpen === false) {
+      anchorRef.current.focus();
+    }
+    console.log('anchorRef', anchorRef);
+    prevQtyOpen.current = qtyOpen;
+  }, [qtyOpen]);
 
   return (
-    <div className={classes.root} display='inline'>
+    <div className={classes.root} display='inline' justifycontent='flex-start'>
       <CardContent>
-        <Grid container direction='column'>
-          <Grid container direction='row'>
-            <Grid item xs={6}>
-              <Button
-                variant='outlined'
-                ref={anchorRef}
-                aria-controls={open ? 'size-list-grow' : undefined}
-                aria-haspopup='true'
-                style={{ borderRadius: 0, borderColor: 'red' }}
-                onClick={handleToggle}
-              >
-                {sku ? skus[sku].size : 'select size'}
-              </Button>
-              <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
-                {({ TransitionProps, placement }) => (
-                  <Grow
-                    {...TransitionProps}
-                    style={{ transforOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-                  >
-                    <Paper>
-                      <ClickAwayListener onClickAway={handleClose}>
-                        <MenuList autoFocusItem={open} id='size-list-grow' onKeyDown={handleListKeyDown}>
-                          {Object.keys(skus).map((sku, idx) => {
-                            return (
-                              <MenuItem
-                                key={idx}
-                                onClick={handleSKUChange}
-                                value={sku}
-                              >
-                                {skus[sku].size}
-                              </MenuItem>
-                            );
-                          })}
-                        </MenuList>
-                      </ClickAwayListener>
-                    </Paper>
-                  </Grow>
-                )}
-              </Popper>
-              {/* <Menu
-                id='select-size'
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                {Object.keys(skus).map((sku, idx) => {
-                  return (
-                    <MenuItem
-                      key={idx}
-                      onClick={handleSKUChange}
-                      value={sku}
-                    >
-                      {skus[sku].size}
-                    </MenuItem>
-                  );
-                })}
-              </Menu> */}
-            </Grid>
-            <Grid item xs={6}>
-              {sku ?
-                <div className={classes.root}>
-                  <Button
-                    variant='outlined'
-                    aria-controls='select-qty'
-                    aria-haspopup='true'
-                    style={{ borderRadius: 0, borderColor: 'red' }}
-                    onClick={handleClose}
-                  >
-                    {quantity ? quantity : '1'}
-                  </Button>
-                  <Menu
-                    id='select-qty'
-                    anchorEl={anchorEl}
-                    keepMounted
-                    open={Boolean(anchorEl)}
-                    onClick={handleClose}
-                  >
-                    {createQuantity(skus[sku].quantity).map((number, idx) => {
+        <Button
+          variant='outlined'
+          ref={anchorRef}
+          aria-controls={sizeOpen ? 'size-list-grow' : undefined}
+          aria-haspopup='true'
+          style={{ borderRadius: 0, borderColor: 'red' }}
+          onClick={handleSizeToggle}
+        >
+          {sku ? skus[sku].size : 'size'}
+        </Button>
+        <Popper open={sizeOpen} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+          {({ TransitionProps, placement }) => (
+            <Grow
+              {...TransitionProps}
+              style={{ transforOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+            >
+              <Paper>
+                <ClickAwayListener onClickAway={handleSizeClose}>
+                  <MenuList autoFocusItem={sizeOpen} id='size-list-grow' onKeyDown={handleSizeListKeyDown}>
+                    {Object.keys(skus).map((sku, idx) => {
                       return (
                         <MenuItem
                           key={idx}
-                          onClick={handleQtyChange}
-                          value={number}
+                          onClick={handleSKUChange}
+                          value={sku}
                         >
-                          {number}
+                          {skus[sku].size}
                         </MenuItem>
                       );
                     })}
-                  </Menu>
-                </div> :
-                <div>
-                  <Button
-                    variant='outlined'
-                    style={{ borderRadius: 0, borderColor: 'red' }}
-                    disabled
-                  >
-                    -
-                  </Button>
-                </div>
-              }
-            </Grid>
-          </Grid>
-          <Grid container direction='row' item xs={12}>
-            <div>
-              <Button
-                variant='outlined'
-                style={{ borderRadius: 0, borderColor: 'red' }}
-                onClick={addToCart}
+                  </MenuList>
+                </ClickAwayListener>
+              </Paper>
+            </Grow>
+          )}
+        </Popper>
+      </CardContent>
+      {sku ?
+        <CardContent>
+          <Button
+            variant='outlined'
+            ref={anchorRef}
+            aria-controls={qtyOpen ? 'qty-list-grow' : undefined}
+            aria-haspopup='true'
+            style={{ borderRadius: 0, borderColor: 'red' }}
+            onClick={handleQtyToggle}
+          >
+            {quantity ? quantity : '1'}
+          </Button>
+          <Popper open={qtyOpen} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+            {({ TransitionProps, placement }) => (
+              <Grow
+                {...TransitionProps}
+                style={{ transforOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
               >
-                Add To Cart
-            </Button>
-            </div>
-          </Grid>
-        </Grid>
+                <Paper>
+                  <ClickAwayListener onClickAway={handleQtyClose}>
+                    <MenuList autoFocusItem={qtyOpen} id='qty-list-grow' onKeyDown={handleQtyListKeyDown}>
+                      {createQuantity(skus[sku].quantity).map((number, idx) => {
+                        return (
+                          <MenuItem
+                            key={idx}
+                            onClick={handleQtyChange}
+                            value={number}
+                          >
+                            {number}
+                          </MenuItem>
+                        );
+                      })}
+                    </MenuList>
+                  </ClickAwayListener>
+                </Paper>
+              </Grow>
+            )}
+          </Popper>
+        </CardContent> :
+        <CardContent>
+          <Button
+            variant='outlined'
+            style={{ borderRadius: 0, borderColor: 'primary' }}
+            disabled
+          >
+            -
+          </Button>
+        </CardContent>
+      }
+      <CardContent>
+        <Button
+          variant='outlined'
+          style={{ borderRadius: 0, borderColor: 'red' }}
+          onClick={postToCart}
+        >
+          Add to Cart
+        </Button>
       </CardContent>
     </div>
   );

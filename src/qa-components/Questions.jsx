@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Box, Button, Typography, Divider } from '@material-ui/core';
+import { Grid, Box, Typography, Divider } from '@material-ui/core';
 import axios from 'axios';
 import _ from 'underscore';
 import API_KEY from '../config.js';
@@ -8,6 +8,7 @@ import HelpfulQuestionHandler from './HelpfulAndReport/HelpfulQuestionHandler';
 import AddQuestion from './AddQuestionAndAnswer/AddQuestion.jsx';
 import sortingFunctions from './SortingFunctions.js';
 import SearchBarComponent from './SearchBarComponent.jsx';
+import MoreQuestionsButton from './MoreQuestionsButton.jsx';
 
 const Questions = ({ product_id, name }) => {
   const [allQuestions, setAllQuestions] = useState([]);
@@ -41,8 +42,12 @@ const Questions = ({ product_id, name }) => {
     setDisplayedQuestions(questions.slice(0, questionCount))
   }, [questions, questionCount])
 
-  const handleSubmitClick = (event) => {
+  const handleMoreClick = (event) => {
     setQuestionCount(questionCount + 2);
+  }
+
+  const handleCollapseClick = (event) => {
+    setQuestionCount(4);
   }
 
   const toggleQuestionReloadOnFormSubmit = () => {
@@ -67,7 +72,7 @@ const Questions = ({ product_id, name }) => {
   return (
     <Grid>
       <SearchBarComponent sortQuestionsBySearchTerm={sortQuestionsBySearchTerm} />
-      <Box style={{maxHeight: '80vh', overflow: 'auto'}}>
+      <Box style={{maxHeight: '77vh', overflow: 'auto'}}>
         <Grid>
           {_.map(displayedQuestions, question =>
             <Grid key={question.question_id}>
@@ -102,16 +107,10 @@ const Questions = ({ product_id, name }) => {
       </Box>
         <Box pb={2}>
           <Grid container direction="row">
-            { questions.length !== displayedQuestions.length &&
-              <Box mt={2} mr={2} mb={2}>
-                <Button
-                  variant="outlined"
-                  style={{borderRadius: 0, borderColor: "red"}}
-                  onClick={handleSubmitClick}
-                >
-                  <Typography>MORE ANSWERED QUESTIONS</Typography>
-                </Button>
-              </Box>
+            { questions.length && questions.length !== displayedQuestions.length
+              ? <MoreQuestionsButton text="More Answered Questions" handleClick={handleMoreClick} />
+              : questions.length > 2 &&
+              <MoreQuestionsButton text="Collapse Questions" handleClick={handleCollapseClick} />
             }
             <AddQuestion
               toggleQuestionReloadOnFormSubmit={toggleQuestionReloadOnFormSubmit}
