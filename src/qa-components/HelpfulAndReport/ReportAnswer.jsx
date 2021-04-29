@@ -27,7 +27,7 @@ const ReportAnswer = ({ answer_id }) => {
   }
 
   return(
-    <Typography style={{color: "grey", fontSize: 12}}>
+    <Typography style={{color: "grey", fontSize: 12, cursor: "pointer"}}>
       &nbsp;&nbsp;&nbsp;
       <u onClick={handleReport}>{reportText}</u>
     </Typography>
