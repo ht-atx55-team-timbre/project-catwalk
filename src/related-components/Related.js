@@ -86,7 +86,13 @@ const Related = ({ product_id, handleIdChange }) => {
       </Grid>
       <Grid container>
         <Grid container item justify="center" xs={12}>
-          <Carousel autoPlay={false} >
+          <Carousel autoPlay={false} navButtonsWrapperProps={{   // Move the buttons to the bottom. Unsetting top here to override default style.
+        style: {
+            bottom: '100px',
+            height: '50%',
+            top: 'unset'
+          }
+        }}>
             {related.map((item, idx) => {
               if (item.length > 1) {
                 return (
@@ -105,7 +111,13 @@ const Related = ({ product_id, handleIdChange }) => {
         <Grid container item xs={12}>
         <Typography>Your Outfit:</Typography>
       <Grid container item justify="center" xs={12}>
-        <Carousel autoPlay={false}>
+        <Carousel autoPlay={false} navButtonsWrapperProps={{   // Move the buttons to the bottom. Unsetting top here to override default style.
+        style: {
+            bottom: '100px',
+            height: '50%',
+            top: 'unset'
+          }
+        }}>
           {currOutfitArrayRef.current.length === 0 ? <AddOutfitCard key='add' addOutfit={handleOutfitAdd} /> : (outfits.map((item, idx) => (<Grid container item direction='row' justify='space-evenly' spacing={10} xs={12} key={idx}>{item}</Grid>)))}
         </Carousel>
       </Grid>
