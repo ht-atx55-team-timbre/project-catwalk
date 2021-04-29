@@ -4,7 +4,7 @@ import { Grid, Box } from '@material-ui/core';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import theme from './theme.js';
-import Header from './product-components/Header.jsx';
+import Header from './header-components/Header.jsx';
 import ReviewsAndRatings from './reviews-components/ReviewsAndRatings';
 import ProductOverview from './product-components/ProductOverview.jsx';
 import Related from './related-components/Related';
@@ -47,7 +47,6 @@ const App = () => {
             <Grid item xs={12} sm={10}>
               <ProductOverview allProducts={allProducts} product={product_id} />
             </Grid>
-
             <Grid item xs={false} sm={1} />
           </Grid>
           <Grid item container>
