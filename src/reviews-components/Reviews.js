@@ -56,8 +56,8 @@ const Reviews = ({ product_id, name, addReview, setAddReview }) => {
           <ReviewCards results={results}/>
           <Grid item >
             <ButtonGroup color="secondary">
-              <Button onClick={e => setCount(count + 2)}>More Reviews</Button>
-              {!addReview && <Button onClick={e => setOpen(true)}>Add Reviews +</Button>}
+              <Button style={{borderRadius: '0'}} onClick={e => setCount(count + 2)}>More Reviews</Button>
+              {!addReview && <Button style={{borderRadius: '0'}} onClick={e => setOpen(true)}>Add Reviews +</Button>}
               <ReviewSubmit name={name} product_id={product_id} setAddReview={setAddReview} open={open} setOpen={setOpen}/>
             </ButtonGroup>
           </Grid>
