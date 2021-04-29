@@ -1,13 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import request from './Requests';
 import AddOutfitCard from './AddOutfitCard';
-import { Grid } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import Carousel from 'react-material-ui-carousel';
 import RelatedCard from './RelatedCard';
 import OutfitCard from './OutfitCard';
 
 const Related = ({ product_id, handleIdChange }) => {
-  
+
   // const [currItem, setCurrItem] = useState(0);
   // const [outfitArray, setOutfitArray] = useState([]);
   const [outfits, setOutfits] = useState([]);
@@ -38,8 +38,8 @@ const Related = ({ product_id, handleIdChange }) => {
     };
 
     getRelated();
-  }, [product_id, handleIdChange]) 
-  
+  }, [product_id, handleIdChange])
+
   const createOutfitItems = (array) => {
     let outfitItems = [];
     let results = [];
@@ -81,8 +81,8 @@ const Related = ({ product_id, handleIdChange }) => {
 
   return (
     <Grid container item xs={12} direction='column'>
-      <Grid container item xs={12}> 
-      Related Products:
+      <Grid container item xs={12}>
+        <Typography>Related Products:</Typography>
       </Grid>
       <Grid container>
         <Grid container item justify="center" xs={12}>
@@ -99,11 +99,11 @@ const Related = ({ product_id, handleIdChange }) => {
               }
             })
           }
-            
+
           </Carousel>
         </Grid>
         <Grid container item xs={12}>
-        Your Outfit:
+        <Typography>Your Outfit:</Typography>
       <Grid container item justify="center" xs={12}>
         <Carousel autoPlay={false}>
           {currOutfitArrayRef.current.length === 0 ? <AddOutfitCard key='add' addOutfit={handleOutfitAdd} /> : (outfits.map((item, idx) => (<Grid container item direction='row' justify='space-evenly' spacing={10} xs={12} key={idx}>{item}</Grid>)))}
