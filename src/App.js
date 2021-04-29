@@ -39,19 +39,6 @@ class App extends React.Component {
   }
 
   handleProductChange(id, name) {
-    // axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hratx/products/${id}`, {
-    //   headers: {
-    //     Authorization: API_KEY
-    //   }
-    // })
-    //   .then((product) => {
-    //     this.setState({ product_id: product.data.id });
-    //     this.setState({ name: product.data.name})
-    //   })
-    //   .catch((err) => {
-    //     console.log(err, 'error retrieving products from the database');
-    //   })
-    console.log(id, name);
     this.setState({ product_id: id, name: name });
   }
 
