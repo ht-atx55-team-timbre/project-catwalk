@@ -14,7 +14,7 @@ const Questions = ({ product_id, name }) => {
   const [allQuestions, setAllQuestions] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [displayedQuestions, setDisplayedQuestions] = useState([]);
-  const [questionCount, setQuestionCount] = useState(4);
+  const [questionCount, setQuestionCount] = useState(0);
   const [toggleQuestionReload, setToggleQuestionReload] = useState(true);
   const [toggleAnswerReload, setToggleAnswerReload] = useState(true);
 
@@ -37,6 +37,10 @@ const Questions = ({ product_id, name }) => {
         console.log(err);
       });
   }, [product_id, toggleQuestionReload]);
+
+  useEffect(() => {
+    setQuestionCount(4);
+  }, [product_id])
 
   useEffect(() => {
     setDisplayedQuestions(questions.slice(0, questionCount))
