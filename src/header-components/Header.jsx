@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Header() {
+export default function Header({ onSearchFormSubmit }) {
   const classes = useStyles();
 
   return (
@@ -89,6 +89,7 @@ export default function Header() {
             searchIconClass={classes.searchIcon}
             inputRootClass={classes.inputRoot}
             inputInputClass={classes.inputInput}
+            onSearchFormSubmit={onSearchFormSubmit}
           />
         </Toolbar>
       </AppBar>

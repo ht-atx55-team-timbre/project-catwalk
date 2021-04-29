@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
 import { InputBase } from '@material-ui/core';
 
@@ -6,10 +6,17 @@ const SearchBar = ({
   searchClass,
   searchIconClass,
   inputRootClass,
-  inputInputClass
+  inputInputClass,
+  onSearchFormSubmit
 }) => {
+  const [searchInput, setSearchInput] = useState(null);
+
   return (
-    <div className={searchClass}>
+    <form
+      className={searchClass}
+      onSubmit={onSearchFormSubmit}
+      id={searchInput}
+    >
       <div className={searchIconClass}>
         <SearchIcon />
       </div>
@@ -20,8 +27,9 @@ const SearchBar = ({
           input: inputInputClass,
         }}
         inputProps={{ 'aria-label': 'search' }}
+        onChange={e => setSearchInput(e.target.value)}
       />
-    </div>
+    </form>
   )
 }
 
