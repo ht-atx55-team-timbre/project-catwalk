@@ -15,14 +15,11 @@ import ratingComponent from '../reviews-components/ratingComponent.js';
 function RelatedCard({ item, handleIdChange, original }) {
   const classes = useStyles();
 
-  const [comparison, setComparison] = useState({
-    original: [],
-    new: []
-  })
+  const [comparison, setComparison] = useState([])
 
   const [product, setProduct] = useState({
     general: [],
-    styles: ''
+    styles: 'data:'
   });
 
   const [rating, setRating] = useState(0);
@@ -46,8 +43,35 @@ function RelatedCard({ item, handleIdChange, original }) {
       if (styleData.data.results[0].photos[0].thumbnail_url) {
         stylePhoto = styleData.data.results[0].photos[0].thumbnail_url
       }
+
       setProduct({ general: productData.data, styles: stylePhoto });
-      setComparison({original: originalData.data.features, new: productData.data.features});
+      setComparison([originalData.data.features, productData.data.features]);
+
+      let comparisonObj = {};
+      let originalFeatures = originalData.data.features;
+      let newFeatures = productData.data.features;
+      originalFeatures.forEach((feat) => { comparisonObj[feat.feature] = { original: feat.value, new: '' }});
+      newFeatures.forEach((feat) => { 
+        if (!comparisonObj[feat.feature]) {
+          comparisonObj[feat.feature] = {
+            original: '',
+            new: feat.value
+          }
+        } else {
+          comparisonObj[feat.feature].new = feat.value
+        }
+      })
+      let comparisonArr = [[originalData.data.name, 'Feature', productData.data.name]];
+      for (let key in comparisonObj) {
+        let arr = [comparisonObj[key].original, key, comparisonObj[key].new];
+        comparisonArr.push(arr);
+      }
+      for (let i = 0; i < comparisonArr.length; i++) {
+        
+      }
+      setComparison(comparisonArr);
+
+
       ratingComponent(item)
       .then(result => {
         setRating(result[0]);
@@ -55,21 +79,7 @@ function RelatedCard({ item, handleIdChange, original }) {
       .catch(err => console.error(err));
     };
     getAllProductData();
-  }, [item]) 
-  
-  // useEffect(() => {
-  //   // async function getReviews() {
-  //   //   let result = await ratingComponent(product.general.id);
-  //   //   setRating(result[0]);
-  //   // }
-  //   // getReviews();
-  //   ratingComponent(product.general.id)
-  //     .then(result => {
-  //       setRating(result[0]);
-  //     })
-  //     .catch(err => console.error(err));
-  // }, [product]);
-  // console.log(comparison.original.data.features[0]);
+  }, [item, original]) 
 
   return (
     <Grid item xs={3}>
@@ -78,7 +88,7 @@ function RelatedCard({ item, handleIdChange, original }) {
             <RelCardMedia
               media="picture"
               alt="Product Name"
-              image={product.styles}
+              image={product.styles === undefined ? '' : product.styles}
               title="Product Name"
               className={classes.media}
               onClick={() => { handleIdChange(product.general.id, product.general.name) }}
@@ -112,11 +122,31 @@ function RelatedCard({ item, handleIdChange, original }) {
                   Product Comparison
                 </DialogTitle>
                 <DialogContent dividers>
+                  {/* <Typography gutterBottom> */}
+                    <div style={{display: 'flex', flexDirection: 'row'}}>
+                      <div style={{textAlign: 'center'}}>
+                        <h4>{comparison[0] === undefined ? '' : comparison[0][0]}</h4>
+                        <ul style={{textAlign: 'left'}}>
+                        {comparison[0] === undefined ? '' : comparison.map((item, idx) => { if (idx === 0) {return ''} else { return <li key={idx} style={{ paddingTop: '10px', paddingBottom: '10px'}}>{item[0]}</li>}})}
+                        </ul>
+                      </div>
+                      <div style={{paddingLeft: '50px', paddingRight: '50px', textAlign: 'center'}}>
+                      <h4>{comparison[0] === undefined ? '' : comparison[0][1]}</h4>
+                        <ul style={{textAlign: 'left'}}>
+                          {comparison[0] === undefined ? '' : comparison.map((item, idx) => { if (idx === 0) {return ''} else { return <li key={idx} style={{ paddingTop: '10px', paddingBottom: '10px'}}>{item[1]}</li>}})}
+                        </ul>
+                      </div>
+                      <div style={{textAlign: 'center'}}>
+                      <h4>{comparison[0] === undefined ? '' : comparison[0][2]}</h4>
+                        <ul style={{textAlign: 'left'}}>
+                        {comparison[0] === undefined ? '' : comparison.map((item, idx) => { if (idx === 0) {return ''} else { return <li key={idx} style={{ paddingTop: '10px', paddingBottom: '10px'}}>{item[2]}</li>}})}
+                        </ul>
+                      </div>
+                    </div>
+                    {/* {comparison.original.map((item, idx) => <li key={idx}>{item.feature}</li>)} */}
+                  {/* </Typography> */}
                   <Typography gutterBottom>
-                    {comparison.original.map((item, idx) => <li key={idx}>{item.feature}</li>)}
-                  </Typography>
-                  <Typography gutterBottom>
-                    {comparison.new.map((item, idx) => <li key={idx}>{item.feature}</li>)}
+                    {/* {comparison.new.map((item, idx) => <li key={idx}>{item.feature}</li>)} */}
                   </Typography>
                 </DialogContent>
               </Dialog>
