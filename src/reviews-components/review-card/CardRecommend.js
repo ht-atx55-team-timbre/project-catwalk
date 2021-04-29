@@ -5,7 +5,7 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 const CardRecommend = () => {
 
   return (
-    <Grid item container spacing={1}>
+    <Grid item container >
       <Grid item>
         <CheckCircleIcon style={{ fontSize: 20}} />
       </Grid>

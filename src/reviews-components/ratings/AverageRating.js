@@ -15,7 +15,7 @@ const percentRecommend = (recommended) => {
 const AverageRating = ({ averageRating, recommended }) => {
 
   return (
-    <Grid container spacing={2} alignItems="center" justify="center">
+    <Grid container alignItems="center" justify="center">
       <Grid item md={12} lg={4} >
         <Typography variant="h3" >
           {String(averageRating)}

@@ -62,12 +62,12 @@ const ReviewSubmit = ({ name, product_id, setAddReview, open, setOpen}) => {
           About the {name}
         </DialogContentText>
         <Grid container>
-          <Grid item container spacing={2} xs={5}>
+          <Grid item container xs={5}>
             <FormRating rating={rating} setRating={setRating} />
             <FormRecommend recommend={recommend} setRecommend={setRecommend} />
             <FormCharacteristics characteristics={characteristics} handleChange={handleChange} />
           </Grid>
-          <Grid item container spacing={2} xs={7}>
+          <Grid item container xs={7}>
             <FormName setUserName={setUserName} />
             <FormEmail setEmail={setEmail} />
             <FormSummary setSummary={setSummary} />

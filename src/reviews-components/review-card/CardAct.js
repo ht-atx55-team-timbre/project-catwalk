@@ -38,7 +38,7 @@ const CardAct = ({ helpfulness, review_id }) => {
       <Typography>
         Was this review helpful?
       </Typography>
-      <ButtonGroup variant="text" color="primary" disabled={!select}>
+      <ButtonGroup variant="text" color="secondary" disabled={!select}>
         <Button value="yes" onClick={handleHelpful}>Yes ({helpful})</Button>
         <Button value="no" onClick={handleHelpful}>No</Button>
       </ButtonGroup>
