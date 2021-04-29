@@ -96,7 +96,7 @@ const Related = ({ product_id, handleIdChange }) => {
             {related.map((item, idx) => {
               if (item.length > 1) {
                 return (
-                  <Grid container item direction='row' justify='space-evenly' spacing={10} xs={12} key={idx}>{item}</Grid>
+                  <Grid key={idx} container item direction='row' justify='space-evenly' spacing={10} xs={12}>{item}</Grid>
                 )
               }else{
                 return (

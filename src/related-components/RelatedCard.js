@@ -1,13 +1,13 @@
-import { RelCard, RelCardActions, RelCardContent, RelCardMedia, useStyles } from './CardTemplate';
-// import { withStyles } from '@material-ui/core/styles';
+import request from './Requests';
 import { useState, useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import StarRoundedIcon from '@material-ui/icons/StarRounded';
 import { IconButton } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import request from './Requests';
 import Dialog from '@material-ui/core/Dialog';
+// import Divider from '@material-ui/core/Divider';
+import { RelCard, RelCardActions, RelCardContent, RelCardMedia, useStyles } from './CardTemplate';
 import { DialogTitle, DialogContent } from './ComparisonDialog';
 import StarComponent from '../reviews-components/StarComponent.js';
 import ratingComponent from '../reviews-components/ratingComponent.js';
