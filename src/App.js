@@ -42,12 +42,16 @@ const App = () => {
 
   const onSearchFormSubmit = (event) => {
     event.preventDefault();
-    const filteredProducts = allProducts.filter(product =>
-      product.name.toLowerCase().includes(event.target.id.toLowerCase())
-    );
-    if (filteredProducts.length > 0) {
-      const topResult = filteredProducts[0];
-      setProduct_id(topResult.id);
+    if (event.target.id.length > 2) {
+      const filteredProducts = allProducts.filter(product =>
+        product.name.toLowerCase().includes(event.target.id.toLowerCase())
+      );
+      if (filteredProducts.length > 0) {
+        const topResult = filteredProducts[0];
+        setProduct_id(topResult.id);
+      } else {
+        alert('No products match your search criteria. Please search for a different product.');
+      }
     } else {
       alert('No products match your search criteria. Please search for a different product.');
     }
