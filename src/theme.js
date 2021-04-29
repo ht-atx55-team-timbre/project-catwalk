@@ -11,10 +11,13 @@ const theme = createMuiTheme ({
       contrastText: "#181E34",
     },
     secondary: {
-      light: red[700],
-      main: red[800],
-      dark: red[900],
+      light: red[400],
+      main: red[500],
+      dark: red[600],
     },
+    background: {
+      default: '#F7F8F8',
+    }
   },
   typography: {
     // Use the system font instead of the default Roboto font.
@@ -45,7 +48,7 @@ const theme = createMuiTheme ({
         '"Nunito"',
         'Sans-Serif'
       ],
-      fontSize: 16
+      // fontSize: 16
     },
     h2: {
       color: "#181E34",
@@ -53,7 +56,7 @@ const theme = createMuiTheme ({
         '"Nunito"',
         'Sans-Serif'
       ],
-      fontSize: 16
+      // fontSize: 16
     },
     h3: {
       color: "#181E34",
@@ -61,7 +64,7 @@ const theme = createMuiTheme ({
         '"Nunito"',
         'Sans-Serif'
       ],
-      fontSize: 16
+      // fontSize: 16
     },
     h4: {
       color: "#181E34",
@@ -69,7 +72,7 @@ const theme = createMuiTheme ({
         '"Nunito"',
         'Sans-Serif'
       ],
-      fontSize: 16
+      // fontSize: 16
     },
     h5: {
       color: "#181E34",
@@ -77,7 +80,7 @@ const theme = createMuiTheme ({
         '"Nunito"',
         'Sans-Serif'
       ],
-      fontSize: 16
+      // fontSize: 16
     },
     h6: {
       color: "#181E34",
@@ -85,7 +88,7 @@ const theme = createMuiTheme ({
         '"Nunito"',
         'Sans-Serif'
       ],
-      fontSize: 16
+      // fontSize: 16
     },
     subtitle1: {
       color: "#181E34",
@@ -93,7 +96,7 @@ const theme = createMuiTheme ({
         '"Nunito"',
         'Sans-Serif'
       ],
-      fontSize: 16
+      // fontSize: 16
     }
   },
 });
