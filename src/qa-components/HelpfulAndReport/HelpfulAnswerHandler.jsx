@@ -21,14 +21,14 @@ const HelpfulAnswerHandler = ({ answer }) => {
       setHelpfulness(helpfulness + 1);
       axios.put(url, { helpfulness: helpfulness }, headersAndParams)
         .catch((err) => {
-          console.log(err, 'error sending new helpful question information');
+          console.log(err);
         });
     }
   }
 
   return (
     <Grid>
-      <Grid container="row" alignItems="center">
+      <Grid container alignItems="center">
         <Typography><b>A:&nbsp;</b></Typography>
         <Typography>{`${answer.body}`}</Typography>
       </Grid>
