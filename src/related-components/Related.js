@@ -8,8 +8,6 @@ import OutfitCard from './OutfitCard';
 
 const Related = ({ product_id, handleIdChange }) => {
 
-  // const [currItem, setCurrItem] = useState(0);
-  // const [outfitArray, setOutfitArray] = useState([]);
   const [outfits, setOutfits] = useState([]);
   const [related, setRelated] = useState([]);
   const currItemRef = useRef(0);
@@ -49,7 +47,7 @@ const Related = ({ product_id, handleIdChange }) => {
     }
     for (let i = 0; i < outfitItems.length; i+=chunk) {
       let tempArr = [];
-      tempArr.push(<AddOutfitCard addOutfit={handleOutfitAdd} />);
+      tempArr.push(<AddOutfitCard key='add' addOutfit={handleOutfitAdd} />);
       tempArr.push(outfitItems.slice(i, i+chunk));
       results.push(tempArr);
     }
@@ -61,7 +59,6 @@ const Related = ({ product_id, handleIdChange }) => {
     if (!itemsArray.includes(currItemRef.current)) {
       itemsArray.push(currItemRef.current);
     }
-    // setOutfitArray(itemsArray);
     currOutfitArrayRef.current = itemsArray;
     createOutfitItems(itemsArray);
   }
@@ -74,7 +71,6 @@ const Related = ({ product_id, handleIdChange }) => {
         result.push(newOutfitArray[i])
       }
     }
-    // setOutfitArray(result);
     currOutfitArrayRef.current = result;
     createOutfitItems(result);
   }
@@ -86,7 +82,7 @@ const Related = ({ product_id, handleIdChange }) => {
       </Grid>
       <Grid container>
         <Grid container item justify="center" xs={12}>
-          <Carousel autoPlay={false} navButtonsWrapperProps={{   // Move the buttons to the bottom. Unsetting top here to override default style.
+          <Carousel autoPlay={false} navButtonsWrapperProps={{
         style: {
             bottom: '100px',
             height: '50%',
@@ -111,7 +107,7 @@ const Related = ({ product_id, handleIdChange }) => {
         <Grid container item xs={12}>
         <Typography>Your Outfit:</Typography>
       <Grid container item justify="center" xs={12}>
-        <Carousel autoPlay={false} navButtonsWrapperProps={{   // Move the buttons to the bottom. Unsetting top here to override default style.
+        <Carousel autoPlay={false} navButtonsWrapperProps={{
         style: {
             bottom: '100px',
             height: '50%',
