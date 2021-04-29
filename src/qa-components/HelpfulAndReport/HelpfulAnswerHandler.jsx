@@ -42,7 +42,11 @@ const HelpfulAnswerHandler = ({ answer }) => {
         <Divider orientation="vertical" flexItem />
         <Typography style={{fontSize: 12, color: "grey"}}>
           &nbsp;&nbsp;
-          Helpful?&nbsp;<u id={answer.answer_id} onClick={handleHelpfulAnswer}>Yes</u>&nbsp;
+          Helpful?&nbsp;
+          <u id={answer.answer_id} onClick={handleHelpfulAnswer} style={{cursor: "pointer"}}>
+            Yes
+          </u>
+          &nbsp;
         </Typography>
         <Typography style={{fontSize: 12, color: "grey"}}>
           ({helpfulness})
