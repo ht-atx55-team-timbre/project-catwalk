@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     float: 'right',
     flexWrap: 'wrap',
     overflow: 'auto',
-    width: '90%',
+    width: '100%',
     height: '100%'
   },
   rootFewerImages: {
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
         opacity: 0.15,
       }
     },
-    paddingLeft: '5px'
+    // paddingLeft: '5px'
   },
   imageSelected: {
     position: 'relative',
@@ -113,7 +113,8 @@ export default function ImageGallery({ images, handleImgChange, selected }) {
                 width: '100%',
                 // padding: '1px',
                 paddingLeft: '5px',
-                borderLeft: '2px solid #181E34', // want to set this to theme highlight color
+                borderLeft: '2px solid', // want to set this to theme highlight color
+                borderColor: 'red',
               }}
               onClick={handleClick}
             >

@@ -41,8 +41,7 @@ const useStyles = makeStyles((theme) => ({
     },
     padding: '2px',
     border: '2px solid',
-    borderColor: theme.palette.secondary.main
-
+    borderColor: theme.palette.secondary.main,
   },
   focusVisible: {},
   imageButton: {
