@@ -39,19 +39,19 @@ const App = () => {
   if (product_id) {
     return (
       <MuiThemeProvider theme={theme}>
-        <Grid container={true} direction='column'>
+        <Grid container direction='column'>
           <Header />
-          <Grid item={true} container={true} direction='row'>
-            <Grid item={true} xs={false} sm={1} />
-            <Grid item={true} xs={12} sm={10}>
+          <Grid item container direction='row'>
+            <Grid item xs={false} sm={1} />
+            <Grid item xs={12} sm={10}>
               <ProductOverview allProducts={allProducts} product={product_id} />
             </Grid>
 
-            <Grid item={true} xs={false} sm={1} />
+            <Grid item xs={false} sm={1} />
           </Grid>
-          <Grid item={true} container={true}>
-            <Grid item={true} xs={false} sm={2} />
-            <Grid item={true} xs={12} sm={8}>
+          <Grid item container>
+            <Grid item xs={false} sm={2} />
+            <Grid item xs={12} sm={8}>
               <Box pt={3} pb={3}>
                 <Divider varient='middle'></Divider>
               </Box>
@@ -67,7 +67,7 @@ const App = () => {
               </Box>
               <ReviewsAndRatings product_id={product_id} name={name} />
             </Grid>
-            <Grid item={true} xs={false} sm={2} />
+            <Grid item xs={false} sm={2} />
           </Grid>
         </Grid>
       </MuiThemeProvider>
