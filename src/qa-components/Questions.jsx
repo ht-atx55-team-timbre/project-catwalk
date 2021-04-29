@@ -113,7 +113,7 @@ const Questions = ({ product_id, name }) => {
           <Grid container direction="row">
             { questions.length && questions.length !== displayedQuestions.length
               ? <MoreQuestionsButton text="More Answered Questions" handleClick={handleMoreClick} />
-              : questions.length > 2 &&
+              : questions.length > 4 &&
               <MoreQuestionsButton text="Collapse Questions" handleClick={handleCollapseClick} />
             }
             <AddQuestion
