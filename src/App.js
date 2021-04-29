@@ -33,7 +33,8 @@ const App = () => {
   }, []);
 
   const handleProductChange = (id, name) => {
-    this.setState({ product_id: id, name: name });
+    setProduct_id(id);
+    setName(name);
   }
 
   if (product_id) {
