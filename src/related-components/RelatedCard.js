@@ -6,11 +6,23 @@ import StarRoundedIcon from '@material-ui/icons/StarRounded';
 import { IconButton } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Dialog from '@material-ui/core/Dialog';
-// import Divider from '@material-ui/core/Divider';
+import Divider from '@material-ui/core/Divider';
 import { RelCard, RelCardActions, RelCardContent, RelCardMedia, useStyles } from './CardTemplate';
 import { DialogTitle, DialogContent } from './ComparisonDialog';
 import StarComponent from '../reviews-components/StarComponent.js';
 import ratingComponent from '../reviews-components/ratingComponent.js';
+import { borderTop } from '@material-ui/system';
+
+const tableStyle = {
+  textAlign: 'center',
+  padding: '10px',
+  tableLayout: 'fixed',
+  width: '99%',
+  borderCollapse: 'collapse',
+  fontFamily: '"Nunito", sans-serif',
+  color: '#181E34'
+}
+
 
 function RelatedCard({ item, handleIdChange, original }) {
   const classes = useStyles();
@@ -123,7 +135,9 @@ function RelatedCard({ item, handleIdChange, original }) {
                 </DialogTitle>
                 <DialogContent dividers>
                   {/* <Typography gutterBottom> */}
-                    <div style={{display: 'flex', flexDirection: 'row'}}>
+
+
+                    {/* <div style={{display: 'flex', flexDirection: 'row'}}>
                       <div style={{textAlign: 'center'}}>
                         <h4>{comparison[0] === undefined ? '' : comparison[0][0]}</h4>
                         <ul style={{textAlign: 'left'}}>
@@ -142,9 +156,31 @@ function RelatedCard({ item, handleIdChange, original }) {
                         {comparison[0] === undefined ? '' : comparison.map((item, idx) => { if (idx === 0) {return ''} else { return <li key={idx} style={{ paddingTop: '10px', paddingBottom: '10px'}}>{item[2]}</li>}})}
                         </ul>
                       </div>
-                    </div>
-                    {/* {comparison.original.map((item, idx) => <li key={idx}>{item.feature}</li>)} */}
-                  {/* </Typography> */}
+                    </div> */}
+
+                    {comparison[0] === undefined ? '' : (
+                    <table style={tableStyle}>
+                      <tr>
+                        <th style={{width: '33%'}}>{comparison[0][0]}</th>
+                        <th style={{width: '33%'}}></th>
+                        <th style={{width: '33%'}}>{comparison[0][2]}</th>
+                      </tr>
+                      {comparison.map((item, idx) => {
+                        if (idx === 0) {
+                          return ''
+                        } else {
+                          return (
+                            <tr>
+                              <td style={{width: '33%', borderTop: '2px solid #f78e81'}}>{item[0]}</td>
+                              <td style={{width: '33%', borderTop: '2px solid #f78e81'}}>{item[1]}</td>
+                              <td style={{width: '33%', borderTop: '2px solid #f78e81'}}>{item[2]}</td>
+                            </tr>
+                          )
+                        }
+                      })}
+                    </table>)}
+
+
                   <Typography gutterBottom>
                     {/* {comparison.new.map((item, idx) => <li key={idx}>{item.feature}</li>)} */}
                   </Typography>
