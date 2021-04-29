@@ -16,7 +16,7 @@ const ReviewCards = ({results}) => {
   const classes = useStyles();
 
   return (
-    <Grid item container spacing={2} className={classes.grid}>
+    <Grid item container className={classes.grid}>
       {results.map(review => {
         return (
           <ReviewCard
