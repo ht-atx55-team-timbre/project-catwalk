@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Grid, Button, Box, Typography } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import _ from 'underscore';
 import axios from 'axios';
 import API_KEY from '../config.js';
 import HelpfulAnswerHandler from './HelpfulAndReport/HelpfulAnswerHandler.jsx';
+import MoreAnswersButton from './MoreAnswersButton.jsx';
 
 const Answers = ({ question_id, toggleAnswerReload }) => {
   const [answers, setAnswers] = useState([]);
@@ -58,19 +59,11 @@ const Answers = ({ question_id, toggleAnswerReload }) => {
       </Grid>
       { answers.length > 0 && answers.length !== displayedAnswers.length
         ? <Grid>
-          <Box pl={1.5}>
-            <Button onClick={handleLoadMoreClick}>
-              <Typography style={{fontSize: 12}}>load more answers</Typography>
-            </Button>
-          </Box>
+          <MoreAnswersButton text="Load more answers" handleClick={handleLoadMoreClick} />
         </Grid>
         : answers.length > 2 &&
         <Grid>
-          <Box pl={1.5}>
-            <Button onClick={handleCollapseClick} style={{fontSize: 12}}>
-              <Typography style={{fontSize: 12}}>collapse answers</Typography>
-            </Button>
-          </Box>
+          <MoreAnswersButton text="Collapse answers" handleClick={handleCollapseClick} />
         </Grid>
       }
     </Grid>

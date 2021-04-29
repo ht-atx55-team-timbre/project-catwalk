@@ -14,7 +14,7 @@ const Questions = ({ product_id, name }) => {
   const [allQuestions, setAllQuestions] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [displayedQuestions, setDisplayedQuestions] = useState([]);
-  const [questionCount, setQuestionCount] = useState(4);
+  const [questionCount, setQuestionCount] = useState(0);
   const [toggleQuestionReload, setToggleQuestionReload] = useState(true);
   const [toggleAnswerReload, setToggleAnswerReload] = useState(true);
 
@@ -37,6 +37,10 @@ const Questions = ({ product_id, name }) => {
         console.log(err);
       });
   }, [product_id, toggleQuestionReload]);
+
+  useEffect(() => {
+    setQuestionCount(4);
+  }, [product_id])
 
   useEffect(() => {
     setDisplayedQuestions(questions.slice(0, questionCount))
@@ -72,7 +76,7 @@ const Questions = ({ product_id, name }) => {
   return (
     <Grid>
       <SearchBarComponent sortQuestionsBySearchTerm={sortQuestionsBySearchTerm} />
-      <Box style={{maxHeight: '77vh', overflow: 'auto'}}>
+      <Box style={{maxHeight: '80vh', overflow: 'auto'}}>
         <Grid>
           {_.map(displayedQuestions, question =>
             <Grid key={question.question_id}>
@@ -109,7 +113,7 @@ const Questions = ({ product_id, name }) => {
           <Grid container direction="row">
             { questions.length && questions.length !== displayedQuestions.length
               ? <MoreQuestionsButton text="More Answered Questions" handleClick={handleMoreClick} />
-              : questions.length > 2 &&
+              : questions.length > 4 &&
               <MoreQuestionsButton text="Collapse Questions" handleClick={handleCollapseClick} />
             }
             <AddQuestion
