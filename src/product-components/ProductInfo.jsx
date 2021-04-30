@@ -50,32 +50,32 @@ const ProductInfo = ({ product, id, style }) => {
         {!totalReviews ?
           <div></div> :
           <div>
-            <StarComponent rating={rating} display="inline-block" />
+            <StarComponent rating={rating} display='inline-block' />
             <Typography className={classes.minimal} alignitems='center'>Read all {totalReviews} reviews</Typography>
           </div>
         }
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
+        <Typography className={classes.title} color='textSecondary' gutterBottom>
           {product.category}
         </Typography>
-        <Typography variant="h5" component="h2" gutterBottom>
+        <Typography variant='h5' component='h2' gutterBottom>
           {product.name}
         </Typography>
         {style.sale_price ?
-          <div>
+          <div display='inline-block'>
             <Typography className={classes.discount}>
               {style.sale_price} <em>best price for you!</em>
             </Typography>
-            <Typography className={classes.pos} color="textSecondary">
+            <Typography className={classes.pos} color='textSecondary'>
               <strike>{style.original_price}</strike>
             </Typography>
           </div> :
           <div>
-            <Typography className={classes.pos} color="textSecondary">
+            <Typography className={classes.pos} color='textSecondary'>
               {style.original_price}
             </Typography>
           </div>
         }
-        <Typography variant="body2" component="p">
+        <Typography variant='body2' component='p'>
         </Typography>
       </CardContent>
     </Paper>

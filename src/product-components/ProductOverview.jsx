@@ -79,7 +79,6 @@ const ProductOverview = ({ product, allProducts }) => {
           </Grid>
         </Grid>
         <Grid container direction="row">
-          {/* <Grid item={true} sm={1} /> */}
           <Grid item xs={12} sm={7}>
             <ProductDescription product={productData} />
           </Grid>
@@ -99,7 +98,6 @@ const ProductOverview = ({ product, allProducts }) => {
           <Grid item xs={12} md={3}>
             <ProductSpecs features={productData.features} />
           </Grid>
-          {/* <Grid item={true}/> */}
         </Grid>
       </Grid>
     );
