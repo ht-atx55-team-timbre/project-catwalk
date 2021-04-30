@@ -18,6 +18,9 @@ const theme = createMuiTheme ({
       default: '#F7F8F8',
     }
   },
+  typography: {
+    fontFamily:'"Nunito", Sans-Serif'
+  },
   props: {
     MuiGrid: {
       spacing: 2
