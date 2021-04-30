@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   CardContent,
   Button,
@@ -29,32 +29,27 @@ const useStyles = makeStyles((theme) => ({
 const Cart = ({ currentStyle }) => {
   const classes = useStyles();
 
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(null);
   const [sku, setSKU] = useState(null);
   const [quantity, setQuantity] = useState(null);
   // const [anchorEl, setAnchorEl] = useState(null);
+  // const open = Boolean(anchorEl);
   const [sizeOpen, setSizeOpen] = useState(false);
   const [qtyOpen, setQtyOpen] = useState(false);
-  const anchorRef = useRef(null);
+  var anchorRef = useRef(document.getElementById('size'));
 
   const skus = currentStyle.skus;
-
-  const addToCart = () => {
-    postToCart();
-    setSKU(null); // deal with this async
-    setQuantity(null);
-  };
 
   const handleSKUChange = (e) => {
     console.log(e.target.value)
     setSKU(e.target.value);
-    handleSizeClose(e);
+    setSizeOpen(false);
   };
 
   const handleQtyChange = (e) => {
     console.log(e.target.value);
     setQuantity(e.target.value);
-    handleQtyClose(e);
+    setQtyOpen(false);
   };
 
   const createQuantity = (quantity) => {
@@ -65,16 +60,16 @@ const Cart = ({ currentStyle }) => {
     return array;
   };
 
-  const getCartContents = useCallback(() => {
+  const getCartContents = () => {
     axios
       .get(`http://127.0.0.1:3004/cart`)
       .then(response => {
         // console.log('response', response.data);
         setCart(response.data);
-        // console.log('cart', cart);
+        console.log('cart', cart);
       })
       .catch(err => console.error(err));
-  }, [cart, setCart]);
+  };
 
   const postToCart = () => {
     if (sku && quantity) {
@@ -90,6 +85,7 @@ const Cart = ({ currentStyle }) => {
           setSKU(null);
           setQuantity(null);
           getCartContents();
+          anchorRef.current = document.getElementById('size');
         })
         .catch(err => console.error(err));
     }
@@ -105,7 +101,6 @@ const Cart = ({ currentStyle }) => {
 
   const handleSizeClose = (e) => {
     if (anchorRef.current === true && anchorRef.current.contains(e.target)) {
-      handleSKUChange(e);
       return;
     }
     setSizeOpen(false);
@@ -113,12 +108,10 @@ const Cart = ({ currentStyle }) => {
 
   const handleQtyClose = (e) => {
     if (anchorRef.current && anchorRef.current.contains(e.target)) {
-      handleQtyChange(e);
       return;
     }
 
     setQtyOpen(false);
-    // console.log('sku & qty', sku, quantity);
   };
 
   function handleSizeListKeyDown(e) {
@@ -140,25 +133,34 @@ const Cart = ({ currentStyle }) => {
   const prevSizeOpen = useRef(sizeOpen);
   useEffect(() => {
     if (prevSizeOpen.current === true && sizeOpen === false) {
-      anchorRef.current.focus();
+      if (sku) {
+        anchorRef.current.focus();
+      } else if (sku === null) {
+        anchorRef.current = document.getElementById('size');
+      }
     }
 
     prevSizeOpen.current = sizeOpen;
-  }, [sizeOpen]);
+  }, [sizeOpen, qtyOpen, sku]);
 
   const prevQtyOpen = useRef(qtyOpen);
   useEffect(() => {
     if (prevQtyOpen.current === true && qtyOpen === false) {
-      anchorRef.current.focus();
+      if (anchorRef.current) {
+        anchorRef.current.focus();
+      } else if (anchorRef.current !== document.getElementById('size')) {
+        anchorRef.current = document.getElementById('qty');
+      }
     }
-    console.log('anchorRef', anchorRef);
+
     prevQtyOpen.current = qtyOpen;
-  }, [qtyOpen]);
+  }, [qtyOpen, quantity, sku]);
 
   return (
     <div className={classes.root} display='inline' justifycontent='flex-start'>
       <CardContent>
         <Button
+          id='size'
           variant='outlined'
           ref={anchorRef}
           aria-controls={sizeOpen ? 'size-list-grow' : undefined}
@@ -198,9 +200,10 @@ const Cart = ({ currentStyle }) => {
       {sku ?
         <CardContent>
           <Button
+            id='qty'
             variant='outlined'
             ref={anchorRef}
-            aria-controls={qtyOpen ? 'qty-list-grow' : undefined}
+            aria-controls='qty-list-grow'
             aria-haspopup='true'
             style={{ borderRadius: 0, borderColor: 'red' }}
             onClick={handleQtyToggle}
@@ -211,17 +214,23 @@ const Cart = ({ currentStyle }) => {
             {({ TransitionProps, placement }) => (
               <Grow
                 {...TransitionProps}
-                style={{ transforOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+                style={{ transforOrigin: placement === 'center bottom' }}
               >
                 <Paper>
                   <ClickAwayListener onClickAway={handleQtyClose}>
-                    <MenuList autoFocusItem={qtyOpen} id='qty-list-grow' onKeyDown={handleQtyListKeyDown}>
+                    <MenuList
+                      autoFocusItem={qtyOpen}
+                      id='qty-list-grow'
+                      onClose={handleQtyClose}
+                      onKeyDown={handleQtyListKeyDown}
+                    >
                       {createQuantity(skus[sku].quantity).map((number, idx) => {
                         return (
                           <MenuItem
                             key={idx}
                             onClick={handleQtyChange}
                             value={number}
+
                           >
                             {number}
                           </MenuItem>
@@ -245,13 +254,22 @@ const Cart = ({ currentStyle }) => {
         </CardContent>
       }
       <CardContent>
-        <Button
-          variant='outlined'
-          style={{ borderRadius: 0, borderColor: 'red' }}
-          onClick={postToCart}
-        >
-          Add to Cart
-        </Button>
+        {sku && quantity ?
+          <Button
+            variant='outlined'
+            style={{ borderRadius: 0, borderColor: 'red' }}
+            onClick={postToCart}
+          >
+            Add to Cart
+          </Button> :
+          <Button
+            variant='outlined'
+            style={{ borderRadius: 0, borderColor: 'primary' }}
+            disabled
+          >
+            Add to Cart
+          </Button>
+        }
       </CardContent>
     </div>
   );

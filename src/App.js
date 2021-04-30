@@ -18,10 +18,13 @@ const App = () => {
   useEffect(() => {
     axios.get('http://127.0.0.1:3004/products', {
       params: {
-        count: 10
+        count: 15
       }
     })
       .then((products) => {
+        for (var i = 0; i < products.data.length; i++) {
+          console.log(products.data[i].category);
+        }
         setAllProducts(products.data);
         setProduct_id(products.data[0].id);
         setName(products.data[0].name);
@@ -56,11 +59,11 @@ const App = () => {
   if (product_id) {
     return (
       <MuiThemeProvider theme={theme}>
+        <Header onSearchFormSubmit={onSearchFormSubmit} />
         <Grid container direction='column'>
-          <Header onSearchFormSubmit={onSearchFormSubmit} />
           <Grid item container direction='row'>
-            <Grid item xs={false} sm={1} />
-            <Grid item xs={12} sm={10}>
+            <Grid item xs={false} sm={2} />
+            <Grid item xs={12} sm={8} >
               <ProductOverview allProducts={allProducts} product={product_id} />
             </Grid>
             <Grid item xs={false} sm={1} />
