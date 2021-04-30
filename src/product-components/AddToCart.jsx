@@ -12,8 +12,6 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 
-// hi cam!
-
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
@@ -168,7 +166,7 @@ const Cart = ({ currentStyle }) => {
           style={{ borderRadius: 0, borderColor: 'red' }}
           onClick={handleSizeToggle}
         >
-          {sku ? skus[sku].size : 'size'}
+          {sku && skus[sku].size ? skus[sku].size : 'size'}
         </Button>
         <Popper open={sizeOpen} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
           {({ TransitionProps, placement }) => (
