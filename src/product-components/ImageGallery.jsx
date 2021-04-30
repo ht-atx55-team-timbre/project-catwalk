@@ -4,25 +4,16 @@ import { ButtonBase } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
+    display: 'block',
     float: 'right',
     flexWrap: 'wrap',
     overflow: 'auto',
     width: '100%',
-    height: '100%'
-  },
-  rootFewerImages: {
-    display: 'flex',
-    float: 'right',
-    flexWrap: 'wrap',
-    overflow: 'auto',
-    width: '100%',
-    // justifyContent: 'flex-start',
-    height:'100',
+    height: '100%',
+    alignItems: 'flex-start',
   },
   image: {
     position: 'relative',
-    // borderRadius: '5px',
     width: '95%',
     height: '16.6%',
     '&:hover, &$focusVisible': {
@@ -47,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
   focusVisible: {},
   imageButton: {
     position: 'absolute',
-    borderRadius: '5px',
     left: 0,
     right: 0,
     top: 0,
@@ -94,10 +84,6 @@ export default function ImageGallery({ images, handleImgChange, selected }) {
   function handleClick(e) {
     handleImgChange(Number(e.target.id));
   }
-
-  // if (images.photos.length < 6) {
-  //   classes.root = classes.rootFewerImages;
-  // }
 
   return (
     <div className={classes.root}>

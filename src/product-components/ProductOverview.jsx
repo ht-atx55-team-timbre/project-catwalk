@@ -22,6 +22,10 @@ const ProductOverview = ({ product, allProducts }) => {
   }
 
   useEffect(() => {
+    setInitialPhoto(0);
+  }, [handleStyleChange]);
+
+  useEffect(() => {
     axios
       .get(`https://app-hrsei-api.herokuapp.com/api/fec2/hratx/products/${product}/styles`, {
         headers: {
