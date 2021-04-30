@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, Divider, Box } from '@material-ui/core';
-import request from './OverviewRequests.js';
-
+import axios from 'axios';
 import ProductInfo from './ProductInfo.jsx';
 import ProductDescription from './ProductDescription.jsx';
 import ProductImages from './ProductImages.jsx';
@@ -21,24 +20,25 @@ const ProductOverview = ({ product, allProducts }) => {
   }
 
   useEffect(() => {
-    async function getStyles() {
-      const response = await request.get(`/products/${product}/styles`);
-      let styles = response.data.results;
-      setStyleData(styles);
-      for (var i = 0; i < styles.length; i++) {
-        if (styles[i]['default?']) {
-          setCurrentStyle(styles[i]);
+    axios
+      .get(`http://127.0.0.1:3004/products/${product}/styles`)
+      .then(response => {
+        let styles = response.data.results;
+        setStyleData(styles);
+        for (var i = 0; i < styles.length; i++) {
+          if (styles[i]['default?']) {
+            setCurrentStyle(styles[i]);
+          }
         }
-      }
-    }
+      })
+      .catch(err => console.error(err));
 
-    async function getProducts() {
-      const response = await request.get(`/products/${product}`);
-      setProductData(response.data);
-    }
-
-    getProducts();
-    getStyles();
+    axios
+      .get(`http://127.0.0.1:3004/products/${product}`)
+      .then(response => {
+        setProductData(response.data);
+      })
+      .catch(err => console.error(err));
   }, [product]);
 
   if (currentStyle && productData) {

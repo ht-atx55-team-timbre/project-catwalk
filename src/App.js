@@ -9,7 +9,6 @@ import ReviewsAndRatings from './reviews-components/ReviewsAndRatings';
 import ProductOverview from './product-components/ProductOverview.jsx';
 import Related from './related-components/Related';
 import QA from './qa-components/Main.jsx';
-import API_KEY from './config';
 
 const App = () => {
   const [allProducts, setAllProducts] = useState(null);
@@ -17,10 +16,7 @@ const App = () => {
   const [name, setName] = useState(null)
 
   useEffect(() => {
-    axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hratx/products', {
-      headers: {
-        Authorization: API_KEY
-      },
+    axios.get('http://127.0.0.1:3004/products', {
       params: {
         count: 15
       }

@@ -10,9 +10,7 @@ import {
   MenuList,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-// import axios from 'axios';
-import request from './OverviewRequests.js';
-// import API_KEY from '../config.js';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,30 +59,33 @@ const Cart = ({ currentStyle }) => {
   };
 
   const getCartContents = () => {
-    async function getCart() {
-      const response = await request.get(`/cart`);
-      setCart(response.data);
-    }
-
-    getCart();
+    axios
+      .get(`http://127.0.0.1:3004/cart`)
+      .then(response => {
+        // console.log('response', response.data);
+        setCart(response.data);
+        console.log('cart', cart);
+      })
+      .catch(err => console.error(err));
   };
 
   const postToCart = () => {
     if (sku && quantity) {
-      async function postCart() {
-        const response = await request.post(`/cart`, {
+      axios({
+        method: 'post',
+        url: `http://127.0.0.1:3004/cart`,
+        data: {
           sku_id: sku,
-          count: quantity,
-        });
-        console.log('Added to Cart!', response);
-        setSKU(null);
-        setQuantity(null);
-        getCartContents();
-        anchorRef.current = document.getElementById('size');
-        console.log(cart);
-      }
-
-      postCart();
+          count: quantity
+        }
+      })
+        .then(res => {
+          setSKU(null);
+          setQuantity(null);
+          getCartContents();
+          anchorRef.current = document.getElementById('size');
+        })
+        .catch(err => console.error(err));
     }
   };
 
