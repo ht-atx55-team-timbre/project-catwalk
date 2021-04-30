@@ -11,7 +11,7 @@ const ReviewsAndRatings = ({ product_id, name }) => {
   const [addReview, setAddReview] = useState(false)
   return (
     <MuiThemeProvider theme={theme}>
-      <Grid container style={{backgroundColor: '#FBE7D5'}} alignItems="flex-start" >
+      <Grid container alignItems="flex-start" >
         <Grid item xs={12}>
           <Typography variant="h6" gutterBottom>
             RATINGS & REVIEWS
