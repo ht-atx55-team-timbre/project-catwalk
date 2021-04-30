@@ -10,7 +10,7 @@ import {
   MenuList,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import axios from 'axios';
+// import axios from 'axios';
 import request from './OverviewRequests.js';
 // import API_KEY from '../config.js';
 
@@ -61,19 +61,6 @@ const Cart = ({ currentStyle }) => {
   };
 
   const getCartContents = () => {
-    // axios
-    //   .get(`https://app-hrsei-api.herokuapp.com/api/fec2/hratx/cart`, {
-    //     headers: {
-    //       Authorization: API_KEY
-    //     }
-    //   })
-    //   .then(response => {
-    //     // console.log('response', response.data);
-    //     setCart(response.data);
-    //     console.log('cart', cart);
-    //   })
-    //   .catch(err => console.error(err));
-
     async function getCart() {
       const response = await request.get(`/cart`);
       setCart(response.data);
@@ -84,24 +71,20 @@ const Cart = ({ currentStyle }) => {
 
   const postToCart = () => {
     if (sku && quantity) {
-      axios({
-        method: 'post',
-        url: `https://app-hrsei-api.herokuapp.com/api/fec2/hratx/cart`,
-        data: {
+      async function postCart() {
+        const response = await request.post(`/cart`, {
           sku_id: sku,
-          count: quantity
-        },
-        headers: {
-          // Authorization: API_KEY
-        }
-      })
-        .then(res => {
-          setSKU(null);
-          setQuantity(null);
-          getCartContents();
-          anchorRef.current = document.getElementById('size');
-        })
-        .catch(err => console.error(err));
+          count: quantity,
+        });
+        console.log('Added to Cart!', response);
+        setSKU(null);
+        setQuantity(null);
+        getCartContents();
+        anchorRef.current = document.getElementById('size');
+        console.log(cart);
+      }
+
+      postCart();
     }
   };
 

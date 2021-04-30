@@ -22,7 +22,7 @@ const ProductOverview = ({ product, allProducts }) => {
 
   useEffect(() => {
     async function getStyles() {
-      const response = await request.get(`${product}/styles`);
+      const response = await request.get(`/products/${product}/styles`);
       let styles = response.data.results;
       setStyleData(styles);
       for (var i = 0; i < styles.length; i++) {
@@ -33,7 +33,7 @@ const ProductOverview = ({ product, allProducts }) => {
     }
 
     async function getProducts() {
-      const response = await request.get(`/${product}`);
+      const response = await request.get(`/products/${product}`);
       setProductData(response.data);
     }
 
