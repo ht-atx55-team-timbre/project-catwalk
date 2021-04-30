@@ -2,15 +2,21 @@ import React from 'react';
 import {
   AppBar,
   Toolbar,
-  Typography
+  Typography,
+  Button,
+  Grid,
+  Box,
+  IconButton
 } from '@material-ui/core';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import jeff from '../jeffssecret.png';
 import SearchBar from './SearchBar.jsx';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    position: 'fixed',
+    zIndex: 100
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -19,18 +25,20 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 12,
-    marginBottom: 12
+    fontFamily: ['"Cinzel"', 'serif'],
   },
   title: {
-    flexGrow: 1,
-    display: 'none',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
     fontFamily: ['"Cinzel"', 'serif'],
     marginTop: '20px',
     marginBottom: '20px',
+  },
+  categories: {
+    fontSize: 18,
+    fontFamily: ['"Cinzel"', 'serif'],
+    textTransform: 'none'
   },
   search: {
     position: 'relative',
@@ -77,25 +85,62 @@ export default function Header({ onSearchFormSubmit }) {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <AppBar elevation={0} color='primary' position='static'>
+    <div>
+      <AppBar className={classes.root} elevation={0} color='primary' position='static'>
         <Toolbar>
-          <img src={jeff} alt='js' height='45px' />
-          <Typography className={classes.title} style={{ fontSize: 30 }} noWrap>
-            <span>Jeff's Secret</span>
-          </Typography>
-          <SearchBar
-            searchClass={classes.search}
-            searchIconClass={classes.searchIcon}
-            inputRootClass={classes.inputRoot}
-            inputInputClass={classes.inputInput}
-            onSearchFormSubmit={onSearchFormSubmit}
-          />
+          <Grid container direction="row" alignItems="center">
+            <Grid item xs={12} md={3}>
+              <Grid container direction="row" alignItems="center">
+                <img src={jeff} alt='js' height='45px' />
+                <Typography className={classes.title} style={{ fontSize: 30 }} noWrap>
+                  <span>Jeff's Secret</span>
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid item container xs={12} md={6} style={{ display: "flex", justifyContent: "space-evenly" }} >
+              <Button className={classes.categories}>
+                Jackets
+              </Button>
+              <Button className={classes.categories}>
+                Pants
+              </Button>
+              <Button className={classes.categories}>
+                Dress Shoes
+              </Button>
+              <Button className={classes.categories}>
+                Heels
+              </Button>
+              <Button className={classes.categories}>
+                Accessories
+              </Button>
+            </Grid>
+            <Grid item md={1}></Grid>
+            <Grid item container direction="row" alignItems="center" xs={12} md={2}>
+              <Grid item xs={10}>
+                <SearchBar
+                  searchClass={classes.search}
+                  searchIconClass={classes.searchIcon}
+                  inputRootClass={classes.inputRoot}
+                  inputInputClass={classes.inputInput}
+                  onSearchFormSubmit={onSearchFormSubmit}
+                />
+              </Grid>
+              <Grid item xs={2}>
+                <Box>
+                  <IconButton>
+                    <ShoppingCartIcon />
+                  </IconButton>
+                </Box>
+              </Grid>
+            </Grid>
+          </Grid>
         </Toolbar>
       </AppBar>
-      <Typography className={classes.announcement}>
-        FREE shipping on orders $99+ | Register for FREE Shipping on Your 1st Order and a Chance to Learn Jeff's Secret
-      </Typography>
+      <Box pt={13} pb={3}>
+        <Typography style={{textAlign: "center"}}>
+          Free shipping on orders $99+ | Register for Free Shipping on Your 1st Order and a Chance to Learn Jeff's Secret
+        </Typography>
+      </Box>
     </div>
   );
 }
