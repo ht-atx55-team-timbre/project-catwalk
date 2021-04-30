@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Grid, Box, Typography, Divider } from '@material-ui/core';
 import axios from 'axios';
 import _ from 'underscore';
-import API_KEY from '../config.js';
 import Answers from './Answers.jsx';
 import HelpfulQuestionHandler from './HelpfulAndReport/HelpfulQuestionHandler';
 import AddQuestion from './AddQuestionAndAnswer/AddQuestion.jsx';
@@ -19,10 +18,7 @@ const Questions = ({ product_id, name }) => {
   const [toggleAnswerReload, setToggleAnswerReload] = useState(true);
 
   useEffect(() => {
-    axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hratx/qa/questions', {
-      headers: {
-        Authorization: API_KEY
-      },
+    axios.get('http://127.0.0.1:3004/qa/questions', {
       params: {
         product_id: product_id,
         count: 1000

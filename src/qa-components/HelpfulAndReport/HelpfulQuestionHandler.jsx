@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import axios from 'axios';
-import API_KEY from '../../config.js';
 import { Grid, Box, Divider, Typography } from '@material-ui/core';
 import AddAnswer from '../AddQuestionAndAnswer/AddAnswer.jsx';
 
@@ -8,9 +7,8 @@ const HelpfulQuestionHandler = ({ toggleAnswerReloadOnFormSubmit, product_id, qu
   const [helpfulness, setHelpfulness] = useState(question.question_helpfulness);
   const [qIsClicked, setQIsClicked] = useState(false);
 
-  const url = `https://app-hrsei-api.herokuapp.com/api/fec2/hratx/qa/questions/${question.question_id}/helpful`;
+  const url = `http://127.0.0.1:3004/qa/questions/${question.question_id}/helpful`;
   const headersAndParams = {
-    headers: { Authorization: API_KEY },
     params: { question_id: question.question_id }
   };
 

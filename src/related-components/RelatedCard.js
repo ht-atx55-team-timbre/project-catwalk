@@ -21,28 +21,21 @@ const tableStyle = {
   color: '#181E34'
 }
 
-
 function RelatedCard({ item, handleIdChange, original }) {
   const classes = useStyles();
-
   const [comparison, setComparison] = useState([])
-
   const [product, setProduct] = useState({
     general: [],
     styles: 'data:'
   });
-
   const [rating, setRating] = useState(0);
-
   const [open, setOpen] = useState(false);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
   };
-
   
   useEffect(() => {
     async function getAllProductData() {
@@ -53,10 +46,8 @@ function RelatedCard({ item, handleIdChange, original }) {
       if (styleData.data.results[0].photos[0].thumbnail_url) {
         stylePhoto = styleData.data.results[0].photos[0].thumbnail_url
       }
-
       setProduct({ general: productData.data, styles: stylePhoto });
       setComparison([originalData.data.features, productData.data.features]);
-
       let comparisonObj = {};
       let originalFeatures = originalData.data.features;
       let newFeatures = productData.data.features;
@@ -138,7 +129,8 @@ function RelatedCard({ item, handleIdChange, original }) {
                             <td key={idx} style={{width: '33%', borderTop: '2px solid #f78e81'}}>{item[1]}</td>
                             <td key={idx} style={{width: '33%', borderTop: '2px solid #f78e81'}}>{item[2]}</td>
                           </tr>
-                      ))}
+                        ))
+                      }
                     </table>}
                 </DialogContent>
               </Dialog>

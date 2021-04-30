@@ -9,7 +9,6 @@ import DescriptionRatings from './ratings/DescriptionRatings';
 import getRatings from './ratings/getRatings';
 import getCharacteristics from './getCharacteristics';
 import getRating from './ratings/getRating';
-import API_KEY from '../config.js';
 
 const Ratings = ({ product_id,addReview }) => {
   const [characteristics, setCharacteristics] = useState({});
@@ -17,12 +16,10 @@ const Ratings = ({ product_id,addReview }) => {
   const [recommended, setRecommended] = useState({});
 
   useEffect(() => {
-    axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hratx/reviews/meta', {
-      headers: {
-        Authorization: API_KEY
-      },
+    axios.get(`/meta`, {
+      baseURL: 'http://127.0.0.1:3004/reviews',
       params: {
-        product_id: product_id,
+        product_id: product_id
       }
     })
       .then(res => {

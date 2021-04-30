@@ -2,16 +2,14 @@ import { useState } from 'react';
 import { Grid, Divider, Typography, Box } from '@material-ui/core';
 import moment from 'moment';
 import axios from 'axios';
-import API_KEY from '../../config.js';
 import ReportAnswer from './ReportAnswer.jsx';
 
 const HelpfulAnswerHandler = ({ answer }) => {
   const [helpfulness, setHelpfulness] = useState(answer.helpfulness);
   const [aIsClicked, setAIsClicked] = useState(false);
 
-  const url = `https://app-hrsei-api.herokuapp.com/api/fec2/hratx/qa/answers/${answer.answer_id}/helpful`;
+  const url = `http://127.0.0.1:3004/qa/answers/${answer.answer_id}/helpful`;
   const headersAndParams = {
-    headers: { Authorization: API_KEY },
     params: { answer_id: answer.answer_id }
   };
 
