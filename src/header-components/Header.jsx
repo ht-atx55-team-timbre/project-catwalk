@@ -2,12 +2,11 @@ import React from 'react';
 import {
   AppBar,
   Toolbar,
-  Typography,
-  InputBase
+  Typography
 } from '@material-ui/core';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import SearchIcon from '@material-ui/icons/Search';
 import jeff from '../jeffssecret.png';
+import SearchBar from './SearchBar.jsx';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -74,38 +73,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Header() {
+export default function Header({ onSearchFormSubmit }) {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <AppBar elevation={0} color='primary' position='static'>
         <Toolbar>
-          {/* <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon />
-          </IconButton> */}
           <img src={jeff} alt='js' height='45px' />
           <Typography className={classes.title} style={{ fontSize: 30 }} noWrap>
             <span>Jeff's Secret</span>
           </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
+          <SearchBar
+            searchClass={classes.search}
+            searchIconClass={classes.searchIcon}
+            inputRootClass={classes.inputRoot}
+            inputInputClass={classes.inputInput}
+            onSearchFormSubmit={onSearchFormSubmit}
+          />
         </Toolbar>
       </AppBar>
       <Typography className={classes.announcement}>
