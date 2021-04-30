@@ -5,11 +5,13 @@ import {
   Typography,
   Button,
   Grid,
-  Box
+  Box,
+  IconButton
 } from '@material-ui/core';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import jeff from '../jeffssecret.png';
 import SearchBar from './SearchBar.jsx';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -113,14 +115,23 @@ export default function Header({ onSearchFormSubmit }) {
               </Button>
             </Grid>
             <Grid item md={1}></Grid>
-            <Grid item xs={12} md={2}>
-              <SearchBar
-                searchClass={classes.search}
-                searchIconClass={classes.searchIcon}
-                inputRootClass={classes.inputRoot}
-                inputInputClass={classes.inputInput}
-                onSearchFormSubmit={onSearchFormSubmit}
-              />
+            <Grid item container direction="row" alignItems="center" xs={12} md={2}>
+              <Grid item xs={10}>
+                <SearchBar
+                  searchClass={classes.search}
+                  searchIconClass={classes.searchIcon}
+                  inputRootClass={classes.inputRoot}
+                  inputInputClass={classes.inputInput}
+                  onSearchFormSubmit={onSearchFormSubmit}
+                />
+              </Grid>
+              <Grid item xs={2}>
+                <Box>
+                  <IconButton>
+                    <ShoppingCartIcon />
+                  </IconButton>
+                </Box>
+              </Grid>
             </Grid>
           </Grid>
         </Toolbar>
