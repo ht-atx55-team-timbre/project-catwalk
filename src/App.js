@@ -22,13 +22,10 @@ const App = () => {
         Authorization: API_KEY
       },
       params: {
-        count: 15
+        count: 20
       }
     })
       .then((products) => {
-        for (var i = 0; i < products.data.length; i++) {
-          console.log(products.data[i].category);
-        }
         setAllProducts(products.data);
         setProduct_id(products.data[0].id);
         setName(products.data[0].name);
@@ -63,7 +60,7 @@ const App = () => {
   if (product_id) {
     return (
       <MuiThemeProvider theme={theme}>
-        <Header onSearchFormSubmit={onSearchFormSubmit} />
+        <Header allProducts={allProducts} onSearchFormSubmit={onSearchFormSubmit} />
         <Grid container direction='column'>
           <Grid item container direction='row'>
             <Grid item xs={false} sm={2} />
