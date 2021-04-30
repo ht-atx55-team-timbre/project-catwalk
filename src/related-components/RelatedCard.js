@@ -6,12 +6,10 @@ import StarRoundedIcon from '@material-ui/icons/StarRounded';
 import { IconButton } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Dialog from '@material-ui/core/Dialog';
-import Divider from '@material-ui/core/Divider';
 import { RelCard, RelCardActions, RelCardContent, RelCardMedia, useStyles } from './CardTemplate';
 import { DialogTitle, DialogContent } from './ComparisonDialog';
 import StarComponent from '../reviews-components/StarComponent.js';
 import ratingComponent from '../reviews-components/ratingComponent.js';
-import { borderTop } from '@material-ui/system';
 
 const tableStyle = {
   textAlign: 'center',
@@ -78,12 +76,7 @@ function RelatedCard({ item, handleIdChange, original }) {
         let arr = [comparisonObj[key].original, key, comparisonObj[key].new];
         comparisonArr.push(arr);
       }
-      for (let i = 0; i < comparisonArr.length; i++) {
-        
-      }
       setComparison(comparisonArr);
-
-
       ratingComponent(item)
       .then(result => {
         setRating(result[0]);
@@ -100,7 +93,7 @@ function RelatedCard({ item, handleIdChange, original }) {
             <RelCardMedia
               media="picture"
               alt="Product Name"
-              image={product.styles === undefined ? '' : product.styles}
+              image={product.styles}
               title="Product Name"
               className={classes.media}
               onClick={() => { handleIdChange(product.general.id, product.general.name) }}
@@ -110,15 +103,12 @@ function RelatedCard({ item, handleIdChange, original }) {
                 variant="body2"
                 component="p"
               >
-                {/* CATEGORY */}
                 {product.general.category}
               </Typography>
               <Typography variant="h5" className={classes.title}>
-                {/* PRODUCT NAME */}
                 {product.general.name}
               </Typography>
               <Typography variant="body1" className={classes.price}>
-                {/* PRICE */}
                 {product.general.default_price}
               </Typography>
               <div>
@@ -134,56 +124,22 @@ function RelatedCard({ item, handleIdChange, original }) {
                   Product Comparison
                 </DialogTitle>
                 <DialogContent dividers>
-                  {/* <Typography gutterBottom> */}
-
-
-                    {/* <div style={{display: 'flex', flexDirection: 'row'}}>
-                      <div style={{textAlign: 'center'}}>
-                        <h4>{comparison[0] === undefined ? '' : comparison[0][0]}</h4>
-                        <ul style={{textAlign: 'left'}}>
-                        {comparison[0] === undefined ? '' : comparison.map((item, idx) => { if (idx === 0) {return ''} else { return <li key={idx} style={{ paddingTop: '10px', paddingBottom: '10px'}}>{item[0]}</li>}})}
-                        </ul>
-                      </div>
-                      <div style={{paddingLeft: '50px', paddingRight: '50px', textAlign: 'center'}}>
-                      <h4>{comparison[0] === undefined ? '' : comparison[0][1]}</h4>
-                        <ul style={{textAlign: 'left'}}>
-                          {comparison[0] === undefined ? '' : comparison.map((item, idx) => { if (idx === 0) {return ''} else { return <li key={idx} style={{ paddingTop: '10px', paddingBottom: '10px'}}>{item[1]}</li>}})}
-                        </ul>
-                      </div>
-                      <div style={{textAlign: 'center'}}>
-                      <h4>{comparison[0] === undefined ? '' : comparison[0][2]}</h4>
-                        <ul style={{textAlign: 'left'}}>
-                        {comparison[0] === undefined ? '' : comparison.map((item, idx) => { if (idx === 0) {return ''} else { return <li key={idx} style={{ paddingTop: '10px', paddingBottom: '10px'}}>{item[2]}</li>}})}
-                        </ul>
-                      </div>
-                    </div> */}
-
-                    {comparison[0] === undefined ? '' : (
+                    {comparison[0] &&
                     <table style={tableStyle}>
                       <tr>
                         <th style={{width: '33%'}}>{comparison[0][0]}</th>
                         <th style={{width: '33%'}}></th>
                         <th style={{width: '33%'}}>{comparison[0][2]}</th>
                       </tr>
-                      {comparison.map((item, idx) => {
-                        if (idx === 0) {
-                          return ''
-                        } else {
-                          return (
-                            <tr>
-                              <td style={{width: '33%', borderTop: '2px solid #f78e81'}}>{item[0]}</td>
-                              <td style={{width: '33%', borderTop: '2px solid #f78e81'}}>{item[1]}</td>
-                              <td style={{width: '33%', borderTop: '2px solid #f78e81'}}>{item[2]}</td>
-                            </tr>
-                          )
-                        }
-                      })}
-                    </table>)}
-
-
-                  <Typography gutterBottom>
-                    {/* {comparison.new.map((item, idx) => <li key={idx}>{item.feature}</li>)} */}
-                  </Typography>
+                      {comparison.map((item, idx) => 
+                        (idx !== 0 &&
+                          <tr key={idx}>
+                            <td key={idx} style={{width: '33%', borderTop: '2px solid #f78e81'}}>{item[0]}</td>
+                            <td key={idx} style={{width: '33%', borderTop: '2px solid #f78e81'}}>{item[1]}</td>
+                            <td key={idx} style={{width: '33%', borderTop: '2px solid #f78e81'}}>{item[2]}</td>
+                          </tr>
+                      ))}
+                    </table>}
                 </DialogContent>
               </Dialog>
             </RelCardActions>
