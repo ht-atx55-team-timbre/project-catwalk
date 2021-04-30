@@ -4,7 +4,7 @@ import { Grid, Box } from '@material-ui/core';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import theme from './theme.js';
-import Header from './product-components/Header.jsx';
+import Header from './header-components/Header.jsx';
 import ReviewsAndRatings from './reviews-components/ReviewsAndRatings';
 import ProductOverview from './product-components/ProductOverview.jsx';
 import Related from './related-components/Related';
@@ -20,6 +20,9 @@ const App = () => {
     axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hratx/products', {
       headers: {
         Authorization: API_KEY
+      },
+      params: {
+        count: 10
       }
     })
       .then((products) => {
@@ -37,17 +40,33 @@ const App = () => {
     setName(name);
   }
 
+  const onSearchFormSubmit = (event) => {
+    event.preventDefault();
+    if (event.target.id.length > 2) {
+      const filteredProducts = allProducts.filter(product =>
+        product.name.toLowerCase().includes(event.target.id.toLowerCase())
+      );
+      if (filteredProducts.length > 0) {
+        const topResult = filteredProducts[0];
+        setProduct_id(topResult.id);
+      } else {
+        alert('No products match your search criteria. Please search for a different product.');
+      }
+    } else {
+      alert('No products match your search criteria. Please search for a different product.');
+    }
+  }
+
   if (product_id) {
     return (
       <MuiThemeProvider theme={theme}>
         <Grid container direction='column'>
-          <Header />
+          <Header onSearchFormSubmit={onSearchFormSubmit} />
           <Grid item container direction='row'>
             <Grid item xs={false} sm={1} />
             <Grid item xs={12} sm={10}>
               <ProductOverview allProducts={allProducts} product={product_id} />
             </Grid>
-
             <Grid item xs={false} sm={1} />
           </Grid>
           <Grid item container>
