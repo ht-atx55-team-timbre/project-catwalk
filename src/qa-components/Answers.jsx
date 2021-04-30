@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 import _ from 'underscore';
 import axios from 'axios';
-import API_KEY from '../config.js';
 import HelpfulAnswerHandler from './HelpfulAndReport/HelpfulAnswerHandler.jsx';
 import MoreAnswersButton from './MoreAnswersButton.jsx';
 
@@ -13,10 +12,7 @@ const Answers = ({ question_id, toggleAnswerReload }) => {
   const [answerToggle, setAnswerToggle] = useState(true);
 
   useEffect(() => {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hratx/qa/questions/${question_id}/answers`, {
-      headers: {
-        Authorization: API_KEY
-      },
+    axios.get(`http://127.0.0.1:3004/qa/questions/${question_id}/answers`, {
       params: {
         question_id: question_id,
         count: 1000

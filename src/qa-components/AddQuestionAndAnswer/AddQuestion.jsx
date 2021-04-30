@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import API_KEY from '../../config.js';
 import {
   Grid,
   Button,
@@ -39,9 +38,8 @@ const AddQuestion = ({ toggleQuestionReloadOnFormSubmit, product_id, name }) => 
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
-    const url = `https://app-hrsei-api.herokuapp.com/api/fec2/hratx/qa/questions`;
+    const url = `http://127.0.0.1:3004/qa/questions`;
     const headersAndParams = {
-      headers: { Authorization: API_KEY },
       params: {
         body: userQuestion,
         name: nickname,
