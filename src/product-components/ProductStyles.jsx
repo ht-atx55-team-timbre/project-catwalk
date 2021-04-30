@@ -6,7 +6,7 @@ import {
   Typography,
   ButtonBase
 } from '@material-ui/core';
-import theme from '../theme.js';
+// import theme from '../theme.js';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -109,9 +109,11 @@ export default function ProductStyles({ styles, handleStyleChange }) {
   return (
     <div className={classes.root}>
       <CardContent>
-        <Typography className={classes.root}>
-          STYLE > {styles[selected].name}
-        </Typography>
+        {styles[selected] &&
+          <Typography className={classes.root}>
+            STYLE > {styles[selected].name}
+          </Typography>
+        }
         {styles.map((style, idx) => {
           if (idx === selected) {
             return (

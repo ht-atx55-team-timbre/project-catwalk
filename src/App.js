@@ -43,12 +43,11 @@ const App = () => {
         <Grid container direction='column'>
           <Header />
           <Grid item container direction='row'>
-            <Grid item xs={false} sm={1} />
-            <Grid item xs={12} sm={10}>
+            <Grid item xs={false} sm={2} />
+            <Grid item xs={12} sm={8} >
               <ProductOverview allProducts={allProducts} product={product_id} />
             </Grid>
-
-            <Grid item xs={false} sm={1} />
+            <Grid item xs={false} sm={2} />
           </Grid>
           <Grid item container>
             <Grid item xs={false} sm={2} />

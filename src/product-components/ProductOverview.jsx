@@ -10,7 +10,7 @@ import ProductStyles from './ProductStyles.jsx';
 import ProductSpecs from './ProductSpecs.jsx';
 import Cart from './AddToCart.jsx';
 
-const ProductOverview = ({ product }) => {
+const ProductOverview = ({ product, allProducts }) => {
   const [productData, setProductData] = useState(null);
   const [currentStyle, setCurrentStyle] = useState(null);
   const [styleData, setStyleData] = useState(null);
@@ -53,49 +53,53 @@ const ProductOverview = ({ product }) => {
 
   if (currentStyle && productData) {
     return (
-      <Grid container={true} direction="column">
-        <Grid container={true} direction="row">
-          <Grid item='true' xs={12} md={8}>
-            <ProductImages images={currentStyle} initial={initialPhoto} />
+      <Grid container direction="column">
+        <Grid container direction="row">
+          <Grid item xs={12} md={7}>
+            <ProductImages images={currentStyle} initial={initialPhoto} justifyContent='flex-end' />
           </Grid>
-          <Grid item='true' container={true} direction="row" xs={12} md={4}>
-            <Grid item='true' xs={12}>
+          <Grid item md={1} />
+          <Grid item container direction="row" xs={12} md={4}>
+            <Grid item xs={12}>
               <ProductInfo
                 product={productData}
                 id={product}
                 style={currentStyle}
               />
             </Grid>
-            <Grid item='true' xs={12}>
+            <Grid item xs={12}>
               <ProductStyles
                 styles={styleData}
                 handleStyleChange={handleStyleChange}
               />
             </Grid>
-            <Grid item='true' xs={12}>
+            <Grid item xs={12}>
               <Cart currentStyle={currentStyle} />
             </Grid>
           </Grid>
         </Grid>
-        <Grid container={true} direction="row">
-          <Grid item='true' sm={1} />
-          <Grid item='true' xs={12} sm={7}>
+        <Grid container direction="row">
+          {/* <Grid item={true} sm={1} /> */}
+          <Grid item xs={12} sm={7}>
             <ProductDescription product={productData} />
           </Grid>
-          <Box pt={1.75} >
-            <Divider
-              orientation='vertical'
-              flexItem
-              variant='middle'
-              style={{
-                height: '85%',
-              }}
-            ></Divider>
-          </Box>
-          <Grid container={true} item='true' xs={12} sm={3} alignitems='center'>
+          <Grid item md={1}>
+            <Box pt={1.75} >
+              <Divider
+                orientation='vertical'
+                flexItem
+                variant='middle'
+                style={{
+                  height: '85%',
+                }}
+              >
+              </Divider>
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={3}>
             <ProductSpecs features={productData.features} />
           </Grid>
-          <Grid item='true' sm={1} />
+          {/* <Grid item={true}/> */}
         </Grid>
       </Grid>
     );
