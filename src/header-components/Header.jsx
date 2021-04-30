@@ -12,6 +12,11 @@ import jeff from '../jeffssecret.png';
 import SearchBar from './SearchBar.jsx';
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    position: 'fixed',
+    width: '99%',
+    zIndex: 100
+  },
   menuButton: {
     marginRight: theme.spacing(2),
   },
@@ -19,18 +24,20 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 12,
-    marginBottom: 12
+    fontFamily: ['"Cinzel"', 'serif'],
   },
   title: {
-    flex: 1,
-    display: 'none',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
     fontFamily: ['"Cinzel"', 'serif'],
     marginTop: '20px',
     marginBottom: '20px',
+  },
+  categories: {
+    fontSize: 18,
+    fontFamily: ['"Cinzel"', 'serif'],
+    textTransform: 'none'
   },
   search: {
     position: 'relative',
@@ -77,8 +84,8 @@ export default function Header({ onSearchFormSubmit }) {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <AppBar elevation={0} color='primary' position='static'>
+    <div>
+      <AppBar className={classes.root} elevation={0} color='primary' position='static'>
         <Toolbar>
           <Grid container direction="row" alignItems="center">
             <Grid item xs={12} md={3}>
@@ -89,34 +96,25 @@ export default function Header({ onSearchFormSubmit }) {
                 </Typography>
               </Grid>
             </Grid>
-            <Grid item container xs={12} md={6}>
-              <Box p={3}>
-                <Button className>
-                  Jackets
-                </Button>
-              </Box>
-              <Box p={3}>
-                <Button className>
-                  Pants
-                </Button>
-              </Box>
-              <Box p={3}>
-                <Button className>
-                  Dress Shoes
-                </Button>
-              </Box>
-              <Box p={3}>
-                <Button className>
-                  Heels
-                </Button>
-              </Box>
-              <Box p={3}>
-                <Button className>
-                  Accessories
-                </Button>
-              </Box>
+            <Grid item container xs={12} md={6} style={{ display: "flex", justifyContent: "space-evenly" }} >
+              <Button className={classes.categories}>
+                Jackets
+              </Button>
+              <Button className={classes.categories}>
+                Pants
+              </Button>
+              <Button className={classes.categories}>
+                Dress Shoes
+              </Button>
+              <Button className={classes.categories}>
+                Heels
+              </Button>
+              <Button className={classes.categories}>
+                Accessories
+              </Button>
             </Grid>
-            <Grid item xs={12} md={3}>
+            <Grid item md={1}></Grid>
+            <Grid item xs={12} md={2}>
               <SearchBar
                 searchClass={classes.search}
                 searchIconClass={classes.searchIcon}
@@ -128,9 +126,11 @@ export default function Header({ onSearchFormSubmit }) {
           </Grid>
         </Toolbar>
       </AppBar>
-      <Typography className={classes.announcement}>
-        FREE shipping on orders $99+ | Register for FREE Shipping on Your 1st Order and a Chance to Learn Jeff's Secret
-      </Typography>
+      <Box pt={17}>
+        <Typography>
+          Free shipping on orders $99+ | Register for Free Shipping on Your 1st Order and a Chance to Learn Jeff's Secret
+        </Typography>
+      </Box>
     </div>
   );
 }
