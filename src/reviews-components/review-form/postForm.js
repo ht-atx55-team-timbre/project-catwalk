@@ -1,13 +1,9 @@
-import API_KEY from '../../config.js';
 import axios from 'axios';
 
 const postForm = (data) => {
   return axios({
     method: 'POST',
-    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hratx/reviews/`,
-    headers: {
-      Authorization: API_KEY
-    },
+    url: 'http://127.0.0.1:3004/reviews',
     data: data
   })
   .catch((err) => {

@@ -30,6 +30,7 @@ const Related = ({ product_id, handleIdChange }) => {
 
     async function getRelated() {
       const results = await request.get(`/${product_id}/related`);
+      console.log(results);
       let uniqueResults = [...new Set(results.data)]
       setRelated(createRelatedItems(uniqueResults));
       currItemRef.current = product_id;

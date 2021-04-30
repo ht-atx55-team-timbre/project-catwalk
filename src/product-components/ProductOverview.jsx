@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Grid, Divider, Box } from '@material-ui/core';
-import API_KEY from '../config.js';
 
 import ProductInfo from './ProductInfo.jsx';
 import ProductDescription from './ProductDescription.jsx';
@@ -23,11 +22,7 @@ const ProductOverview = ({ product }) => {
 
   useEffect(() => {
     axios
-      .get(`https://app-hrsei-api.herokuapp.com/api/fec2/hratx/products/${product}/styles`, {
-        headers: {
-          Authorization: API_KEY
-        }
-      })
+      .get(`http://127.0.0.1:3004/products/${product}/styles`)
       .then(response => {
         let styles = response.data.results;
         setStyleData(styles);
@@ -40,11 +35,7 @@ const ProductOverview = ({ product }) => {
       .catch(err => console.error(err));
 
     axios
-      .get(`https://app-hrsei-api.herokuapp.com/api/fec2/hratx/products/${product}`, {
-        headers: {
-          Authorization: API_KEY
-        }
-      })
+      .get(`http://127.0.0.1:3004/products/${product}`)
       .then(response => {
         setProductData(response.data);
       })
