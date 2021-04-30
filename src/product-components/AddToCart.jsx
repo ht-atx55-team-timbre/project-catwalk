@@ -11,7 +11,8 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
-import API_KEY from '../config.js';
+import request from './OverviewRequests.js';
+// import API_KEY from '../config.js';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,18 +61,25 @@ const Cart = ({ currentStyle }) => {
   };
 
   const getCartContents = () => {
-    axios
-      .get(`https://app-hrsei-api.herokuapp.com/api/fec2/hratx/cart`, {
-        headers: {
-          Authorization: API_KEY
-        }
-      })
-      .then(response => {
-        // console.log('response', response.data);
-        setCart(response.data);
-        console.log('cart', cart);
-      })
-      .catch(err => console.error(err));
+    // axios
+    //   .get(`https://app-hrsei-api.herokuapp.com/api/fec2/hratx/cart`, {
+    //     headers: {
+    //       Authorization: API_KEY
+    //     }
+    //   })
+    //   .then(response => {
+    //     // console.log('response', response.data);
+    //     setCart(response.data);
+    //     console.log('cart', cart);
+    //   })
+    //   .catch(err => console.error(err));
+
+    async function getCart() {
+      const response = await request.get(`/cart`);
+      setCart(response.data);
+    }
+
+    getCart();
   };
 
   const postToCart = () => {
@@ -84,7 +92,7 @@ const Cart = ({ currentStyle }) => {
           count: quantity
         },
         headers: {
-          Authorization: API_KEY
+          // Authorization: API_KEY
         }
       })
         .then(res => {

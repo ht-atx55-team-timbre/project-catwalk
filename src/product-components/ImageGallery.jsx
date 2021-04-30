@@ -98,8 +98,8 @@ export default function ImageGallery({ images, handleImgChange, selected }) {
               style={{
                 width: '100%',
                 paddingLeft: '5px',
-                borderLeft: '2px solid red',
-                borderBottom: '2px solid red',
+                borderLeft: '1px solid red',
+                borderBottom: '1px solid red',
               }}
               onClick={handleClick}
             >

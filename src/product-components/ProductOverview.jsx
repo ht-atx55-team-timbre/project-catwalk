@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Grid, Divider, Box } from '@material-ui/core';
-import API_KEY from '../config.js';
+import request from './OverviewRequests.js';
 
 import ProductInfo from './ProductInfo.jsx';
 import ProductDescription from './ProductDescription.jsx';
@@ -22,37 +21,24 @@ const ProductOverview = ({ product, allProducts }) => {
   }
 
   useEffect(() => {
-    setInitialPhoto(0);
-  }, [handleStyleChange]);
+    async function getStyles() {
+      const response = await request.get(`${product}/styles`);
+      let styles = response.data.results;
+      setStyleData(styles);
+      for (var i = 0; i < styles.length; i++) {
+        if (styles[i]['default?']) {
+          setCurrentStyle(styles[i]);
+        }
+      }
+    }
 
-  useEffect(() => {
-    axios
-      .get(`https://app-hrsei-api.herokuapp.com/api/fec2/hratx/products/${product}/styles`, {
-        headers: {
-          Authorization: API_KEY
-        }
-      })
-      .then(response => {
-        let styles = response.data.results;
-        setStyleData(styles);
-        for (var i = 0; i < styles.length; i++) {
-          if (styles[i]['default?']) {
-            setCurrentStyle(styles[i]);
-          }
-        }
-      })
-      .catch(err => console.error(err));
+    async function getProducts() {
+      const response = await request.get(`/${product}`);
+      setProductData(response.data);
+    }
 
-    axios
-      .get(`https://app-hrsei-api.herokuapp.com/api/fec2/hratx/products/${product}`, {
-        headers: {
-          Authorization: API_KEY
-        }
-      })
-      .then(response => {
-        setProductData(response.data);
-      })
-      .catch(err => console.error(err));
+    getProducts();
+    getStyles();
   }, [product]);
 
   if (currentStyle && productData) {
