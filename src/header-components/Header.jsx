@@ -14,7 +14,6 @@ import SearchBar from './SearchBar.jsx';
 const useStyles = makeStyles((theme) => ({
   root: {
     position: 'fixed',
-    width: '99%',
     zIndex: 100
   },
   menuButton: {
@@ -126,8 +125,8 @@ export default function Header({ onSearchFormSubmit }) {
           </Grid>
         </Toolbar>
       </AppBar>
-      <Box pt={17}>
-        <Typography>
+      <Box pt={13} pb={3}>
+        <Typography style={{textAlign: "center"}}>
           Free shipping on orders $99+ | Register for Free Shipping on Your 1st Order and a Chance to Learn Jeff's Secret
         </Typography>
       </Box>
