@@ -42,8 +42,16 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Header({ onSearchFormSubmit, allProducts }) {
+export default function Header({ onSearchFormSubmit, allProducts, track }) {
   const classes = useStyles();
+
+  const handleButtonClick = (e) => {
+    track(e, 'Header Buttons');
+  }
+
+  const handleCartClick = (e) => {
+    track(e, 'Cart Button');
+  }
 
   return (
     <div>
@@ -59,22 +67,22 @@ export default function Header({ onSearchFormSubmit, allProducts }) {
               </Grid>
             </Grid>
             <Grid item container xs={12} md={6} style={{ display: "flex", justifyContent: "space-evenly" }} >
-              <Button className={classes.categories}>
+              <Button className={classes.categories} onClick={handleButtonClick}>
                 Jackets
               </Button>
-              <Button className={classes.categories}>
+              <Button className={classes.categories} onClick={handleButtonClick}>
                 Pants
               </Button>
-              <Button className={classes.categories}>
+              <Button className={classes.categories} onClick={handleButtonClick}>
                 Dress Shoes
               </Button>
-              <Button className={classes.categories}>
+              <Button className={classes.categories} onClick={handleButtonClick}>
                 Heels
               </Button>
-              <Button className={classes.categories}>
+              <Button className={classes.categories} onClick={handleButtonClick}>
                 Kicks
               </Button>
-              <Button className={classes.categories}>
+              <Button className={classes.categories} onClick={handleButtonClick}>
                 Accessories
               </Button>
             </Grid>
@@ -90,7 +98,7 @@ export default function Header({ onSearchFormSubmit, allProducts }) {
               </Grid>
               <Grid item xs={2}>
                 <Box>
-                  <IconButton>
+                  <IconButton onClick={handleCartClick} >
                     <ShoppingCartIcon />
                   </IconButton>
                 </Box>

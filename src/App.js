@@ -83,7 +83,7 @@ const App = () => {
   if (product_id) {
     return (
       <MuiThemeProvider theme={theme}>
-        <Header allProducts={allProducts} onSearchFormSubmit={onSearchFormSubmit} />
+        <Header allProducts={allProducts} onSearchFormSubmit={onSearchFormSubmit} track={trackClicks} />
         <Grid container direction='column'>
           <Grid item container direction='row'>
             <Grid item xs={false} sm={2} />
