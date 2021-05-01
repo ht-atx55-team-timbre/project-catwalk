@@ -37,10 +37,11 @@ const App = () => {
     setName(name);
   }
 
-  const onSearchFormSubmit = (event) => {
-    event.preventDefault();
-    if (event.target.id.length > 2) {
-      let wordToCheck = event.target.id;
+  const onSearchFormSubmit = (e) => {
+    e.preventDefault();
+    trackClicks(e, 'Header Seach Bar');
+    if (e.target.id.length > 2) {
+      let wordToCheck = e.target.id;
 
       if (wordToCheck.includes(':')) {
         const indexToSlice = wordToCheck.indexOf(':');
@@ -82,7 +83,7 @@ const App = () => {
   if (product_id) {
     return (
       <MuiThemeProvider theme={theme}>
-        <Header allProducts={allProducts} onSearchFormSubmit={onSearchFormSubmit} track={trackClicks} />
+        <Header allProducts={allProducts} onSearchFormSubmit={onSearchFormSubmit} />
         <Grid container direction='column'>
           <Grid item container direction='row'>
             <Grid item xs={false} sm={2} />
