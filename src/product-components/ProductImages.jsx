@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const ProductImages = ({ images, initial }) => {
+const ProductImages = ({ images, initial, track }) => {
   const [selected, setSelected] = useState(initial);
   const classes = useStyles();
 
@@ -46,6 +46,7 @@ const ProductImages = ({ images, initial }) => {
           images={images}
           handleImgChange={handleImgChange}
           selected={selected}
+          track={track}
         />
       </Grid>
       <Grid item xs={10} sm={11}>
@@ -55,13 +56,14 @@ const ProductImages = ({ images, initial }) => {
           autoPlay={false}
           indicators={false}
           index={selected}
-          onChange={(now, previous) => {
+          onChange={(now, previous, e) => {
             setSelected(now);
+            // track(e, 'Carousel Change');
           }}
         >
           {images.photos.map((photo, idx) => {
             return (
-              <Photo key={idx} item={photo} />
+              <Photo key={idx} item={photo} track={track} />
             )
           })}
         </Carousel>
@@ -78,14 +80,15 @@ function getModalStyle() {
   }
 }
 
-const Photo = ({ item, idx }) => {
+const Photo = ({ item, idx, track }) => {
   const classes = useStyles();
 
   const [modalStyle] = useState(getModalStyle);
   const [open, setOpen] = useState(false);
 
-  const handleOpen = () => {
+  const handleOpen = (e) => {
     setOpen(true);
+    track(e, 'Main Image');
   }
 
   const handleClose = () => {

@@ -46,7 +46,12 @@ const ProductOverview = ({ product, allProducts, track }) => {
       <Grid container direction="column">
         <Grid container direction="row">
           <Grid item xs={12} md={7}>
-            <ProductImages images={currentStyle} initial={initialPhoto} justifyContent='flex-end' />
+            <ProductImages
+              images={currentStyle}
+              initial={initialPhoto}
+              track={track}
+              justifyContent='flex-end'
+            />
           </Grid>
           <Grid item md={1} />
           <Grid item container direction="row" xs={12} md={4}>
@@ -55,6 +60,7 @@ const ProductOverview = ({ product, allProducts, track }) => {
                 product={productData}
                 id={product}
                 style={currentStyle}
+                track={track}
               />
             </Grid>
             <Grid item xs={12}>
@@ -65,13 +71,18 @@ const ProductOverview = ({ product, allProducts, track }) => {
               />
             </Grid>
             <Grid item xs={12}>
-              <Cart currentStyle={currentStyle} />
+              <Cart
+                currentStyle={currentStyle}
+                track={track}
+              />
             </Grid>
           </Grid>
         </Grid>
         <Grid container direction="row">
           <Grid item xs={12} sm={7}>
-            <ProductDescription product={productData} />
+            <ProductDescription
+              product={productData}
+            />
           </Grid>
           <Grid item md={1}>
             <Box pt={1.75} >

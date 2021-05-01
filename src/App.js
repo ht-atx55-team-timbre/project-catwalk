@@ -106,7 +106,9 @@ const App = () => {
               <Box pt={3} pb={6}>
                 <Divider varient='middle'></Divider>
               </Box>
-              <ReviewsAndRatings product_id={product_id} name={name} track={trackClicks} />
+              <div id='reviews-ratings'>
+                <ReviewsAndRatings product_id={product_id} name={name} track={trackClicks} />
+              </div>
             </Grid>
             <Grid item xs={false} sm={2} />
           </Grid>
