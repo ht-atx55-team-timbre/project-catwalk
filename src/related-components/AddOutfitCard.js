@@ -12,7 +12,7 @@ const AddCardActions = withStyles({
     right: '25%',
     top: '35%'
   }
-})(CardActions); 
+})(CardActions);
 
 function AddOutfitCard({ addOutfit }) {
   const classes = useStyles();
@@ -21,7 +21,7 @@ function AddOutfitCard({ addOutfit }) {
       <Container>
           <RelCard className={classes.card} style={{backgroundColor: '#FFAB91'}}>
             <AddCardActions>
-              <IconButton onClick={() => addOutfit()}>
+              <IconButton id='add-outfit' onClick={(e) => addOutfit(e)}>
                 <AddCircleOutlineRoundedIcon style={{color: 'white', fontSize: 60}} />
               </IconButton>
             </AddCardActions>
