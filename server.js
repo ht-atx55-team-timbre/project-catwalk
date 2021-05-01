@@ -1,15 +1,18 @@
 const express = require('express');
+const path = require('path');
 const axios = require('axios');
 require('dotenv').config();
 const cors = require('cors');
 
 const app = express();
 
-const PORT = 3004;
+const PORT = process.env.PORT || 3004;
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'client/build')));
+
 
 app.all('/*', (req, res) => {
     axios.request({
