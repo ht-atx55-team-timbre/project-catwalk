@@ -39,13 +39,11 @@ const Cart = ({ currentStyle }) => {
   const skus = currentStyle.skus;
 
   const handleSKUChange = (e) => {
-    console.log(e.target.value)
     setSKU(e.target.value);
     setSizeOpen(false);
   };
 
   const handleQtyChange = (e) => {
-    console.log(e.target.value);
     setQuantity(e.target.value);
     setQtyOpen(false);
   };
@@ -62,7 +60,6 @@ const Cart = ({ currentStyle }) => {
     axios
       .get(`http://127.0.0.1:3004/cart`)
       .then(response => {
-        // console.log('response', response.data);
         setCart(response.data);
         console.log('cart', cart);
       })

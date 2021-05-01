@@ -4,14 +4,19 @@ import { makeStyles } from '@material-ui/core/styles';
 import {
   Paper,
   CardContent,
-  Typography
+  Typography,
+  IconButton,
 } from '@material-ui/core';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import PinterestIcon from '@material-ui/icons/Pinterest';
 import StarComponent from '../reviews-components/StarComponent.js';
 import ratingComponent from '../reviews-components/ratingComponent.js';
 
 const useStyles = makeStyles({
   root: {
     maxWidth: '100%',
+    display: 'inline-block'
   },
   minimal: {
     display: 'flex',
@@ -50,7 +55,7 @@ const ProductInfo = ({ product, id, style }) => {
         {!totalReviews ?
           <div></div> :
           <div>
-            <StarComponent rating={rating} display='inline-block' />
+            <StarComponent rating={rating} />
             <Typography className={classes.minimal} alignitems='center'>Read all {totalReviews} reviews</Typography>
           </div>
         }
@@ -61,22 +66,34 @@ const ProductInfo = ({ product, id, style }) => {
           {product.name}
         </Typography>
         {style.sale_price ?
-          <div display='inline-block'>
+          <div height='33%' display='inline'>
             <Typography className={classes.discount}>
-              {style.sale_price} <em>best price for you!</em>
+              {style.sale_price} <em>on sale!</em>
             </Typography>
             <Typography className={classes.pos} color='textSecondary'>
               <strike>{style.original_price}</strike>
             </Typography>
           </div> :
-          <div>
+          <div height='33%'>
             <Typography className={classes.pos} color='textSecondary'>
               {style.original_price}
             </Typography>
           </div>
         }
-        <Typography variant='body2' component='p'>
+        <Typography variant='body1' style={{ fontSize: 14 }}>
+          Share This Item On Social
         </Typography>
+        <div display='inline' alignItems='left'>
+          <IconButton>
+            <FacebookIcon color='primary' />
+          </IconButton>
+          <IconButton>
+            <TwitterIcon color='primary' />
+          </IconButton>
+          <IconButton>
+            <PinterestIcon color='primary' />
+          </IconButton>
+        </div>
       </CardContent>
     </Paper>
   )
