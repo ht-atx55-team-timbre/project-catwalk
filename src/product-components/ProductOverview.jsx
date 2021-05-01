@@ -19,7 +19,7 @@ const ProductOverview = ({ product, allProducts, track }) => {
 
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:3004/products/${product}/styles`)
+      .get(`/${product}/styles`)
       .then(response => {
         let styles = response.data.results;
         setStyleData(styles);
@@ -32,7 +32,7 @@ const ProductOverview = ({ product, allProducts, track }) => {
       .catch(err => console.error(err));
 
     axios
-      .get(`http://127.0.0.1:3004/products/${product}`)
+      .get(`/${product}`)
       .then(response => {
         setProductData(response.data);
       })

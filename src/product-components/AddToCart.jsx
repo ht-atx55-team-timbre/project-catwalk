@@ -58,7 +58,7 @@ const Cart = ({ currentStyle, track }) => {
 
   const getCartContents = () => {
     axios
-      .get(`http://127.0.0.1:3004/cart`)
+      .get(`/cart`)
       .then(response => {
         setCart(response.data);
         console.log('cart', cart);
@@ -70,7 +70,7 @@ const Cart = ({ currentStyle, track }) => {
     if (sku && quantity) {
       axios({
         method: 'post',
-        url: `http://127.0.0.1:3004/cart`,
+        url: `/cart`,
         data: {
           sku_id: sku,
           count: quantity
