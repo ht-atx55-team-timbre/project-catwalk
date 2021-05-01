@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
     bottom: 0,
     backgroundSize: 'cover',
     backgroundPosition: 'center 40%',
-    border: '2px solid',
+    border: '1px solid',
     borderColor: theme.palette.secondary.main,
   },
   imageBackdrop: {
