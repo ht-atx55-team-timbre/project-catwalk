@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Project-Catwalk Client",
   "main": "index.js",
-  "proxy": "http://localhost:5000",
+  "proxy": "http://localhost:3004",
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
