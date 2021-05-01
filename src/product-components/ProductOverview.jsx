@@ -12,11 +12,9 @@ const ProductOverview = ({ product, allProducts, track }) => {
   const [productData, setProductData] = useState(null);
   const [currentStyle, setCurrentStyle] = useState(null);
   const [styleData, setStyleData] = useState(null);
-  const [initialPhoto, setInitialPhoto] = useState(0);
 
   const handleStyleChange = (newStyle, initial) => {
     setCurrentStyle(newStyle);
-    setInitialPhoto(initial);
   }
 
   useEffect(() => {
@@ -48,7 +46,6 @@ const ProductOverview = ({ product, allProducts, track }) => {
           <Grid item xs={12} md={7}>
             <ProductImages
               images={currentStyle}
-              initial={initialPhoto}
               track={track}
               justifyContent='flex-end'
             />

@@ -6,6 +6,7 @@ import {
   CardContent,
   Typography,
   IconButton,
+  Grid
 } from '@material-ui/core';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
@@ -68,14 +69,14 @@ const ProductInfo = ({ product, id, style, track }) => {
           {product.name}
         </Typography>
         {style.sale_price ?
-          <div height='33%' display='inline'>
-            <Typography className={classes.discount}>
-              {style.sale_price} <em>on sale!</em>
-            </Typography>
+          <Grid container direction='row'>
             <Typography className={classes.pos} color='textSecondary'>
               <strike>{style.original_price}</strike>
             </Typography>
-          </div> :
+            <Typography className={classes.discount}>
+              &emsp;{style.sale_price} <em>on sale!</em>
+            </Typography>
+          </Grid> :
           <div height='33%'>
             <Typography className={classes.pos} color='textSecondary'>
               {style.original_price}
