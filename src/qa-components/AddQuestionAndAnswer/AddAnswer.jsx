@@ -19,14 +19,15 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const AddAnswer = ({ toggleAnswerReloadOnFormSubmit, question, name }) => {
+const AddAnswer = ({ toggleAnswerReloadOnFormSubmit, question, name, track }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [userAnswer, setUserAnswer] = useState('');
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (e) => {
+    track(e, 'Add Answer');
     setOpen(true);
   };
 
