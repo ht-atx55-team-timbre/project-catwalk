@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Typography } from '@material-ui/core';
 
-const ReportAnswer = ({ answer_id }) => {
+const ReportAnswer = ({ answer_id, track }) => {
   const [reportText, setReportText] = useState('Report');
   const [isClicked, setIsClicked] = useState(false);
 
@@ -11,7 +11,8 @@ const ReportAnswer = ({ answer_id }) => {
     params: { answer_id: answer_id }
   };
 
-  const handleReport = (event) => {
+  const handleReport = (e) => {
+    track(e, 'Report Answer');
     if (!isClicked) {
       axios.put(url, { report: true }, headersAndParams)
         .then(response => {

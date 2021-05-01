@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Typography, Box } from '@material-ui/core';
 import Questions from './Questions.jsx';
 
-const QA = ({ product_id, name }) => {
+const QA = ({ product_id, name, track }) => {
 
   return (
     <Grid container direction="column">
@@ -12,7 +12,7 @@ const QA = ({ product_id, name }) => {
         </Box>
       </Grid>
       <Grid item>
-        <Questions product_id={product_id} name={name} />
+        <Questions product_id={product_id} name={name} track={track} />
       </Grid>
     </Grid>
   );

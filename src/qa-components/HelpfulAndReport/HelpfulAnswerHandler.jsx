@@ -4,7 +4,7 @@ import moment from 'moment';
 import axios from 'axios';
 import ReportAnswer from './ReportAnswer.jsx';
 
-const HelpfulAnswerHandler = ({ answer }) => {
+const HelpfulAnswerHandler = ({ answer, track }) => {
   const [helpfulness, setHelpfulness] = useState(answer.helpfulness);
   const [aIsClicked, setAIsClicked] = useState(false);
 
@@ -13,7 +13,8 @@ const HelpfulAnswerHandler = ({ answer }) => {
     params: { answer_id: answer.answer_id }
   };
 
-  const handleHelpfulAnswer = (event) => {
+  const handleHelpfulAnswer = (e) => {
+    track(e, 'Helpful Answer');
     if (!aIsClicked) {
       setAIsClicked(!aIsClicked);
       setHelpfulness(helpfulness + 1);
@@ -51,7 +52,7 @@ const HelpfulAnswerHandler = ({ answer }) => {
           &nbsp;&nbsp;
         </Typography>
         <Divider orientation="vertical" flexItem />
-        <ReportAnswer answer_id={answer.answer_id} />
+        <ReportAnswer answer_id={answer.answer_id} track={track} />
       </Grid>
     </Grid>
   )
