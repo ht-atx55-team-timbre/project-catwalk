@@ -11,7 +11,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
 app.all('/*', (req, res) => {
     axios.request({
       url: req.params[0],
