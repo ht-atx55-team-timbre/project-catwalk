@@ -7,7 +7,7 @@ import theme from './theme.js';
 import Ratings from './Ratings';
 import Reviews from './Reviews';
 
-const ReviewsAndRatings = ({ product_id, name }) => {
+const ReviewsAndRatings = ({ product_id, name, track }) => {
   const [addReview, setAddReview] = useState(false)
   return (
     <MuiThemeProvider theme={theme}>
@@ -26,6 +26,7 @@ const ReviewsAndRatings = ({ product_id, name }) => {
           name={name}
           addReview={addReview}
           setAddReview={setAddReview}
+          track={track}
         />
       </Grid>
     </MuiThemeProvider>
