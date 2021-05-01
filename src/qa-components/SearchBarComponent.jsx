@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SearchBarComponent = ({ sortQuestionsBySearchTerm }) => {
+const SearchBarComponent = ({ sortQuestionsBySearchTerm, track }) => {
   const classes = useStyles();
 
   return (
