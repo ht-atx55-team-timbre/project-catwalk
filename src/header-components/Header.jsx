@@ -72,6 +72,9 @@ export default function Header({ onSearchFormSubmit, allProducts }) {
                 Heels
               </Button>
               <Button className={classes.categories}>
+                Kicks
+              </Button>
+              <Button className={classes.categories}>
                 Accessories
               </Button>
             </Grid>
