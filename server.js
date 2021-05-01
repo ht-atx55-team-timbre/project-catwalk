@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const axios = require('axios');
 require('dotenv').config();
 const cors = require('cors');
@@ -10,6 +11,8 @@ const PORT = 3004;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'build')));
+
 
 app.all('/*', (req, res) => {
     axios.request({
@@ -33,3 +36,8 @@ app.all('/*', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 })
+
+
+
+
+// // "start": "react-scripts start",
