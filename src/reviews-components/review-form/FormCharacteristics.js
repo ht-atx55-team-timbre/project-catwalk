@@ -12,7 +12,7 @@ const FormCharacteristics = ({ characteristics, handleChange }) => {
     </Grid>
     { Object.keys(characteristics).map((key) => {
       return (
-      <Grid item>
+      <Grid item key={key}>
         <Typography>{key}</Typography>
         <RadioGroup row aria-label={key} name={key} value={ characteristics[key].value } onChange={handleChange}>
           <FormControlLabel value="1" control={<Radio color="primary"/>} label="Poor" />

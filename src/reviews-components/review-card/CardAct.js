@@ -6,11 +6,12 @@ import { Button, ButtonGroup } from '@material-ui/core';
 import axios from 'axios';
 
 
-const CardAct = ({ helpfulness, review_id }) => {
+const CardAct = ({ helpfulness, review_id, track }) => {
   const [select, setSelect] = useState(true)
   const [helpful, setHelpful] = useState(helpfulness)
 
   const handleHelpful = (e) => {
+    track(e, 'helpful')
     setSelect(false);
     if (e.currentTarget.value === 'yes') {
       axios({

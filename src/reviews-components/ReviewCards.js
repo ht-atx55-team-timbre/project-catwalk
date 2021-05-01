@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ReviewCards = ({results}) => {
+const ReviewCards = ({ results, track }) => {
 
   const classes = useStyles();
 
@@ -22,6 +22,7 @@ const ReviewCards = ({results}) => {
           <ReviewCard
             review={review}
             key={review.review_id}
+            track={track}
           />
         )
       })}

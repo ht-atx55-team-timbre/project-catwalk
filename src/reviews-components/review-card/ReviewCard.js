@@ -8,7 +8,7 @@ import CardResponse from './CardResponse';
 import CardRecommend from './CardRecommend';
 import CardAct from './CardAct'
 
-const ReviewCard = ({ review }) => {
+const ReviewCard = ({ review, track }) => {
   const {body, date, helpfulness, photos, rating, recommend, response, review_id, reviewer_name, summary} = review;
 
   return (
@@ -33,6 +33,7 @@ const ReviewCard = ({ review }) => {
         <CardAct
           helpfulness={helpfulness}
           review_id={review_id}
+          track={track}
         />
       </Card>
     </Grid>
