@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Carousel from 'react-material-ui-carousel';
 import { Card, CardMedia, Grid, Modal } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -32,12 +32,16 @@ const useStyles = makeStyles((theme) => ({
 
 
 const ProductImages = ({ images, initial, track }) => {
-  const [selected, setSelected] = useState(initial);
+  const [selected, setSelected] = useState(0);
   const classes = useStyles();
 
   function handleImgChange(clicked) {
     setSelected(clicked);
   }
+
+  useEffect(() => {
+    setSelected(0);
+  }, [images]);
 
   return (
     <Grid container direction='row' alignitems='flex-right'>

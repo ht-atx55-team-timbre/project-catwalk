@@ -27,21 +27,6 @@ const useStyles = makeStyles((theme) => ({
     },
     boxShadow: 'none'
   },
-  imageSelected: {
-    position: 'relative',
-    borderRadius: '50%',
-    width: '50px',
-    height: '50px',
-    '&$focusVisible': {
-      zIndex: 1,
-      '& $imageBackdrop': {
-        opacity: 0.15,
-      },
-    },
-    padding: '2px',
-    border: '2px solid',
-    borderColor: theme.palette.secondary.main,
-  },
   focusVisible: {},
   imageButton: {
     position: 'absolute',
@@ -65,6 +50,20 @@ const useStyles = makeStyles((theme) => ({
     bottom: 0,
     backgroundSize: 'cover',
     backgroundPosition: 'center 40%',
+  },
+  imageSrcSelected: {
+    position: 'absolute',
+    width: '50px',
+    height: '50px',
+    borderRadius: '50%',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center 40%',
+    border: '2px solid',
+    borderColor: theme.palette.secondary.main,
   },
   imageBackdrop: {
     position: 'absolute',
@@ -96,6 +95,10 @@ export default function ProductStyles({ styles, handleStyleChange, track }) {
     handleStyleChange(styles[selected], 0);
   }, [handleStyleChange, styles, selected]);
 
+  useEffect(() => {
+    setSelected(0);
+  }, [styles])
+
   function handleSelection(e) {
     track(e, 'Style #' + (Number(e.target.id) + 1).toString());
     for (let i = 0; i < styles.length; i++) {
@@ -120,7 +123,7 @@ export default function ProductStyles({ styles, handleStyleChange, track }) {
               <ButtonBase
                 focusRipple
                 key={idx}
-                className={classes.imageSelected}
+                className={classes.image}
                 focusVisibleClassName={classes.focusVisible}
                 style={{
                   width: '50px',
@@ -132,7 +135,7 @@ export default function ProductStyles({ styles, handleStyleChange, track }) {
                 onClick={handleSelection}
               >
                 <span
-                  className={classes.imageSrc}
+                  className={classes.imageSrcSelected}
                   style={{
                     backgroundImage: `url(${style.photos[0].thumbnail_url})`,
                   }}

@@ -6,7 +6,7 @@ import ReviewCard from './review-card/ReviewCard';
 
 const useStyles = makeStyles((theme) => ({
   grid: {
-    maxHeight: '88vh',
+    maxHeight: '74vh',
     overflow: 'auto',
   },
 }));
