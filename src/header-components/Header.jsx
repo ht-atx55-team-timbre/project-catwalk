@@ -8,7 +8,7 @@ import {
   Box,
   IconButton
 } from '@material-ui/core';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import jeff from '../jeffssecret.png';
 import SearchBar from './SearchBar.jsx';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
@@ -39,11 +39,6 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 18,
     fontFamily: ['"Cinzel"', 'serif'],
     textTransform: 'none'
-  },
-  search: {
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
   }
 }));
 
@@ -85,6 +80,7 @@ export default function Header({ onSearchFormSubmit, allProducts }) {
               <Grid item xs={10}>
                 <SearchBar
                   searchClass={classes.search}
+                  searchBorder={classes.searchBorder}
                   onSearchFormSubmit={onSearchFormSubmit}
                   allProducts={allProducts}
                 />
