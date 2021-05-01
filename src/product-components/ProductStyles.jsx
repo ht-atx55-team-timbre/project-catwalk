@@ -97,8 +97,7 @@ export default function ProductStyles({ styles, handleStyleChange, track }) {
   }, [handleStyleChange, styles, selected]);
 
   function handleSelection(e) {
-    track(e, 'Product Overview');
-    console.log('click');
+    track(e, 'Style #' + (Number(e.target.id) + 1).toString());
     for (let i = 0; i < styles.length; i++) {
       if (styles[i].style_id === Number(e.target.id)) {
         setSelected(i);
@@ -129,8 +128,6 @@ export default function ProductStyles({ styles, handleStyleChange, track }) {
                   marginTop: '4px',
                   marginBottom: '4px',
                   marginRight: '8px',
-                  // border: '2px',
-                  // borderColor: theme.palette.secondary.main
                 }}
                 onClick={handleSelection}
               >

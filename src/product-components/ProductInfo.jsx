@@ -35,7 +35,7 @@ const useStyles = makeStyles({
   }
 });
 
-const ProductInfo = ({ product, id, style }) => {
+const ProductInfo = ({ product, id, style, track }) => {
   const classes = useStyles();
   const [rating, setRating] = useState(0);
   const [totalReviews, setTotalReviews] = useState(0);
@@ -56,7 +56,9 @@ const ProductInfo = ({ product, id, style }) => {
           <div></div> :
           <div>
             <StarComponent rating={rating} />
-            <Typography className={classes.minimal} alignitems='center'>Read all {totalReviews} reviews</Typography>
+            <Typography className={classes.minimal} alignitems='center'>
+              <a href='#reviews-ratings' onClick={(e) => { track(e, 'Navigate to Reviews from Product Info'); }}>Read all {totalReviews} reviews</a>
+            </Typography>
           </div>
         }
         <Typography className={classes.title} color='textSecondary' gutterBottom>
@@ -84,13 +86,19 @@ const ProductInfo = ({ product, id, style }) => {
           Share This Item On Social
         </Typography>
         <div display='inline' alignitems='left'>
-          <IconButton>
+          <IconButton
+            onClick={(e) => { track(e, 'Facebook Icon'); }}
+          >
             <FacebookIcon color='primary' />
           </IconButton>
-          <IconButton>
+          <IconButton
+            onClick={(e) => { track(e, 'Twitter Icon'); }}
+          >
             <TwitterIcon color='primary' />
           </IconButton>
-          <IconButton>
+          <IconButton
+            onClick={(e) => { track(e, 'Pinterest Icon'); }}
+          >
             <PinterestIcon color='primary' />
           </IconButton>
         </div>

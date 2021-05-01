@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Cart = ({ currentStyle }) => {
+const Cart = ({ currentStyle, track }) => {
   const classes = useStyles();
 
   const [cart, setCart] = useState(null);
@@ -66,7 +66,7 @@ const Cart = ({ currentStyle }) => {
       .catch(err => console.error(err));
   };
 
-  const postToCart = () => {
+  const postToCart = (e) => {
     if (sku && quantity) {
       axios({
         method: 'post',
@@ -84,14 +84,17 @@ const Cart = ({ currentStyle }) => {
         })
         .catch(err => console.error(err));
     }
+    track(e, 'Add To Cart');
   };
 
-  const handleSizeToggle = () => {
+  const handleSizeToggle = (e) => {
     setSizeOpen(prevOpen => !prevOpen);
+    track(e, 'Select Size');
   };
 
-  const handleQtyToggle = () => {
+  const handleQtyToggle = (e) => {
     setQtyOpen(prevOpen => !prevOpen);
+    track(e, 'Select Quantity');
   };
 
   const handleSizeClose = (e) => {
