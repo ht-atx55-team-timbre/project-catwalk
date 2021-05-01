@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import API_KEY from '../../config.js';
 import axios from 'axios';
-import { Button } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 
 const ReportAnswer = ({ answer_id }) => {
   const [reportText, setReportText] = useState('Report');
   const [isClicked, setIsClicked] = useState(false);
 
-  const url = `https://app-hrsei-api.herokuapp.com/api/fec2/hratx/qa/answers/${answer_id}/report`;
+  const url = `http://127.0.0.1:3004/qa/answers/${answer_id}/report`;
   const headersAndParams = {
-    headers: { Authorization: API_KEY },
     params: { answer_id: answer_id }
   };
 
@@ -27,9 +25,10 @@ const ReportAnswer = ({ answer_id }) => {
   }
 
   return(
-    <Button style={{textTransform: "none", color: "grey", fontSize: 12}}>
+    <Typography style={{color: "grey", fontSize: 12, cursor: "pointer"}}>
+      &nbsp;&nbsp;&nbsp;
       <u onClick={handleReport}>{reportText}</u>
-    </Button>
+    </Typography>
   )
 }
 

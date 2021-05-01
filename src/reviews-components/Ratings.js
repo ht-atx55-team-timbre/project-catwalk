@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { Grid, Paper } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 
 import AverageRating from './ratings/AverageRating';
@@ -10,18 +9,6 @@ import DescriptionRatings from './ratings/DescriptionRatings';
 import getRatings from './ratings/getRatings';
 import getCharacteristics from './getCharacteristics';
 import getRating from './ratings/getRating';
-import API_KEY from '../config.js';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
-}));
 
 const Ratings = ({ product_id,addReview }) => {
   const [characteristics, setCharacteristics] = useState({});
@@ -29,12 +16,10 @@ const Ratings = ({ product_id,addReview }) => {
   const [recommended, setRecommended] = useState({});
 
   useEffect(() => {
-    axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hratx/reviews/meta', {
-      headers: {
-        Authorization: API_KEY
-      },
+    axios.get(`/meta`, {
+      baseURL: 'http://127.0.0.1:3004/reviews',
       params: {
-        product_id: product_id,
+        product_id: product_id
       }
     })
       .then(res => {
@@ -66,12 +51,10 @@ const Ratings = ({ product_id,addReview }) => {
   const stars = ['5', '4', '3', '2', '1'];
   let [average, numberOfRating] = getRating(ratings);
 
-  const classes = useStyles();
-
   return (
     <Grid item xs={12} sm={3}>
-      <Paper className={classes.paper}>
-        <Grid item container spacing={2}>
+      <Paper style={{textAlign:"center"}}>
+        <Grid item container >
           <AverageRating
             averageRating={average}
             recommended={recommended}

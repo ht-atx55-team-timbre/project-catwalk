@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import API_KEY from '../../config.js';
 import {
   Grid,
   Button,
@@ -9,10 +8,19 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle
+  DialogTitle,
+  Typography
 } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  input: {
+    color: "#181E34"
+  }
+}));
 
 const AddAnswer = ({ toggleAnswerReloadOnFormSubmit, question, name }) => {
+  const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [userAnswer, setUserAnswer] = useState('');
   const [nickname, setNickname] = useState('');
@@ -29,9 +37,8 @@ const AddAnswer = ({ toggleAnswerReloadOnFormSubmit, question, name }) => {
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
-    const url = `https://app-hrsei-api.herokuapp.com/api/fec2/hratx/qa/questions/${question.question_id}/answers`;
+    const url = `http://127.0.0.1:3004/qa/questions/${question.question_id}/answers`;
     const headersAndParams = {
-      headers: { Authorization: API_KEY },
       params: {
         question_id: question.question_id,
         body: userAnswer,
@@ -57,9 +64,10 @@ const AddAnswer = ({ toggleAnswerReloadOnFormSubmit, question, name }) => {
 
   return (
     <Grid>
-      <Button style={{textTransform: "none", fontSize: 10}} onClick={handleClickOpen}>
-        <u>Add Answer</u>
-      </Button>
+      <Typography style={{fontSize: 12, color: "grey"}} onClick={handleClickOpen}>
+        &nbsp;&nbsp;
+        <u style={{cursor: "pointer"}}>Add Answer</u>
+      </Typography>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <form onSubmit={handleFormSubmit}>
           <DialogTitle id="form-dialog-title">
@@ -85,6 +93,7 @@ const AddAnswer = ({ toggleAnswerReloadOnFormSubmit, question, name }) => {
               variant="outlined"
               value={userAnswer}
               onInput={ e=>setUserAnswer(e.target.value)}
+              InputProps={{className: classes.input}}
             />
             <TextField
               required
@@ -98,6 +107,7 @@ const AddAnswer = ({ toggleAnswerReloadOnFormSubmit, question, name }) => {
               variant="outlined"
               value={nickname}
               onInput={ e=>setNickname(e.target.value)}
+              InputProps={{className: classes.input}}
             />
             <TextField
               required
@@ -111,11 +121,12 @@ const AddAnswer = ({ toggleAnswerReloadOnFormSubmit, question, name }) => {
               variant="outlined"
               value={email}
               onInput={ e=>setEmail(e.target.value)}
+              InputProps={{className: classes.input}}
             />
           </DialogContent>
           <DialogActions>
             <Button type="submit" onClick={handleClose} color="primary">
-              Submit Answer
+              <Typography>Submit Answer</Typography>
             </Button>
           </DialogActions>
         </form>

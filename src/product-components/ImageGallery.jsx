@@ -1,28 +1,20 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  ButtonBase
-} from '@material-ui/core';
+import { ButtonBase } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
+    display: 'block',
+    float: 'right',
     flexWrap: 'wrap',
     overflow: 'auto',
     width: '100%',
-    height: '100%'
-  },
-  rootFewerImages: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    overflow: 'auto',
-    width: '100%',
-    // height: '100%'
+    height: '100%',
+    alignItems: 'flex-start',
   },
   image: {
     position: 'relative',
-    borderRadius: '5px',
-    width: '100%',
+    width: '95%',
     height: '16.6%',
     '&:hover, &$focusVisible': {
       zIndex: 1,
@@ -30,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
         opacity: 0.15,
       }
     },
-    // marginBottom: '2px'
   },
   imageSelected: {
     position: 'relative',
@@ -42,11 +33,11 @@ const useStyles = makeStyles((theme) => ({
         opacity: 0.15,
       }
     },
+    paddingLeft: '3px',
   },
   focusVisible: {},
   imageButton: {
     position: 'absolute',
-    borderRadius: '5px',
     left: 0,
     right: 0,
     top: 0,
@@ -58,7 +49,6 @@ const useStyles = makeStyles((theme) => ({
   },
   imageSrc: {
     position: 'absolute',
-    borderRadius: '5px',
     left: 0,
     right: 0,
     top: 0,
@@ -68,7 +58,6 @@ const useStyles = makeStyles((theme) => ({
   },
   imageBackdrop: {
     position: 'absolute',
-    borderRadius: '5px',
     left: 0,
     right: 0,
     top: 0,
@@ -103,14 +92,14 @@ export default function ImageGallery({ images, handleImgChange, selected }) {
           return (
             <ButtonBase
               focusRipple
-              key={image.name}
-              className={classes.image}
+              key={idx}
+              className={classes.imageSelected}
               focusVisibleClassName={classes.focusVisible}
               style={{
                 width: '100%',
-                // padding: '1px',
-                paddingBottom: '1px',
-                borderBottom: '2px solid black', // want to set this to theme highlight color
+                paddingLeft: '5px',
+                borderLeft: '1px solid red',
+                borderBottom: '1px solid red',
               }}
               onClick={handleClick}
             >
@@ -129,7 +118,7 @@ export default function ImageGallery({ images, handleImgChange, selected }) {
           return (
             <ButtonBase
               focusRipple
-              key={image.name}
+              key={idx}
               className={classes.image}
               focusVisibleClassName={classes.focusVisible}
               style={{

@@ -1,11 +1,7 @@
 import axios from 'axios';
-import API_KEY from '../../config.js';
 
 const getReviews = (product_id, count, sort) => {
-  return  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hratx/reviews', {
-      headers: {
-        Authorization: API_KEY
-      },
+  return  axios.get('http://127.0.0.1:3004/reviews', {
       params: {
         product_id: product_id,
         count: count,

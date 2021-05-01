@@ -1,101 +1,120 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Grid, Box } from '@material-ui/core';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import theme from './theme.js';
-import Header from './product-components/Header.jsx';
+import Header from './header-components/Header.jsx';
 import ReviewsAndRatings from './reviews-components/ReviewsAndRatings';
 import ProductOverview from './product-components/ProductOverview.jsx';
 import Related from './related-components/Related';
 import QA from './qa-components/Main.jsx';
-import API_KEY from './config';
 
-class App extends React.Component {
-  // eslint-disable-next-line no-useless-constructor
-  constructor(props) {
-    super(props)
-    this.state = {
-      product_id: null,
-      name: null
-    }
+const App = () => {
+  const [allProducts, setAllProducts] = useState(null);
+  const [product_id, setProduct_id] = useState(null);
+  const [name, setName] = useState(null)
 
-    this.handleProductChange = this.handleProductChange.bind(this);
-  }
-
-  componentDidMount() {
-    axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hratx/products', {
-      headers: {
-        Authorization: API_KEY
+  useEffect(() => {
+    axios.get('http://127.0.0.1:3004/products', {
+      params: {
+        count: 20
       }
     })
       .then((products) => {
-        this.setState({ product_id: products.data[0].id });
-        this.setState({ name: products.data[0].name });
+        setAllProducts(products.data);
+        setProduct_id(products.data[0].id);
+        setName(products.data[0].name);
       })
       .catch((err) => {
         console.log(err, 'error retrieving products from the database');
-      })
+      });
+  }, []);
+
+  const handleProductChange = (e, id, name) => {
+    trackClicks(e, 'Related Card');
+    setProduct_id(id);
+    setName(name);
   }
 
-  handleProductChange(id, name) {
-    // axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hratx/products/${id}`, {
-    //   headers: {
-    //     Authorization: API_KEY
-    //   }
-    // })
-    //   .then((product) => {
-    //     this.setState({ product_id: product.data.id });
-    //     this.setState({ name: product.data.name})
-    //   })
-    //   .catch((err) => {
-    //     console.log(err, 'error retrieving products from the database');
-    //   })
-    console.log(id, name);
-    this.setState({ product_id: id, name: name });
-  }
+  const onSearchFormSubmit = (event) => {
+    event.preventDefault();
+    if (event.target.id.length > 2) {
+      let wordToCheck = event.target.id;
 
-  render() {
-    if (this.state.product_id) {
-      return (
-        <MuiThemeProvider theme={theme}>
-          <Grid container direction='column'>
-            <Header />
-            <Grid item container direction='row'>
-              <Grid item xs={false} sm={1} />
-              <Grid item xs={12} sm={10}>
-                <ProductOverview product={this.state.product_id} />
-              </Grid>
-              
-              <Grid item xs={false} sm={1} />
-            </Grid>
-            <Grid item container>
-              <Grid item xs={false} sm={2} />
-              <Grid item xs={12} sm={8}>
-                <Box pt={3} pb={3}>
-                  <Divider varient='middle'></Divider>
-                </Box>
-                <Related product_id={this.state.product_id} handleIdChange={this.handleProductChange} />
-                {/* Q/A */}
-                <Box pt={3} pb={3}>
-                  <Divider varient='middle'></Divider>
-                </Box>
-                <QA product_id={this.state.product_id} name={this.state.name} />
-                {/* Reviews/Ratings */}
-                <Box pt={3} pb={6}>
-                  <Divider varient='middle'></Divider>
-                </Box>
-                <ReviewsAndRatings product_id={this.state.product_id} name={this.state.name} />
-              </Grid>
-              <Grid item xs={false} sm={2} />
-            </Grid>
-          </Grid>
-        </MuiThemeProvider>
+      if (wordToCheck.includes(':')) {
+        const indexToSlice = wordToCheck.indexOf(':');
+        wordToCheck = wordToCheck.slice(0, indexToSlice);
+      }
 
-      )
+      const filteredProducts = allProducts.filter(product =>
+        product.name.toLowerCase().includes(wordToCheck.toLowerCase())
+      );
+      if (filteredProducts.length > 0) {
+        const topResult = filteredProducts[0];
+        setProduct_id(topResult.id);
+      } else {
+        alert('No products match your search criteria. Please search for a different product.');
+      }
     } else {
-      return <></>
+      alert('No products match your search criteria. Please search for a different product.');
     }
+  }
+
+  const trackClicks = (e, widget) => {
+    var timeStamp = new Date();
+    console.log({ element: e.target, widget: widget, time: timeStamp });
+    axios({
+      method: 'post',
+      url: `http://127.0.0.1:3004/interactions`,
+      data: {
+        element: e.target.toString(),
+        widget: widget,
+        time: timeStamp
+      }
+    })
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => console.error(err));
+  };
+
+  if (product_id) {
+    return (
+      <MuiThemeProvider theme={theme}>
+        <Header allProducts={allProducts} onSearchFormSubmit={onSearchFormSubmit} track={trackClicks} />
+        <Grid container direction='column'>
+          <Grid item container direction='row'>
+            <Grid item xs={false} sm={2} />
+            <Grid item xs={12} sm={8} >
+              <ProductOverview allProducts={allProducts} product={product_id} track={trackClicks} />
+              {/* clickTracker done */}
+            </Grid>
+            <Grid item xs={false} sm={1} />
+          </Grid>
+          <Grid item container>
+            <Grid item xs={false} sm={2} />
+            <Grid item xs={12} sm={8}>
+              <Box pt={3} pb={3}>
+                <Divider varient='middle'></Divider>
+              </Box>
+              <Related product_id={product_id} handleIdChange={handleProductChange} track={trackClicks} />
+              <Box pt={3} pb={3}>
+                <Divider varient='middle'></Divider>
+              </Box>
+              <QA product_id={product_id} name={name} track={trackClicks} />
+              <Box pt={3} pb={6}>
+                <Divider varient='middle'></Divider>
+              </Box>
+              <ReviewsAndRatings product_id={product_id} name={name} track={trackClicks} />
+            </Grid>
+            <Grid item xs={false} sm={2} />
+          </Grid>
+        </Grid>
+      </MuiThemeProvider>
+    )
+  } else {
+    return <></>
   }
 }
 

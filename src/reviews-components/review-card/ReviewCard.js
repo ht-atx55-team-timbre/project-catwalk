@@ -25,7 +25,7 @@ const ReviewCard = ({ review }) => {
             summary={summary}
             photos={photos}
           />
-          <Grid container spacing={2}>
+          <Grid container >
             {recommend && <CardRecommend />}
             {response && <CardResponse response={response} />}
           </Grid>

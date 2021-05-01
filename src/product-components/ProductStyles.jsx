@@ -6,7 +6,6 @@ import {
   Typography,
   ButtonBase
 } from '@material-ui/core';
-import theme from '../theme.js';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,27 +17,30 @@ const useStyles = makeStyles((theme) => ({
   image: {
     position: 'relative',
     borderRadius: '50%',
-    width: '40px',
-    height: '40px',
+    width: '50px',
+    height: '50px',
     '&:hover, &$focusVisible': {
       zIndex: 1,
       '& $imageBackdrop': {
         opacity: 0.15,
       }
     },
+    boxShadow: 'none'
   },
   imageSelected: {
     position: 'relative',
     borderRadius: '50%',
-    width: '40px',
-    height: '40px',
+    width: '50px',
+    height: '50px',
     '&$focusVisible': {
       zIndex: 1,
       '& $imageBackdrop': {
         opacity: 0.15,
-      }
+      },
     },
-    borderColor: theme.palette.secondary.main
+    padding: '2px',
+    border: '2px solid',
+    borderColor: theme.palette.secondary.main,
   },
   focusVisible: {},
   imageButton: {
@@ -54,8 +56,8 @@ const useStyles = makeStyles((theme) => ({
   },
   imageSrc: {
     position: 'absolute',
-    width: '40px',
-    height: '40px',
+    width: '50px',
+    height: '50px',
     borderRadius: '50%',
     left: 0,
     right: 0,
@@ -86,7 +88,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function ProductStyles({ styles, handleStyleChange }) {
+export default function ProductStyles({ styles, handleStyleChange, track }) {
   const [selected, setSelected] = useState(0);
   const classes = useStyles();
 
@@ -95,6 +97,8 @@ export default function ProductStyles({ styles, handleStyleChange }) {
   }, [handleStyleChange, styles, selected]);
 
   function handleSelection(e) {
+    track(e, 'Product Overview');
+    console.log('click');
     for (let i = 0; i < styles.length; i++) {
       if (styles[i].style_id === Number(e.target.id)) {
         setSelected(i);
@@ -106,21 +110,25 @@ export default function ProductStyles({ styles, handleStyleChange }) {
   return (
     <div className={classes.root}>
       <CardContent>
-        <Typography className={classes.root}>
-          STYLE > {styles[selected].name}
-        </Typography>
+        {styles[selected] &&
+          <Typography className={classes.root}>
+            STYLE > {styles[selected].name}
+          </Typography>
+        }
         {styles.map((style, idx) => {
           if (idx === selected) {
             return (
               <ButtonBase
                 focusRipple
                 key={idx}
-                className={classes.image}
+                className={classes.imageSelected}
                 focusVisibleClassName={classes.focusVisible}
                 style={{
-                  width: '40px',
-                  height: '40px',
-                  marginRight: '6px',
+                  width: '50px',
+                  height: '50px',
+                  marginTop: '4px',
+                  marginBottom: '4px',
+                  marginRight: '8px',
                   // border: '2px',
                   // borderColor: theme.palette.secondary.main
                 }}
@@ -148,11 +156,11 @@ export default function ProductStyles({ styles, handleStyleChange }) {
                 className={classes.image}
                 focusVisibleClassName={classes.focusVisible}
                 style={{
-                  width: '40px',
-                  height: '40px',
+                  width: '50px',
+                  height: '50px',
                   marginTop: '4px',
                   marginBottom: '4px',
-                  marginRight: '8px'
+                  marginRight: '8px',
                 }}
                 onClick={handleSelection}
               >

@@ -1,17 +1,15 @@
 import { useState } from 'react';
-import { Grid, Button, ButtonGroup, Typography, Box } from '@material-ui/core';
+import { Grid, Divider, Typography, Box } from '@material-ui/core';
 import moment from 'moment';
 import axios from 'axios';
-import API_KEY from '../../config.js';
 import ReportAnswer from './ReportAnswer.jsx';
 
 const HelpfulAnswerHandler = ({ answer }) => {
   const [helpfulness, setHelpfulness] = useState(answer.helpfulness);
   const [aIsClicked, setAIsClicked] = useState(false);
 
-  const url = `https://app-hrsei-api.herokuapp.com/api/fec2/hratx/qa/answers/${answer.answer_id}/helpful`;
+  const url = `http://127.0.0.1:3004/qa/answers/${answer.answer_id}/helpful`;
   const headersAndParams = {
-    headers: { Authorization: API_KEY },
     params: { answer_id: answer.answer_id }
   };
 
@@ -21,39 +19,39 @@ const HelpfulAnswerHandler = ({ answer }) => {
       setHelpfulness(helpfulness + 1);
       axios.put(url, { helpfulness: helpfulness }, headersAndParams)
         .catch((err) => {
-          console.log(err, 'error sending new helpful question information');
+          console.log(err);
         });
     }
   }
 
   return (
     <Grid>
-      <Grid container="row" alignItems="center">
+      <Grid container alignItems="center">
         <Typography><b>A:&nbsp;</b></Typography>
         <Typography>{`${answer.body}`}</Typography>
       </Grid>
       <Grid container direction="row" alignItems="center">
-        <ButtonGroup variant="text" aria-label="text primary button group">
-          <Box pl={1.5}>
-            <Button
-              style={{
-                textTransform: "none",
-                fontSize: 12,
-                color: "grey"
-              }}
-              disabled
-            >
-              by {answer.answerer_name}, {moment(answer.date).format('MMMM Do, YYYY')}
-            </Button>
-          </Box>
-          <Button style={{textTransform: "none"}}>
-            <Typography style={{fontSize: 12, color: "grey"}}>
-              Helpful?&nbsp;<u id={answer.answer_id} onClick={handleHelpfulAnswer}>Yes</u>&nbsp;
-            </Typography>
-            <Typography style={{fontSize: 12, color: "grey"}}>({helpfulness})</Typography>
-          </Button>
-          <ReportAnswer answer_id={answer.answer_id} />
-        </ButtonGroup>
+        <Box pl={2.5} pt={0.5} pb={0.5}>
+          <Typography style={{fontSize: 12, color: "grey"}}>
+            {`by ${answer.answerer_name}, ${moment(answer.date).format('MMMM Do, YYYY')}`}
+            &nbsp;&nbsp;
+          </Typography>
+        </Box>
+        <Divider orientation="vertical" flexItem />
+        <Typography style={{fontSize: 12, color: "grey"}}>
+          &nbsp;&nbsp;
+          Helpful?&nbsp;
+          <u id={answer.answer_id} onClick={handleHelpfulAnswer} style={{cursor: "pointer"}}>
+            Yes
+          </u>
+          &nbsp;
+        </Typography>
+        <Typography style={{fontSize: 12, color: "grey"}}>
+          ({helpfulness})
+          &nbsp;&nbsp;
+        </Typography>
+        <Divider orientation="vertical" flexItem />
+        <ReportAnswer answer_id={answer.answer_id} />
       </Grid>
     </Grid>
   )

@@ -12,14 +12,17 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     border: "solid",
     borderWidth: 1,
-    borderRadius: 0
+    borderRadius: 0,
+    borderColor: "red"
   },
   input: {
     marginLeft: theme.spacing(1),
     flex: 1,
+    color: "#181E34"
   },
   icon: {
     padding: 10,
+    color: "red"
   },
 }));
 

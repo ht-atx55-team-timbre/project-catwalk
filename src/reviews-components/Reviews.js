@@ -2,21 +2,12 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { Grid, Paper } from '@material-ui/core';
 import { Button, ButtonGroup } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 
 import getReviews from './review-card/getReviews'
 import ReviewsSort from './ReviewsSort';
 import ReviewCards from './ReviewCards';
 import ratingComponent from './ratingComponent';
 import ReviewSubmit from './ReviewSubmit';
-
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'left',
-    color: theme.palette.text.secondary,
-  },
-}));
 
 const Reviews = ({ product_id, name, addReview, setAddReview }) => {
   const [count, setCount] = useState(2)
@@ -52,23 +43,21 @@ const Reviews = ({ product_id, name, addReview, setAddReview }) => {
     })
   }, [product_id, addReview])
 
-  const classes = useStyles();
 
   return (
     <Grid item xs={12} sm={9}>
-      <Paper className={classes.paper}>
+      <Paper >
         <Grid container direction="column" spacing={2}>
           <ReviewsSort
             totalReviews={totalReviews}
             sort={sort}
             handleSortChange={handleSortChange}
-            classes={classes}
           />
           <ReviewCards results={results}/>
           <Grid item >
-            <ButtonGroup color="primary">
-              <Button onClick={e => setCount(count + 2)}>More Reviews</Button>
-              {!addReview && <Button color="primary" onClick={e => setOpen(true)}>Add Reviews +</Button>}
+            <ButtonGroup color="secondary">
+              {totalReviews > count && <Button style={{borderRadius: '0'}} onClick={e => setCount(count + 2)}>More Reviews</Button>}
+              {!addReview && <Button style={{borderRadius: '0'}} onClick={e => setOpen(true)}>Add Reviews +</Button>}
               <ReviewSubmit name={name} product_id={product_id} setAddReview={setAddReview} open={open} setOpen={setOpen}/>
             </ButtonGroup>
           </Grid>

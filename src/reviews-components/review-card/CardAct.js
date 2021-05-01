@@ -5,7 +5,6 @@ import { Typography } from '@material-ui/core';
 import { Button, ButtonGroup } from '@material-ui/core';
 import axios from 'axios';
 
-import API_KEY from '../../config.js';
 
 const CardAct = ({ helpfulness, review_id }) => {
   const [select, setSelect] = useState(true)
@@ -16,10 +15,7 @@ const CardAct = ({ helpfulness, review_id }) => {
     if (e.currentTarget.value === 'yes') {
       axios({
         method: 'PUT',
-        url: `https://app-hrsei-api.herokuapp.com/api/fec2/hratx/reviews/${review_id}/helpful`,
-        headers: {
-          Authorization: API_KEY
-        },
+        url: `http://127.0.0.1:3004/reviews/${review_id}/helpful`,
         data: {
           helpfulness: helpful
         }
@@ -38,7 +34,7 @@ const CardAct = ({ helpfulness, review_id }) => {
       <Typography>
         Was this review helpful?
       </Typography>
-      <ButtonGroup variant="text" color="primary" disabled={!select}>
+      <ButtonGroup variant="text" color="secondary" disabled={!select}>
         <Button value="yes" onClick={handleHelpful}>Yes ({helpful})</Button>
         <Button value="no" onClick={handleHelpful}>No</Button>
       </ButtonGroup>

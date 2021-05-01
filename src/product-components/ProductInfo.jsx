@@ -4,18 +4,24 @@ import { makeStyles } from '@material-ui/core/styles';
 import {
   Paper,
   CardContent,
-  Typography
+  Typography,
+  IconButton,
 } from '@material-ui/core';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import PinterestIcon from '@material-ui/icons/Pinterest';
 import StarComponent from '../reviews-components/StarComponent.js';
 import ratingComponent from '../reviews-components/ratingComponent.js';
 
 const useStyles = makeStyles({
   root: {
-    minWidth: "100%",
+    maxWidth: '100%',
+    display: 'inline-block'
   },
   minimal: {
-    display: "inline-block",
-    fontSize: 11
+    display: 'flex',
+    fontSize: 11,
+    marginBottom: 12
   },
   title: {
     fontSize: 14,
@@ -41,38 +47,53 @@ const ProductInfo = ({ product, id, style }) => {
         setTotalReviews(result[1]);
       })
       .catch(err => console.error(err));
-  }, [id]);
+  }, [id, totalReviews]);
 
   return (
     <Paper elevation={0} className={classes.root}>
       <CardContent>
-        <div>
-          <StarComponent rating={rating} display="inline-block" />
-          <Typography className={classes.minimal}>Read all {totalReviews} reviews</Typography>
-        </div>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
+        {!totalReviews ?
+          <div></div> :
+          <div>
+            <StarComponent rating={rating} />
+            <Typography className={classes.minimal} alignitems='center'>Read all {totalReviews} reviews</Typography>
+          </div>
+        }
+        <Typography className={classes.title} color='textSecondary' gutterBottom>
           {product.category}
         </Typography>
-        <Typography variant="h5" component="h2">
+        <Typography variant='h5' component='h2' gutterBottom>
           {product.name}
         </Typography>
         {style.sale_price ?
-          <div>
+          <div height='33%' display='inline'>
             <Typography className={classes.discount}>
-              {style.sale_price} <em>best price for you!</em>
+              {style.sale_price} <em>on sale!</em>
             </Typography>
-            <Typography className={classes.pos} color="textSecondary">
+            <Typography className={classes.pos} color='textSecondary'>
               <strike>{style.original_price}</strike>
             </Typography>
           </div> :
-          <div>
-            <Typography className={classes.pos} color="textSecondary">
+          <div height='33%'>
+            <Typography className={classes.pos} color='textSecondary'>
               {style.original_price}
             </Typography>
           </div>
         }
-        <Typography variant="body2" component="p">
+        <Typography variant='body1' style={{ fontSize: 14 }}>
+          Share This Item On Social
         </Typography>
+        <div display='inline' alignitems='left'>
+          <IconButton>
+            <FacebookIcon color='primary' />
+          </IconButton>
+          <IconButton>
+            <TwitterIcon color='primary' />
+          </IconButton>
+          <IconButton>
+            <PinterestIcon color='primary' />
+          </IconButton>
+        </div>
       </CardContent>
     </Paper>
   )
