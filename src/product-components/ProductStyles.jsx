@@ -6,7 +6,6 @@ import {
   Typography,
   ButtonBase
 } from '@material-ui/core';
-// import theme from '../theme.js';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -89,7 +88,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function ProductStyles({ styles, handleStyleChange }) {
+export default function ProductStyles({ styles, handleStyleChange, track }) {
   const [selected, setSelected] = useState(0);
   const classes = useStyles();
 
@@ -98,6 +97,8 @@ export default function ProductStyles({ styles, handleStyleChange }) {
   }, [handleStyleChange, styles, selected]);
 
   function handleSelection(e) {
+    track(e, 'Product Overview');
+    console.log('click');
     for (let i = 0; i < styles.length; i++) {
       if (styles[i].style_id === Number(e.target.id)) {
         setSelected(i);

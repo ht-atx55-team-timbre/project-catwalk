@@ -31,7 +31,8 @@ const App = () => {
       });
   }, []);
 
-  const handleProductChange = (id, name) => {
+  const handleProductChange = (e, id, name) => {
+    trackClicks(e, 'Related Card');
     setProduct_id(id);
     setName(name);
   }
@@ -60,15 +61,34 @@ const App = () => {
     }
   }
 
+  const trackClicks = (e, widget) => {
+    var timeStamp = new Date();
+    console.log({ element: e.target, widget: widget, time: timeStamp });
+    axios({
+      method: 'post',
+      url: `http://127.0.0.1:3004/interactions`,
+      data: {
+        element: e.target.toString(),
+        widget: widget,
+        time: timeStamp
+      }
+    })
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => console.error(err));
+  };
+
   if (product_id) {
     return (
       <MuiThemeProvider theme={theme}>
-        <Header allProducts={allProducts} onSearchFormSubmit={onSearchFormSubmit} />
+        <Header allProducts={allProducts} onSearchFormSubmit={onSearchFormSubmit} track={trackClicks} />
         <Grid container direction='column'>
           <Grid item container direction='row'>
             <Grid item xs={false} sm={2} />
             <Grid item xs={12} sm={8} >
-              <ProductOverview allProducts={allProducts} product={product_id} />
+              <ProductOverview allProducts={allProducts} product={product_id} track={trackClicks} />
+              {/* clickTracker done */}
             </Grid>
             <Grid item xs={false} sm={1} />
           </Grid>
@@ -78,17 +98,15 @@ const App = () => {
               <Box pt={3} pb={3}>
                 <Divider varient='middle'></Divider>
               </Box>
-              <Related product_id={product_id} handleIdChange={handleProductChange} />
-              {/* Q/A */}
+              <Related product_id={product_id} handleIdChange={handleProductChange} track={trackClicks} />
               <Box pt={3} pb={3}>
                 <Divider varient='middle'></Divider>
               </Box>
-              <QA product_id={product_id} name={name} />
-              {/* Reviews/Ratings */}
+              <QA product_id={product_id} name={name} track={trackClicks} />
               <Box pt={3} pb={6}>
                 <Divider varient='middle'></Divider>
               </Box>
-              <ReviewsAndRatings product_id={product_id} name={name} />
+              <ReviewsAndRatings product_id={product_id} name={name} track={trackClicks} />
             </Grid>
             <Grid item xs={false} sm={2} />
           </Grid>

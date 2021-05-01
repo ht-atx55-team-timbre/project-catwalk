@@ -33,7 +33,7 @@ function OutfitCard({ item, removeOutfit, handleIdChange }) {
         setRating(result[0]);
       })
       .catch(err => console.error(err));
-  }, [item]) 
+  }, [item])
 
   return (
     <Grid item xs={3}>
@@ -45,7 +45,7 @@ function OutfitCard({ item, removeOutfit, handleIdChange }) {
               image={product.styles}
               title="Product Name"
               className={classes.media}
-              onClick={() => { handleIdChange(product.general.id, product.general.name) }}
+              onClick={(e) => { handleIdChange(e, product.general.id, product.general.name) }}
             />
             <RelCardContent>
               <Typography
@@ -68,7 +68,7 @@ function OutfitCard({ item, removeOutfit, handleIdChange }) {
               </div>
             </RelCardContent>
             <RelCardActions>
-              <IconButton onClick={() => removeOutfit(product.general.id)}>
+              <IconButton onClick={(e) => removeOutfit(e, product.general.id)}>
                 <CloseRoundedIcon style={{color: 'red' }} />
               </IconButton>
             </RelCardActions>

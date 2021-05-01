@@ -8,7 +8,7 @@ import ProductStyles from './ProductStyles.jsx';
 import ProductSpecs from './ProductSpecs.jsx';
 import Cart from './AddToCart.jsx';
 
-const ProductOverview = ({ product, allProducts }) => {
+const ProductOverview = ({ product, allProducts, track }) => {
   const [productData, setProductData] = useState(null);
   const [currentStyle, setCurrentStyle] = useState(null);
   const [styleData, setStyleData] = useState(null);
@@ -61,6 +61,7 @@ const ProductOverview = ({ product, allProducts }) => {
               <ProductStyles
                 styles={styleData}
                 handleStyleChange={handleStyleChange}
+                track={track}
               />
             </Grid>
             <Grid item xs={12}>

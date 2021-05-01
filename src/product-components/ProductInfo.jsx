@@ -83,7 +83,7 @@ const ProductInfo = ({ product, id, style }) => {
         <Typography variant='body1' style={{ fontSize: 14 }}>
           Share This Item On Social
         </Typography>
-        <div display='inline' alignItems='left'>
+        <div display='inline' alignitems='left'>
           <IconButton>
             <FacebookIcon color='primary' />
           </IconButton>
