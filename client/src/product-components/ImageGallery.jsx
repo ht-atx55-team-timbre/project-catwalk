@@ -78,11 +78,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function ImageGallery({ images, handleImgChange, selected }) {
+export default function ImageGallery({ images, handleImgChange, selected, track }) {
   const classes = useStyles();
 
   function handleClick(e) {
     handleImgChange(Number(e.target.id));
+    track(e, 'Image Gallery Photo #' + (Number(e.target.id) + 1).toString());
   }
 
   return (

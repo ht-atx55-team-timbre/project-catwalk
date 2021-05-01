@@ -31,13 +31,8 @@ app.all('/*', (req, res) => {
     .catch(err => {
       res.status(400);
     })
-})
+});
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
-})
-
-
-
-
-// // "start": "react-scripts start",
+});

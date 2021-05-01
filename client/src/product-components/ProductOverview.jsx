@@ -8,20 +8,18 @@ import ProductStyles from './ProductStyles.jsx';
 import ProductSpecs from './ProductSpecs.jsx';
 import Cart from './AddToCart.jsx';
 
-const ProductOverview = ({ product, allProducts }) => {
+const ProductOverview = ({ product, allProducts, track }) => {
   const [productData, setProductData] = useState(null);
   const [currentStyle, setCurrentStyle] = useState(null);
   const [styleData, setStyleData] = useState(null);
-  const [initialPhoto, setInitialPhoto] = useState(0);
 
   const handleStyleChange = (newStyle, initial) => {
     setCurrentStyle(newStyle);
-    setInitialPhoto(initial);
   }
 
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:3004/products/${product}/styles`)
+      .get(`/products/${product}/styles`)
       .then(response => {
         let styles = response.data.results;
         setStyleData(styles);
@@ -34,7 +32,7 @@ const ProductOverview = ({ product, allProducts }) => {
       .catch(err => console.error(err));
 
     axios
-      .get(`http://127.0.0.1:3004/products/${product}`)
+      .get(`/products/${product}`)
       .then(response => {
         setProductData(response.data);
       })
@@ -46,7 +44,11 @@ const ProductOverview = ({ product, allProducts }) => {
       <Grid container direction="column">
         <Grid container direction="row">
           <Grid item xs={12} md={7}>
-            <ProductImages images={currentStyle} initial={initialPhoto} justifyContent='flex-end' />
+            <ProductImages
+              images={currentStyle}
+              track={track}
+              justifyContent='flex-end'
+            />
           </Grid>
           <Grid item md={1} />
           <Grid item container direction="row" xs={12} md={4}>
@@ -55,22 +57,29 @@ const ProductOverview = ({ product, allProducts }) => {
                 product={productData}
                 id={product}
                 style={currentStyle}
+                track={track}
               />
             </Grid>
             <Grid item xs={12}>
               <ProductStyles
                 styles={styleData}
                 handleStyleChange={handleStyleChange}
+                track={track}
               />
             </Grid>
             <Grid item xs={12}>
-              <Cart currentStyle={currentStyle} />
+              <Cart
+                currentStyle={currentStyle}
+                track={track}
+              />
             </Grid>
           </Grid>
         </Grid>
         <Grid container direction="row">
           <Grid item xs={12} sm={7}>
-            <ProductDescription product={productData} />
+            <ProductDescription
+              product={productData}
+            />
           </Grid>
           <Grid item md={1}>
             <Box pt={1.75} >

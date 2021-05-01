@@ -20,14 +20,15 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const AddQuestion = ({ toggleQuestionReloadOnFormSubmit, product_id, name }) => {
+const AddQuestion = ({ toggleQuestionReloadOnFormSubmit, product_id, name, track }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [userQuestion, setUserQuestion] = useState('');
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (e) => {
+    track(e, 'Add Question');
     setOpen(true);
   };
 
@@ -38,7 +39,7 @@ const AddQuestion = ({ toggleQuestionReloadOnFormSubmit, product_id, name }) => 
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
-    const url = `http://127.0.0.1:3004/qa/questions`;
+    const url = `/qa/questions`;
     const headersAndParams = {
       params: {
         body: userQuestion,

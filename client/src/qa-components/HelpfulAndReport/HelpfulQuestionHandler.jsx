@@ -3,16 +3,17 @@ import axios from 'axios';
 import { Grid, Box, Divider, Typography } from '@material-ui/core';
 import AddAnswer from '../AddQuestionAndAnswer/AddAnswer.jsx';
 
-const HelpfulQuestionHandler = ({ toggleAnswerReloadOnFormSubmit, product_id, question, name }) => {
+const HelpfulQuestionHandler = ({ toggleAnswerReloadOnFormSubmit, product_id, question, name, track }) => {
   const [helpfulness, setHelpfulness] = useState(question.question_helpfulness);
   const [qIsClicked, setQIsClicked] = useState(false);
 
-  const url = `http://127.0.0.1:3004/qa/questions/${question.question_id}/helpful`;
+  const url = `/qa/questions/${question.question_id}/helpful`;
   const headersAndParams = {
     params: { question_id: question.question_id }
   };
 
-  const handleHelpfulQuestion = (event) => {
+  const handleHelpfulQuestion = (e) => {
+    track(e, 'Helpful Question');
     if (!qIsClicked) {
       setQIsClicked(true);
       setHelpfulness(helpfulness + 1);
@@ -41,6 +42,7 @@ const HelpfulQuestionHandler = ({ toggleAnswerReloadOnFormSubmit, product_id, qu
           toggleAnswerReloadOnFormSubmit={toggleAnswerReloadOnFormSubmit}
           question={question}
           name={name}
+          track={track}
         />
       </Grid>
     </Box>

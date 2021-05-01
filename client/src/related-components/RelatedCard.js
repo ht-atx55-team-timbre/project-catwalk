@@ -21,7 +21,7 @@ const tableStyle = {
   color: '#181E34'
 }
 
-function RelatedCard({ item, handleIdChange, original }) {
+function RelatedCard({ item, handleIdChange, original, track }) {
   const classes = useStyles();
   const [comparison, setComparison] = useState([])
   const [product, setProduct] = useState({
@@ -30,13 +30,14 @@ function RelatedCard({ item, handleIdChange, original }) {
   });
   const [rating, setRating] = useState(0);
   const [open, setOpen] = useState(false);
-  const handleClickOpen = () => {
+  const handleClickOpen = (e) => {
+    track(e, 'Comparison Modal');
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
   };
-  
+
   useEffect(() => {
     async function getAllProductData() {
       const originalData = await request.get(`${original}`);
@@ -51,8 +52,8 @@ function RelatedCard({ item, handleIdChange, original }) {
       let comparisonObj = {};
       let originalFeatures = originalData.data.features;
       let newFeatures = productData.data.features;
-      originalFeatures.forEach((feat) => { comparisonObj[feat.feature] = { original: feat.value, new: '' }});
-      newFeatures.forEach((feat) => { 
+      originalFeatures.forEach((feat) => { comparisonObj[feat.feature] = { original: feat.value, new: '' } });
+      newFeatures.forEach((feat) => {
         if (!comparisonObj[feat.feature]) {
           comparisonObj[feat.feature] = {
             original: '',
@@ -69,75 +70,77 @@ function RelatedCard({ item, handleIdChange, original }) {
       }
       setComparison(comparisonArr);
       ratingComponent(item)
-      .then(result => {
-        setRating(result[0]);
-      })
-      .catch(err => console.error(err));
+        .then(result => {
+          setRating(result[0]);
+        })
+        .catch(err => console.error(err));
     };
     getAllProductData();
-  }, [item, original]) 
+  }, [item, original])
 
   return (
     <Grid item xs={3}>
       <Container>
-          <RelCard className={classes.card} color='primary'>
-            <RelCardMedia
-              media="picture"
-              alt="Product Name"
-              image={product.styles}
-              title="Product Name"
-              className={classes.media}
-              onClick={() => { handleIdChange(product.general.id, product.general.name) }}
-            />
-            <RelCardContent>
-              <Typography
-                variant="body2"
-                component="p"
-              >
-                {product.general.category}
-              </Typography>
-              <Typography variant="h5" className={classes.title}>
-                {product.general.name}
-              </Typography>
-              <Typography variant="body1" className={classes.price}>
-                {product.general.default_price}
-              </Typography>
-              <div>
-                <StarComponent rating={rating} display="inline-block" />
-              </div>
-            </RelCardContent>
-            <RelCardActions>
-              <IconButton onClick={handleClickOpen}>
-                <StarRoundedIcon style={{color: 'white' }} />
-              </IconButton>
-              <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
-                <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-                  Product Comparison
+        <RelCard className={classes.card} color='primary'>
+          <RelCardMedia
+            media="picture"
+            alt="Product Name"
+            image={product.styles}
+            title="Product Name"
+            className={classes.media}
+            onClick={(e) => { handleIdChange(e, product.general.id, product.general.name) }}
+          />
+          <RelCardContent>
+            <Typography
+              variant="body2"
+              component="p"
+            >
+              {product.general.category}
+            </Typography>
+            <Typography variant="h5" className={classes.title}>
+              {product.general.name}
+            </Typography>
+            <Typography variant="body1" className={classes.price}>
+              {product.general.default_price}
+            </Typography>
+            <div>
+              <StarComponent rating={rating} display="inline-block" />
+            </div>
+          </RelCardContent>
+          <RelCardActions>
+            <IconButton onClick={handleClickOpen}>
+              <StarRoundedIcon style={{ color: 'white' }} />
+            </IconButton>
+            <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+              <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+                Product Comparison
                 </DialogTitle>
-                <DialogContent dividers>
-                    {comparison[0] &&
-                    <table style={tableStyle}>
-                      <tr>
-                        <th style={{width: '33%'}}>{comparison[0][0]}</th>
-                        <th style={{width: '33%'}}></th>
-                        <th style={{width: '33%'}}>{comparison[0][2]}</th>
+              <DialogContent dividers>
+                {comparison[0] &&
+                  <table style={tableStyle}>
+                    <tbody>
+                      <tr key='table'>
+                        <th style={{ width: '33%' }}>{comparison[0][0]}</th>
+                        <th style={{ width: '33%' }}></th>
+                        <th style={{ width: '33%' }}>{comparison[0][2]}</th>
                       </tr>
-                      {comparison.map((item, idx) => 
+                      {comparison.map((item, idx) =>
                         (idx !== 0 &&
                           <tr key={idx}>
-                            <td key={idx} style={{width: '33%', borderTop: '2px solid #f78e81'}}>{item[0]}</td>
-                            <td key={idx} style={{width: '33%', borderTop: '2px solid #f78e81'}}>{item[1]}</td>
-                            <td key={idx} style={{width: '33%', borderTop: '2px solid #f78e81'}}>{item[2]}</td>
+                            <td key={[item[0]]} style={{ width: '33%', borderTop: '2px solid #f78e81' }}>{item[0]}</td>
+                            <td key={[item[1]]} style={{ width: '33%', borderTop: '2px solid #f78e81' }}>{item[1]}</td>
+                            <td key={[item[2]]} style={{ width: '33%', borderTop: '2px solid #f78e81' }}>{item[2]}</td>
                           </tr>
                         ))
                       }
-                    </table>}
-                </DialogContent>
-              </Dialog>
-            </RelCardActions>
-          </RelCard>
-        </Container>
-      </Grid>
+                    </tbody>
+                  </table>}
+              </DialogContent>
+            </Dialog>
+          </RelCardActions>
+        </RelCard>
+      </Container>
+    </Grid>
   );
 }
 

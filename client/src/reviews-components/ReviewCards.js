@@ -6,12 +6,12 @@ import ReviewCard from './review-card/ReviewCard';
 
 const useStyles = makeStyles((theme) => ({
   grid: {
-    maxHeight: '88vh',
+    maxHeight: '74vh',
     overflow: 'auto',
   },
 }));
 
-const ReviewCards = ({results}) => {
+const ReviewCards = ({ results, track }) => {
 
   const classes = useStyles();
 
@@ -22,6 +22,7 @@ const ReviewCards = ({results}) => {
           <ReviewCard
             review={review}
             key={review.review_id}
+            track={track}
           />
         )
       })}

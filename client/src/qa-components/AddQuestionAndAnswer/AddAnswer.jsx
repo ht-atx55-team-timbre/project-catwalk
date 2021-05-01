@@ -19,14 +19,15 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const AddAnswer = ({ toggleAnswerReloadOnFormSubmit, question, name }) => {
+const AddAnswer = ({ toggleAnswerReloadOnFormSubmit, question, name, track }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [userAnswer, setUserAnswer] = useState('');
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (e) => {
+    track(e, 'Add Answer');
     setOpen(true);
   };
 
@@ -37,7 +38,7 @@ const AddAnswer = ({ toggleAnswerReloadOnFormSubmit, question, name }) => {
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
-    const url = `http://127.0.0.1:3004/qa/questions/${question.question_id}/answers`;
+    const url = `/qa/questions/${question.question_id}/answers`;
     const headersAndParams = {
       params: {
         question_id: question.question_id,

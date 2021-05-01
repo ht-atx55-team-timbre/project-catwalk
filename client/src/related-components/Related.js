@@ -6,7 +6,7 @@ import Carousel from 'react-material-ui-carousel';
 import RelatedCard from './RelatedCard';
 import OutfitCard from './OutfitCard';
 
-const Related = ({ product_id, handleIdChange }) => {
+const Related = ({ product_id, handleIdChange, track }) => {
 
   const [outfits, setOutfits] = useState([]);
   const [related, setRelated] = useState([]);
@@ -19,7 +19,7 @@ const Related = ({ product_id, handleIdChange }) => {
       let results = [];
       let chunk = 4;
       for (let i = 0; i < array.length; i++) {
-        relatedItems.push(<RelatedCard key={i} item={array[i]} original={product_id} handleIdChange={handleIdChange} />)
+        relatedItems.push(<RelatedCard key={i} item={array[i]} original={product_id} handleIdChange={handleIdChange} track={track} />)
       }
       for (let i = 0; i < relatedItems.length; i += chunk) {
         let tempArr = relatedItems.slice(i, i+chunk);
@@ -30,14 +30,13 @@ const Related = ({ product_id, handleIdChange }) => {
 
     async function getRelated() {
       const results = await request.get(`/${product_id}/related`);
-      console.log(results);
       let uniqueResults = [...new Set(results.data)]
       setRelated(createRelatedItems(uniqueResults));
       currItemRef.current = product_id;
     };
 
     getRelated();
-  }, [product_id, handleIdChange])
+  }, [product_id, handleIdChange, track])
 
   const createOutfitItems = (array) => {
     let outfitItems = [];
@@ -55,7 +54,8 @@ const Related = ({ product_id, handleIdChange }) => {
     setOutfits(results);
   }
 
-  const handleOutfitAdd = () => {
+  const handleOutfitAdd = (e) => {
+    track(e, 'Add Outfit');
     let itemsArray = currOutfitArrayRef.current;
     if (!itemsArray.includes(currItemRef.current)) {
       itemsArray.push(currItemRef.current);
@@ -64,7 +64,8 @@ const Related = ({ product_id, handleIdChange }) => {
     createOutfitItems(itemsArray);
   }
 
-  const handleOutfitRemove = (id) => {
+  const handleOutfitRemove = (e, id) => {
+    track(e, 'Remove Outfit');
     let newOutfitArray = currOutfitArrayRef.current;
     let result = [];
     for (let i = 0; i < newOutfitArray.length; i++) {

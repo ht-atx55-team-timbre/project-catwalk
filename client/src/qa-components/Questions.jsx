@@ -9,16 +9,17 @@ import sortingFunctions from './SortingFunctions.js';
 import SearchBarComponent from './SearchBarComponent.jsx';
 import MoreQuestionsButton from './MoreQuestionsButton.jsx';
 
-const Questions = ({ product_id, name }) => {
+const Questions = ({ product_id, name, track }) => {
   const [allQuestions, setAllQuestions] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [displayedQuestions, setDisplayedQuestions] = useState([]);
   const [questionCount, setQuestionCount] = useState(0);
   const [toggleQuestionReload, setToggleQuestionReload] = useState(true);
   const [toggleAnswerReload, setToggleAnswerReload] = useState(true);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:3004/qa/questions', {
+    axios.get('/qa/questions', {
       params: {
         product_id: product_id,
         count: 1000
@@ -42,11 +43,13 @@ const Questions = ({ product_id, name }) => {
     setDisplayedQuestions(questions.slice(0, questionCount))
   }, [questions, questionCount])
 
-  const handleMoreClick = (event) => {
+  const handleMoreClick = (e) => {
+    track(e, 'Load More Questions');
     setQuestionCount(questionCount + 2);
   }
 
-  const handleCollapseClick = (event) => {
+  const handleCollapseClick = (e) => {
+    track(e, 'Collapse Questions');
     setQuestionCount(4);
   }
 
@@ -58,12 +61,23 @@ const Questions = ({ product_id, name }) => {
     setToggleAnswerReload(!toggleAnswerReload);
   }
 
-  const sortQuestionsBySearchTerm = (event) => {
-    if (event.length > 2) {
+  const sortQuestionsBySearchTerm = (e) => {
+    if (count === 0) {
+      let eventObj = {
+        target: 'Search Bar'
+      }
+      track(eventObj, 'Search Questions');
+      setCount(count + 1);
+    }
+    if (e.length === 1) {}
+    if (e.length > 2) {
       const filteredQuestions = questions.filter(question =>
-        question.question_body.toLowerCase().includes(event.toLowerCase())
+        question.question_body.toLowerCase().includes(e.toLowerCase())
       );
       setQuestions(filteredQuestions);
+    } else if (e.length === 0) {
+      setCount(0);
+      setQuestions(allQuestions);
     } else {
       setQuestions(allQuestions);
     }
@@ -71,7 +85,7 @@ const Questions = ({ product_id, name }) => {
 
   return (
     <Grid>
-      <SearchBarComponent sortQuestionsBySearchTerm={sortQuestionsBySearchTerm} />
+      <SearchBarComponent sortQuestionsBySearchTerm={sortQuestionsBySearchTerm} track={track} />
       <Box style={{maxHeight: '75vh', overflow: 'auto'}}>
         <Grid>
           {_.map(displayedQuestions, question =>
@@ -88,6 +102,7 @@ const Questions = ({ product_id, name }) => {
                     <Answers
                       toggleAnswerReload={toggleAnswerReload}
                       question_id={question.question_id}
+                      track={track}
                     />
                   </Box>
                 </Grid>
@@ -97,6 +112,7 @@ const Questions = ({ product_id, name }) => {
                       toggleAnswerReloadOnFormSubmit={toggleAnswerReloadOnFormSubmit}
                       question={question}
                       name={name}
+                      track={track}
                     />
                   </Box>
                 </Grid>
@@ -116,6 +132,7 @@ const Questions = ({ product_id, name }) => {
               toggleQuestionReloadOnFormSubmit={toggleQuestionReloadOnFormSubmit}
               product_id={product_id}
               name={name}
+              track={track}
             />
           </Grid>
         </Box>

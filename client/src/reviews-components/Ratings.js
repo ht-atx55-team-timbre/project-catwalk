@@ -17,7 +17,7 @@ const Ratings = ({ product_id,addReview }) => {
 
   useEffect(() => {
     axios.get(`/meta`, {
-      baseURL: 'http://127.0.0.1:3004/reviews',
+      baseURL: '/reviews',
       params: {
         product_id: product_id
       }

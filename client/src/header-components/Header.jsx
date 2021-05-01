@@ -8,7 +8,7 @@ import {
   Box,
   IconButton
 } from '@material-ui/core';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import jeff from '../jeffssecret.png';
 import SearchBar from './SearchBar.jsx';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
@@ -39,16 +39,19 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 18,
     fontFamily: ['"Cinzel"', 'serif'],
     textTransform: 'none'
-  },
-  search: {
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
   }
 }));
 
-export default function Header({ onSearchFormSubmit, allProducts }) {
+export default function Header({ onSearchFormSubmit, allProducts, track }) {
   const classes = useStyles();
+
+  const handleButtonClick = (e) => {
+    track(e, 'Header Buttons');
+  }
+
+  const handleCartClick = (e) => {
+    track(e, 'Cart Button');
+  }
 
   return (
     <div>
@@ -64,19 +67,22 @@ export default function Header({ onSearchFormSubmit, allProducts }) {
               </Grid>
             </Grid>
             <Grid item container xs={12} md={6} style={{ display: "flex", justifyContent: "space-evenly" }} >
-              <Button className={classes.categories}>
+              <Button className={classes.categories} onClick={handleButtonClick}>
                 Jackets
               </Button>
-              <Button className={classes.categories}>
+              <Button className={classes.categories} onClick={handleButtonClick}>
                 Pants
               </Button>
-              <Button className={classes.categories}>
+              <Button className={classes.categories} onClick={handleButtonClick}>
                 Dress Shoes
               </Button>
-              <Button className={classes.categories}>
+              <Button className={classes.categories} onClick={handleButtonClick}>
                 Heels
               </Button>
-              <Button className={classes.categories}>
+              <Button className={classes.categories} onClick={handleButtonClick}>
+                Kicks
+              </Button>
+              <Button className={classes.categories} onClick={handleButtonClick}>
                 Accessories
               </Button>
             </Grid>
@@ -85,13 +91,14 @@ export default function Header({ onSearchFormSubmit, allProducts }) {
               <Grid item xs={10}>
                 <SearchBar
                   searchClass={classes.search}
+                  searchBorder={classes.searchBorder}
                   onSearchFormSubmit={onSearchFormSubmit}
                   allProducts={allProducts}
                 />
               </Grid>
               <Grid item xs={2}>
                 <Box>
-                  <IconButton>
+                  <IconButton onClick={handleCartClick} >
                     <ShoppingCartIcon />
                   </IconButton>
                 </Box>
@@ -102,7 +109,7 @@ export default function Header({ onSearchFormSubmit, allProducts }) {
       </AppBar>
       <Box pt={13} pb={3}>
         <Typography style={{ textAlign: "center" }}>
-          Free shipping on orders $99+ | Register for Free Shipping on Your 1st Order and a Chance to Learn Jeff's Secret
+          Free shipping on orders $99+ | Register for Free Shipping on Your 1st Order
         </Typography>
       </Box>
     </div>

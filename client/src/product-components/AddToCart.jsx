@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Cart = ({ currentStyle }) => {
+const Cart = ({ currentStyle, track }) => {
   const classes = useStyles();
 
   const [cart, setCart] = useState(null);
@@ -39,13 +39,11 @@ const Cart = ({ currentStyle }) => {
   const skus = currentStyle.skus;
 
   const handleSKUChange = (e) => {
-    console.log(e.target.value)
     setSKU(e.target.value);
     setSizeOpen(false);
   };
 
   const handleQtyChange = (e) => {
-    console.log(e.target.value);
     setQuantity(e.target.value);
     setQtyOpen(false);
   };
@@ -59,21 +57,19 @@ const Cart = ({ currentStyle }) => {
   };
 
   const getCartContents = () => {
-    axios
-      .get(`http://127.0.0.1:3004/cart`)
+    axios.get(`/cart`)
       .then(response => {
-        // console.log('response', response.data);
         setCart(response.data);
         console.log('cart', cart);
       })
       .catch(err => console.error(err));
   };
 
-  const postToCart = () => {
+  const postToCart = (e) => {
     if (sku && quantity) {
       axios({
         method: 'post',
-        url: `http://127.0.0.1:3004/cart`,
+        url: `/cart`,
         data: {
           sku_id: sku,
           count: quantity
@@ -87,14 +83,17 @@ const Cart = ({ currentStyle }) => {
         })
         .catch(err => console.error(err));
     }
+    track(e, 'Add To Cart');
   };
 
-  const handleSizeToggle = () => {
+  const handleSizeToggle = (e) => {
     setSizeOpen(prevOpen => !prevOpen);
+    track(e, 'Select Size');
   };
 
-  const handleQtyToggle = () => {
+  const handleQtyToggle = (e) => {
     setQtyOpen(prevOpen => !prevOpen);
+    track(e, 'Select Quantity');
   };
 
   const handleSizeClose = (e) => {

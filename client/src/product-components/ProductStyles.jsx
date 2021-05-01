@@ -6,7 +6,6 @@ import {
   Typography,
   ButtonBase
 } from '@material-ui/core';
-// import theme from '../theme.js';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,21 +26,6 @@ const useStyles = makeStyles((theme) => ({
       }
     },
     boxShadow: 'none'
-  },
-  imageSelected: {
-    position: 'relative',
-    borderRadius: '50%',
-    width: '50px',
-    height: '50px',
-    '&$focusVisible': {
-      zIndex: 1,
-      '& $imageBackdrop': {
-        opacity: 0.15,
-      },
-    },
-    padding: '2px',
-    border: '2px solid',
-    borderColor: theme.palette.secondary.main,
   },
   focusVisible: {},
   imageButton: {
@@ -67,6 +51,20 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: 'cover',
     backgroundPosition: 'center 40%',
   },
+  imageSrcSelected: {
+    position: 'absolute',
+    width: '50px',
+    height: '50px',
+    borderRadius: '50%',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center 40%',
+    border: '2px solid',
+    borderColor: theme.palette.secondary.main,
+  },
   imageBackdrop: {
     position: 'absolute',
     left: 0,
@@ -89,7 +87,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function ProductStyles({ styles, handleStyleChange }) {
+export default function ProductStyles({ styles, handleStyleChange, track }) {
   const [selected, setSelected] = useState(0);
   const classes = useStyles();
 
@@ -97,7 +95,12 @@ export default function ProductStyles({ styles, handleStyleChange }) {
     handleStyleChange(styles[selected], 0);
   }, [handleStyleChange, styles, selected]);
 
+  useEffect(() => {
+    setSelected(0);
+  }, [styles])
+
   function handleSelection(e) {
+    track(e, 'Style #' + (Number(e.target.id) + 1).toString());
     for (let i = 0; i < styles.length; i++) {
       if (styles[i].style_id === Number(e.target.id)) {
         setSelected(i);
@@ -120,7 +123,7 @@ export default function ProductStyles({ styles, handleStyleChange }) {
               <ButtonBase
                 focusRipple
                 key={idx}
-                className={classes.imageSelected}
+                className={classes.image}
                 focusVisibleClassName={classes.focusVisible}
                 style={{
                   width: '50px',
@@ -128,13 +131,11 @@ export default function ProductStyles({ styles, handleStyleChange }) {
                   marginTop: '4px',
                   marginBottom: '4px',
                   marginRight: '8px',
-                  // border: '2px',
-                  // borderColor: theme.palette.secondary.main
                 }}
                 onClick={handleSelection}
               >
                 <span
-                  className={classes.imageSrc}
+                  className={classes.imageSrcSelected}
                   style={{
                     backgroundImage: `url(${style.photos[0].thumbnail_url})`,
                   }}

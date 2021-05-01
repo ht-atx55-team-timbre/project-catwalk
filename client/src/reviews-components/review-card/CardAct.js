@@ -6,16 +6,17 @@ import { Button, ButtonGroup } from '@material-ui/core';
 import axios from 'axios';
 
 
-const CardAct = ({ helpfulness, review_id }) => {
+const CardAct = ({ helpfulness, review_id, track }) => {
   const [select, setSelect] = useState(true)
   const [helpful, setHelpful] = useState(helpfulness)
 
   const handleHelpful = (e) => {
+    track(e, 'helpful')
     setSelect(false);
     if (e.currentTarget.value === 'yes') {
       axios({
         method: 'PUT',
-        url: `http://127.0.0.1:3004/reviews/${review_id}/helpful`,
+        url: `/reviews/${review_id}/helpful`,
         data: {
           helpfulness: helpful
         }

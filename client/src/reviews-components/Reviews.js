@@ -9,7 +9,7 @@ import ReviewCards from './ReviewCards';
 import ratingComponent from './ratingComponent';
 import ReviewSubmit from './ReviewSubmit';
 
-const Reviews = ({ product_id, name, addReview, setAddReview }) => {
+const Reviews = ({ product_id, name, addReview, setAddReview, track }) => {
   const [count, setCount] = useState(2)
   const [sort, setSort] = useState("relevant")
   const [results, setResults] = useState([])
@@ -17,7 +17,18 @@ const Reviews = ({ product_id, name, addReview, setAddReview }) => {
   const [open, setOpen] = useState(false)
 
   const handleSortChange = (e) => {
+    track(e, 'change sort')
     setSort(e.target.value)
+  }
+
+  const handleCountChange = (e) => {
+    track(e, 'more review')
+    setCount(count + 2)
+  }
+
+  const handleOpen = (e) => {
+    track(e, 'add review')
+    setOpen(true)
   }
 
   useEffect(() => {
@@ -53,11 +64,11 @@ const Reviews = ({ product_id, name, addReview, setAddReview }) => {
             sort={sort}
             handleSortChange={handleSortChange}
           />
-          <ReviewCards results={results}/>
+          <ReviewCards results={results} track={track}/>
           <Grid item >
             <ButtonGroup color="secondary">
-              {totalReviews > count && <Button style={{borderRadius: '0'}} onClick={e => setCount(count + 2)}>More Reviews</Button>}
-              {!addReview && <Button style={{borderRadius: '0'}} onClick={e => setOpen(true)}>Add Reviews +</Button>}
+              {totalReviews > count && <Button style={{borderRadius: '0'}} onClick={handleCountChange}>More Reviews</Button>}
+              {!addReview && <Button style={{borderRadius: '0'}} onClick={handleOpen}>Add Reviews +</Button>}
               <ReviewSubmit name={name} product_id={product_id} setAddReview={setAddReview} open={open} setOpen={setOpen}/>
             </ButtonGroup>
           </Grid>

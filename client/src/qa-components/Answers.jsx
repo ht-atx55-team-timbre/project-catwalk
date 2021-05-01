@@ -5,14 +5,14 @@ import axios from 'axios';
 import HelpfulAnswerHandler from './HelpfulAndReport/HelpfulAnswerHandler.jsx';
 import MoreAnswersButton from './MoreAnswersButton.jsx';
 
-const Answers = ({ question_id, toggleAnswerReload }) => {
+const Answers = ({ question_id, toggleAnswerReload, track }) => {
   const [answers, setAnswers] = useState([]);
   const [displayedAnswers, setDisplayedAnswers] = useState([]);
   const [answersCount, setAnswersCount] = useState(2);
   const [answerToggle, setAnswerToggle] = useState(true);
 
   useEffect(() => {
-    axios.get(`http://127.0.0.1:3004/qa/questions/${question_id}/answers`, {
+    axios.get(`/qa/questions/${question_id}/answers`, {
       params: {
         question_id: question_id,
         count: 1000
@@ -34,11 +34,13 @@ const Answers = ({ question_id, toggleAnswerReload }) => {
     setDisplayedAnswers(answers.slice(0, answersCount));
   }, [answers, answersCount])
 
-  const handleLoadMoreClick = (event) => {
+  const handleLoadMoreClick = (e) => {
+    track(e, 'Load More Answers');
     setAnswersCount(answersCount + 2);
   };
 
-  const handleCollapseClick = (event) => {
+  const handleCollapseClick = (e) => {
+    track(e, 'Collapse Answers');
     setAnswersCount(2);
   };
 
@@ -48,7 +50,7 @@ const Answers = ({ question_id, toggleAnswerReload }) => {
         {_.map(displayedAnswers, answer =>
           <Grid key={answer.answer_id}>
             <Grid>
-              <HelpfulAnswerHandler answer={answer}/>
+              <HelpfulAnswerHandler answer={answer} track={track} />
             </Grid>
           </Grid>
         )}
