@@ -24,12 +24,9 @@ app.all('/*', (req, res) => {
     })
     .then(result => {
       res.send(result.data);
-      console.log('Request successful');
     })
     .catch(err => {
       res.status(400);
-      console.log('Request unsuccessful');
-      console.log(err);
     })
 });
 
