@@ -37,10 +37,11 @@ const App = () => {
     setName(name);
   }
 
-  const onSearchFormSubmit = (event) => {
-    event.preventDefault();
-    if (event.target.id.length > 2) {
-      let wordToCheck = event.target.id;
+  const onSearchFormSubmit = (e) => {
+    e.preventDefault();
+    trackClicks(e, 'Header Seach Bar');
+    if (e.target.id.length > 2) {
+      let wordToCheck = e.target.id;
 
       if (wordToCheck.includes(':')) {
         const indexToSlice = wordToCheck.indexOf(':');
