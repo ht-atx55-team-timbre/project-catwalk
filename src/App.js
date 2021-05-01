@@ -39,8 +39,15 @@ const App = () => {
   const onSearchFormSubmit = (event) => {
     event.preventDefault();
     if (event.target.id.length > 2) {
+      let wordToCheck = event.target.id;
+
+      if (wordToCheck.includes(':')) {
+        const indexToSlice = wordToCheck.indexOf(':');
+        wordToCheck = wordToCheck.slice(0, indexToSlice);
+      }
+
       const filteredProducts = allProducts.filter(product =>
-        product.name.toLowerCase().includes(event.target.id.toLowerCase())
+        product.name.toLowerCase().includes(wordToCheck.toLowerCase())
       );
       if (filteredProducts.length > 0) {
         const topResult = filteredProducts[0];

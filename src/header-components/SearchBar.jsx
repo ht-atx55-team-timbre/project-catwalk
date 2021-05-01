@@ -32,7 +32,7 @@ const SearchBar = ({
       <Autocomplete
         id="free-solo-demo"
         freeSolo
-        options={allProducts.map((option) => option.name)}
+        options={allProducts.map((option) => `${option.name}: ${option.category}`)}
         onChange={(e, value) => setSearchInput(value)}
         renderInput={(params) => (
           <TextField
