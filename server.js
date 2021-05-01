@@ -31,8 +31,8 @@ app.all('/*', (req, res) => {
       console.log('Request unsuccessful');
       console.log(err);
     })
-})
+});
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
-})
+});

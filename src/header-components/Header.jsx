@@ -101,7 +101,7 @@ export default function Header({ onSearchFormSubmit, allProducts }) {
       </AppBar>
       <Box pt={13} pb={3}>
         <Typography style={{ textAlign: "center" }}>
-          Free shipping on orders $99+ | Register for Free Shipping on Your 1st Order and a Chance to Learn Jeff's Secret
+          Free shipping on orders $99+ | Register for Free Shipping on Your 1st Order
         </Typography>
       </Box>
     </div>
