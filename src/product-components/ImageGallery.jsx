@@ -1,28 +1,19 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  ButtonBase
-} from '@material-ui/core';
+import { ButtonBase } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
+    display: 'block',
     float: 'right',
     flexWrap: 'wrap',
     overflow: 'auto',
     width: '100%',
-    height: '100%'
-  },
-  rootFewerImages: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    overflow: 'auto',
-    width: '100%',
-    // height: '100%'
+    height: '100%',
+    alignItems: 'flex-start',
   },
   image: {
     position: 'relative',
-    // borderRadius: '5px',
     width: '95%',
     height: '16.6%',
     '&:hover, &$focusVisible': {
@@ -31,11 +22,9 @@ const useStyles = makeStyles((theme) => ({
         opacity: 0.15,
       }
     },
-    // paddingLeft: '5px'
   },
   imageSelected: {
     position: 'relative',
-    // borderRadius: '5px',
     width: '100%',
     height: '16.6%',
     '&$focusVisible': {
@@ -49,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
   focusVisible: {},
   imageButton: {
     position: 'absolute',
-    borderRadius: '5px',
     left: 0,
     right: 0,
     top: 0,
@@ -61,7 +49,6 @@ const useStyles = makeStyles((theme) => ({
   },
   imageSrc: {
     position: 'absolute',
-    // borderRadius: '5px',
     left: 0,
     right: 0,
     top: 0,
@@ -71,7 +58,6 @@ const useStyles = makeStyles((theme) => ({
   },
   imageBackdrop: {
     position: 'absolute',
-    // borderRadius: '5px',
     left: 0,
     right: 0,
     top: 0,
@@ -111,10 +97,9 @@ export default function ImageGallery({ images, handleImgChange, selected }) {
               focusVisibleClassName={classes.focusVisible}
               style={{
                 width: '100%',
-                // padding: '1px',
                 paddingLeft: '5px',
-                borderLeft: '2px solid', // want to set this to theme highlight color
-                borderColor: 'red',
+                borderLeft: '1px solid red',
+                borderBottom: '1px solid red',
               }}
               onClick={handleClick}
             >
