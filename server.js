@@ -15,16 +15,17 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 
 
 app.all('/*', (req, res) => {
-    axios.request({
-      url: req.params[0],
-      method: req.method,
-      baseURL: 'https://app-hrsei-api.herokuapp.com/api/fec2/hratx/',
-      headers: {
-        Authorization: process.env.API_KEY
-      },
-      data: req.body,
-      params: req.query
-    })
+  console.log(req.params[0]);
+  axios.request({
+    url: req.params[0],
+    method: req.method,
+    baseURL: 'https://app-hrsei-api.herokuapp.com/api/fec2/hratx/',
+    headers: {
+      Authorization: process.env.API_KEY
+    },
+    data: req.body,
+    params: req.query
+  })
     .then(result => {
       res.send(result.data);
     })
@@ -32,6 +33,7 @@ app.all('/*', (req, res) => {
       res.status(400);
     })
 });
+
 
 app.listen((process.env.PORT || PORT), () => {
   console.log(`Server listening on port ${PORT}`);
