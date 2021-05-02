@@ -67,7 +67,7 @@ const App = () => {
     console.log({ element: e.target, widget: widget, time: timeStamp });
     axios({
       method: 'post',
-      url: `http://127.0.0.1:3004/interactions`,
+      url: `/interactions`,
       data: {
         element: e.target.toString(),
         widget: widget,
