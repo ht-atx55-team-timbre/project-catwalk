@@ -59,7 +59,7 @@ Our team of software engineers was tasked with building a product detail page fo
 ![](./client/data/gifs/full-page.gif)
 
 
-# Stack
+## Stack
 
 <table>
   <tbody>
