@@ -58,63 +58,6 @@ Our team of software engineers was tasked with building a product detail page fo
 
 ![](./client/data/gifs/full-page.gif)
 
-## Header with Search bar --[Cam Crow](https://github.com/cmcrow2)
-**Features:**
-
-  * *Search Bar*: searches on change for products by product name or category - clicking the search bar renders a drop-down list of products to choose from
-
-![](client/data/gifs/header.gif)
-
-## Product Overview --[Sunil Gadgil](https://github.com/itsme-sunil)
-**Features:**
-
-  * *Product Information*: dynamically renders information such as product rating, category, name, and price
-  * *Style Selector*: presents the user with all styles and has the ability to toggle between them
-  * *Add to Cart*: includes a size selector, capable of handling an out of stock size, button will add the currently selected item to the cart
-  * *Image Gallery*: displays photos specific to the currently selected style, and user can toggle an extended view on main image
-
-![](./client/data/gifs/overview.gif)
-
-## Related Products and Outfit Lists --[Eric Cruz](https://github.com/ecruz4)
-**Related Products List Features:**
-
-  * *Related Products List* dynamically renders a series of products related to the current product
-  * *Product Card*: clicking on a related product card changes the current product
-  * *Comparison Modal*: clicking the star icon displays feature comparison between current product and related product
-
-**Custom Outfit List Features:**
-
-  * *Add to Outfit Card*: clicking the 'plus' sign adds the current product to the user's outfit list
-  * *'X' icon*: clicking the red 'X' removes the product from the list
-  * *Outfit List*: persists upon page refresh
-
-  ![](./client/data/gifs/related.gif)
-
-
-## Questions and Answers --[Cam Crow](https://github.com/cmcrow2)
-**Features:**
-
-  * *Search Bar*: allows a user to search for questions
-  * *Questions and Answers List*: displays the questions and answers, sorted by helpfulness
-  * *Helpfulness*: clicking 'Yes' adds one to the helpfulness quantity of a question or answer
-  * *More Answered Questions Button*: displays more questions and answers
-  * *Add Question/Add Answer*: pops up a dialog box that allows the user to add a question or answer
-
- ![](client/data/gifs/questions.gif)
-
-## Ratings and Reviews --[Jeff Jiang](https://github.com/jeff-try-code)
-**Ratings Features:**
-
-  * *Ratings Summary*: displays current average rating, as well as the rating breakdown by number of stars
-  * *Product Breakdown*: displays user-provided feedback on product characteristics
-
-**Reviews Features:**
-
-  * *Reviews List*: clicking 'More Reviews' button displays two additional reviews
-  * *Add a Review*: upon clicking, a form pops up to submit a new review
-
- ![](./client/data/gifs/reviews.gif)
-
 
 # Stack
 
@@ -165,14 +108,77 @@ Our team of software engineers was tasked with building a product detail page fo
   </tbody>
 </table>
 
+
+## Header with Search bar --[Cam Crow](https://github.com/cmcrow2)
+**Features:**
+
+  * *Search Bar*: searches on change for products by product name or category - clicking the search bar renders a drop-down list of products to choose from
+
+![](client/data/gifs/header.gif)
+
+## Product Overview --[Sunil Gadgil](https://github.com/itsme-sunil)
+**Features:**
+
+  * *Product Information*: dynamically renders information such as product rating, category, name, and price
+  * *Style Selector*: presents the user with all styles and has the ability to toggle between them
+  * *Add to Cart*: includes a size selector, capable of handling an out of stock size, button will add the currently selected item to the cart
+  * *Image Gallery*: displays photos specific to the currently selected style, and user can toggle an extended view on main image
+
+![](./client/data/gifs/overview.gif)
+
+## Related Products and Outfit Lists --[Eric Cruz](https://github.com/ecruz4)
+**Related Products List Features:**
+
+  * *Related Products List* dynamically renders a series of products related to the current product
+  * *Product Card*: clicking on a related product card changes the current product
+  * *Comparison Modal*: clicking the star icon displays feature comparison between current product and related product
+
+**Custom Outfit List Features:**
+
+  * *Add to Outfit Card*: clicking the 'plus' sign adds the current product to the user's outfit list
+  * *'X' icon*: clicking the red 'X' removes the product from the list
+  * *Outfit List*: persists upon page refresh
+
+  ![](./client/data/gifs/related.gif)
+
+
+## Questions and Answers --[Cam Crow](https://github.com/cmcrow2)
+**Features:**
+
+  * *Search Bar*: allows a user to search for questions
+  * *Questions and Answers List*: displays the questions and answers, sorted by helpfulness
+  * *Helpfulness*: clicking 'Yes' adds one to the helpfulness quantity of a question or answer
+  * *More Answered Questions Button*: displays more questions and answers
+  * *Add Question/Add Answer*: pops up a dialog box that allows the user to add a question or answer
+
+ ![](client/data/gifs/questions.gif)
+
+
+## Ratings and Reviews --[Jeff Jiang](https://github.com/jeff-try-code)
+**Ratings Features:**
+
+  * *Ratings Summary*: displays current average rating, as well as the rating breakdown by number of stars
+  * *Product Breakdown*: displays user-provided feedback on product characteristics
+
+**Reviews Features:**
+
+  * *Reviews List*: clicking 'More Reviews' button displays two additional reviews
+  * *Add a Review*: upon clicking, a form pops up to submit a new review
+
+ ![](./client/data/gifs/reviews.gif)
+
+
 # Workflow
 Our team used Agile workflow for this sprint.
+
 
 ## Trello
 A Trello board was used to create and track tickets. We held daily standup meetings to discuss accomplishments, challenges, and upcoming tickets. We utilitized Discord, Slack, and Zoom in order to maintain effective remote collaboration and allow for quick communication when necessary.
 
+
 ## Version Control
 We utilized Git Feature Branch workflow. All pull requests in Github were reviewed by another team member before being merged into the main branch.
+
 
 # Development
 
