@@ -89,7 +89,6 @@ const App = () => {
             <Grid item xs={false} sm={2} />
             <Grid item xs={12} sm={8} >
               <ProductOverview allProducts={allProducts} product={product_id} track={trackClicks} />
-              {/* clickTracker done */}
             </Grid>
             <Grid item xs={false} sm={1} />
           </Grid>

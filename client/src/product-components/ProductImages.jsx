@@ -29,9 +29,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-
-
-const ProductImages = ({ images, initial, track }) => {
+const ProductImages = ({ images, track }) => {
   const [selected, setSelected] = useState(0);
   const classes = useStyles();
 
@@ -62,7 +60,6 @@ const ProductImages = ({ images, initial, track }) => {
           index={selected}
           onChange={(now, previous, e) => {
             setSelected(now);
-            // track(e, 'Carousel Change');
           }}
         >
           {images.photos.map((photo, idx) => {

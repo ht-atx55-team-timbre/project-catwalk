@@ -30,8 +30,6 @@ const Cart = ({ currentStyle, track }) => {
   const [cart, setCart] = useState(null);
   const [sku, setSKU] = useState(null);
   const [quantity, setQuantity] = useState(null);
-  // const [anchorEl, setAnchorEl] = useState(null);
-  // const open = Boolean(anchorEl);
   const [sizeOpen, setSizeOpen] = useState(false);
   const [qtyOpen, setQtyOpen] = useState(false);
   var anchorRef = useRef(document.getElementById('size'));
