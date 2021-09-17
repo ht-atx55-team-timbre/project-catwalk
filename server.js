@@ -18,7 +18,7 @@ app.all('/*', (req, res) => {
     axios.request({
       url: req.params[0],
       method: req.method,
-      baseURL: 'https://app-hrsei-api.herokuapp.com/api/fec2/hratx/',
+      baseURL: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/',
       headers: {
         Authorization: process.env.API_KEY
       },
